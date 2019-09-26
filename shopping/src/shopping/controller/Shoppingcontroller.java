@@ -58,10 +58,7 @@ public class Shoppingcontroller extends HttpServlet {
 		} else if (command.equals("single.do")) {
 			forward.setRedirect(false);
 			forward.setPath(path + "single.jsp");
-		} else if (command.equals("single.do")) {
-			forward.setRedirect(false);
-			forward.setPath(path + "single.jsp");
-		}
+		} 
 
 		if (forward.isRedirect()) {
 			response.sendRedirect(forward.getPath());
@@ -69,11 +66,6 @@ public class Shoppingcontroller extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher(forward.getPath());
 			dispatcher.forward(request, response);
 		}
-		if (forward.isRedirect()) {
-			response.sendRedirect(forward.getPath());
-		} else {
-			RequestDispatcher dispatcher = request.getRequestDispatcher(forward.getPath());
-			dispatcher.forward(request, response);
-		}
+
 	}
 }
