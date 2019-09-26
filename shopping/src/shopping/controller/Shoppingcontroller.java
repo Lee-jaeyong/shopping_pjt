@@ -43,7 +43,7 @@ public class Shoppingcontroller extends HttpServlet {
 		String command = requestURI.substring(cmdIdx);
 		String path = "WEB-INF/";
 
-		Action action = null;
+		// Action action = null;
 		ActionForward forward = new ActionForward();
 
 		if (command.equals("index.do")) {
@@ -55,6 +55,9 @@ public class Shoppingcontroller extends HttpServlet {
 		} else if (command.equals("contact.do")) {
 			forward.setRedirect(false);
 			forward.setPath(path + "contact.jsp");
+		} else if (command.equals("single.do")) {
+			forward.setRedirect(false);
+			forward.setPath(path + "single.jsp");
 		} else if (command.equals("single.do")) {
 			forward.setRedirect(false);
 			forward.setPath(path + "single.jsp");
