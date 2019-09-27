@@ -1,6 +1,7 @@
 package shopping.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -8,6 +9,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import shopping.backend.DAO.ItemDAO;
+import shopping.backend.DTO.ItemDTO;
 
 @WebServlet("/Shoppingcontroller")
 public class Shoppingcontroller extends HttpServlet {
@@ -37,6 +41,8 @@ public class Shoppingcontroller extends HttpServlet {
 	}
 
 	private void doProcess(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ItemDAO itemDAO = ItemDAO.getInstance();
+
 		String requestURI = request.getRequestURI();
 		int cmdIdx = requestURI.lastIndexOf("/") + 1;
 
@@ -64,6 +70,10 @@ public class Shoppingcontroller extends HttpServlet {
 			forward.setRedirect(false);
 			forward.setPath(backend_path + "index.jsp");
 		} else if (command.equals("adminItemlist.do")) {
+			ArrayList<ItemDTO> list = itemDAO.getlist(0);
+			
+			request.setAttribute("list", list);
+			
 			forward.setRedirect(false);
 			forward.setPath(backend_path + "itemlist.jsp");
 		}
