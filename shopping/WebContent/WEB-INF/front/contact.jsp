@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <html>
 <%@include file="include/pageMeta.html"%>
-<link rel="stylesheet" type="text/css" href="styles/contact_styles.css">
+<link rel="stylesheet" type="text/css" href="front/styles/contact_styles.css">
 <link rel="stylesheet" type="text/css"
-	href="styles/contact_responsive.css">
+	href="front/styles/contact_responsive.css">
 </head>
 <body>
 
@@ -120,7 +120,7 @@
 		<%@include file="include/footer.html"%>
 	</div>
 	<%@include file="include/script.html"%>
-	<script src="js/contact_custom.js"></script>
+	<script src="front/js/contact_custom.js"></script>
 </body>
 
 </html>

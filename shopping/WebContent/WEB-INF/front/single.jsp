@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <html>
 <%@include file="include/pageMeta.html"%>
-<link rel="stylesheet" type="text/css" href="styles/single_styles.css">
+<link rel="stylesheet" type="text/css" href="front/styles/single_styles.css">
 <link rel="stylesheet" type="text/css"
-	href="styles/single_responsive.css">
+	href="front/styles/single_responsive.css">
 </head>
 
 <body>
@@ -358,7 +358,7 @@
 		<%@include file="include/footer.html"%>
 	</div>
 	<%@include file="include/script.html"%>
-	<script src="js/single_custom.js"></script>
+	<script src="front/js/single_custom.js"></script>
 </body>
 
 </html>

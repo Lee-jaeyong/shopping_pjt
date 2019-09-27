@@ -4,9 +4,9 @@
 <html>
 <%@include file="include/pageMeta.html"%>
 <link rel="stylesheet" type="text/css"
-	href="styles/categories_styles.css">
+	href="front/styles/categories_styles.css">
 <link rel="stylesheet" type="text/css"
-	href="styles/categories_responsive.css">
+	href="front/styles/categories_responsive.css">
 </head>
 
 <body>
@@ -554,7 +554,7 @@
 
 	</div>
 	<%@include file="include/script.html"%>
-	<script src="js/categories_custom.js"></script>
+	<script src="front/js/categories_custom.js"></script>
 </body>
 
 </html>

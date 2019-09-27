@@ -3,8 +3,8 @@
 <!DOCTYPE html>
 <html>
 <%@include file="include/pageMeta.html"%>
-<link rel="stylesheet" type="text/css" href="styles/main_styles.css">
-<link rel="stylesheet" type="text/css" href="styles/responsive.css">
+<link rel="stylesheet" type="text/css" href="front/styles/main_styles.css">
+<link rel="stylesheet" type="text/css" href="front/styles/responsive.css">
 </head>
 <body>
 
@@ -762,7 +762,7 @@
 
 	</div>
 	<%@include file="include/script.html"%>
-	<script src="js/custom.js"></script>
+	<script src="front/js/custom.js"></script>
 </body>
 
 </html>
