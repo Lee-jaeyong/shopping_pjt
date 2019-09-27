@@ -30,8 +30,4 @@ public class ShoppingDAO {
 		Class.forName("com.mysql.jdbc.Driver");
 		conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/shopping", "root", "apmsetup");
 	}
-	
-	public static void main(String[] args) throws Exception {
-		new ShoppingDAO();
-	}
 }
