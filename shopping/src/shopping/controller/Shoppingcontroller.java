@@ -41,23 +41,23 @@ public class Shoppingcontroller extends HttpServlet {
 		int cmdIdx = requestURI.lastIndexOf("/") + 1;
 
 		String command = requestURI.substring(cmdIdx);
-		String path = "WEB-INF/";
+		String front_path = "WEB-INF/front/";
 
 		// Action action = null;
 		ActionForward forward = new ActionForward();
 
 		if (command.equals("index.do")) {
 			forward.setRedirect(false);
-			forward.setPath(path + "index.jsp");
+			forward.setPath(front_path + "index.jsp");
 		} else if (command.equals("category.do")) {
 			forward.setRedirect(false);
-			forward.setPath(path + "categories.jsp");
+			forward.setPath(front_path + "categories.jsp");
 		} else if (command.equals("contact.do")) {
 			forward.setRedirect(false);
-			forward.setPath(path + "contact.jsp");
+			forward.setPath(front_path + "contact.jsp");
 		} else if (command.equals("sisngle.do")) {
 			forward.setRedirect(false);
-			forward.setPath(path + "single.jsp");
+			forward.setPath(front_path + "single.jsp");
 		} 
 
 		if (forward.isRedirect()) {
