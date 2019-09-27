@@ -42,7 +42,7 @@ public class Shoppingcontroller extends HttpServlet {
 
 		String command = requestURI.substring(cmdIdx);
 		String front_path = "WEB-INF/front/";
-
+		String backend_path = "WEB-INF/backend/";
 		// Action action = null;
 		ActionForward forward = new ActionForward();
 
@@ -58,7 +58,10 @@ public class Shoppingcontroller extends HttpServlet {
 		} else if (command.equals("sisngle.do")) {
 			forward.setRedirect(false);
 			forward.setPath(front_path + "single.jsp");
-		} 
+		} else if (command.equals("adminpage.do")) {
+			forward.setRedirect(false);
+			forward.setPath(backend_path + "index.jsp");
+		}
 
 		if (forward.isRedirect()) {
 			response.sendRedirect(forward.getPath());
