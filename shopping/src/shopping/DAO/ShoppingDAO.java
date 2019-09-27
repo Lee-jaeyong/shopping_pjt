@@ -1,14 +1,13 @@
 package shopping.DAO;
 
+import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.PreparedStatement;
 
 public class ShoppingDAO {
 	private static ShoppingDAO shoppingDAO = null;
-
+	
 	Connection conn = null;
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
@@ -30,5 +29,9 @@ public class ShoppingDAO {
 	private void DBConnect() throws Exception {
 		Class.forName("com.mysql.jdbc.Driver");
 		conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/shopping", "root", "apmsetup");
+	}
+	
+	public static void main(String[] args) throws Exception {
+		new ShoppingDAO();
 	}
 }
