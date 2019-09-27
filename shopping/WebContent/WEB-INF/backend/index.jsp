@@ -3,15 +3,15 @@
 <!DOCTYPE html>
 <html>
 
-<%@include file="include/pageMeta.html"%>
+<%@include file="include/pageMeta.jsp"%>
 
 <body>
 
-	<%@include file="include/headerTop.html"%>
+	<%@include file="include/headerTop.jsp"%>
 
-	<%@include file="include/headerMenu.html"%>
+	<%@include file="include/headerMenu.jsp"%>
 
-	<%@include file="include/sideMenu.html"%>
+	<%@include file="include/sideMenu.jsp"%>
 
 	<!--**********************************
             Content body start
@@ -207,7 +207,7 @@
 	<!--**********************************
             Content body end
         ***********************************-->
-	<%@include file="include/footer.html"%>
+	<%@include file="include/footer.jsp"%>
 	</div>
 	<!--**********************************
         Main wrapper end

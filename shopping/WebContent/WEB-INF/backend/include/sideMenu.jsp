@@ -1,4 +1,5 @@
-
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 
 <!--**********************************
             Sidebar start
@@ -11,7 +12,7 @@
 					class="nav-text">Dashboard</span>
 			</a>
 				<ul aria-expanded="false">
-					<li><a href="./index.html">Home 1</a></li>
+					<li><a href="./index.html">상품목록</a></li>
 					<!-- <li><a href="./index-2.html">Home 2</a></li> -->
 				</ul></li>
 			<li><a class="has-arrow" href="javascript:void()"
