@@ -46,22 +46,29 @@
 											for (int i = 0; i < list.size(); i++) {
 										%>
 										<tr>
-											<td><%=list.get(i).getI_idx() %></td>
-											<td><%=list.get(i).getI_name() %></td>
-											<td><%=list.get(i).getC_cagetoryName() %></td>
-											<td><%=list.get(i).getCs_categoryName() %></td>
-											<td><%=list.get(i).getI_price() %></td>
-											<td><%=list.get(i).getImg_path() %></td>
-											<td><%=list.get(i).getI_hit() %></td>
-											<td><%=list.get(i).getI_date() %></td>
+											<td><%=list.get(i).getI_idx()%></td>
+											<td><%=list.get(i).getI_name()%></td>
+											<td><%=list.get(i).getC_cagetoryName()%></td>
+											<td><%=list.get(i).getCs_categoryName()%></td>
+											<td><%=list.get(i).getI_price()%></td>
+											<td><%=list.get(i).getImg_path()%></td>
+											<td><%=list.get(i).getI_hit()%></td>
+											<td><%=list.get(i).getI_date()%></td>
 										</tr>
 										<%
 											}
 										%>
 									</tbody>
-									<tfoot>
-									</tfoot>
 								</table>
+								<div class="button-group">
+									<div class="btn-toolbar">
+										<div class="btn-group mr-2 mb-2">
+											<button type="button" class="btn btn-primary disabled">2</button>
+											<button type="button" class="btn btn-primary">3</button>
+											<button type="button" class="btn btn-primary">4</button>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
