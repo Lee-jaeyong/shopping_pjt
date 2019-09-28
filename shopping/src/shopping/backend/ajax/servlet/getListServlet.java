@@ -32,12 +32,16 @@ public class getListServlet extends HttpServlet {
 
 		String search = request.getParameter("search");
 		int page = Integer.parseInt(request.getParameter("pageNum"));
+		String sortType = request.getParameter("sortType");
+		int showType = Integer.parseInt(request.getParameter("showType"));
+		if (sortType.equals(""))
+			sortType = "i_idx";
 
-		ArrayList<ItemDTO> list = itemdao.getlist(page, search);
+		ArrayList<ItemDTO> list = itemdao.getlist(page, search, sortType, showType);
 		int totalCount = itemdao.getTotallist("", "", search);
-		int totalBlock = (int) Math.ceil(totalCount / 5.0);
-		int startBlock = page / 5 * 5;
-		int endBlock = startBlock + 5;
+		int totalBlock = (int) Math.ceil(totalCount / (double) showType);
+		int startBlock = page / showType * showType;
+		int endBlock = startBlock + showType;
 		if (endBlock >= totalBlock)
 			endBlock = totalBlock;
 

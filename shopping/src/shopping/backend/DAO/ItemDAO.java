@@ -48,16 +48,15 @@ public class ItemDAO {
 		return 0;
 	}
 
-	public ArrayList<ItemDTO> getlist(int page, String search) {
+	public ArrayList<ItemDTO> getlist(int page, String search, String sortType, int showType) {
 		ArrayList<ItemDTO> list = new ArrayList<ItemDTO>();
-
 		try {
 			String sql = "select distinct(i_idx),\r\n" + "i_name,\r\n" + "c_categoryName,\r\n" + "cs_categoryName,\r\n"
 					+ "i_price,\r\n" + "img_path,\r\n" + "i_hit,\r\n" + "i_date\r\n"
 					+ "from s_item,s_mainimg,s_category,s_small_category\r\n"
 					+ "where s_item.i_idx = s_mainimg.img_idx and\r\n" + " s_item.i_idx = s_category.c_i_idx and \r\n"
-					+ "s_item.i_idx = s_small_category.cs_i_idx\r\n and i_name like ? order by i_idx desc limit "
-					+ page * 5 + ",5";
+					+ "s_item.i_idx = s_small_category.cs_i_idx\r\n and i_name like ? order by " + sortType
+					+ " desc limit " + page * 5 + "," + showType + "";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, "%" + search + "%");
 			rs = pstmt.executeQuery();

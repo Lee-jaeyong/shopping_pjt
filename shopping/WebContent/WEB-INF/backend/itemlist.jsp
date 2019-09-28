@@ -7,6 +7,18 @@
 
 <%@include file="include/pageMeta.jsp"%>
 <script>
+	function showCount(){
+		var showType = $("#showCount").val();
+		$("#showType").val(showType);
+		pageMove(0);
+	}
+
+	function sortType() {
+		var sortType = $("#sort").val();
+		$("#sortType").val(sortType);
+		pageMove(0);
+	}
+
 	function searchItem() {
 		$("#pageNum").val(0);
 		pageMove(0);
@@ -16,13 +28,17 @@
 		$("#pageNum").val(pageNum);
 		var page = pageNum;
 		var search = $("#search").val();
+		var sortType = $("#sortType").val();
+		var showType = $("#showType").val();
 		$.ajax({
 			url : "./getListServlet",
 			type : "POST",
 			dataType : "json",
 			data : {
 				"pageNum" : page,
-				"search" : search
+				"search" : search,
+				"sortType" : sortType,
+				"showType" : showType
 			},
 			success : function(data) {
 				var obj = data;
@@ -34,7 +50,7 @@
 					listArea += "<td>" + obj.result[i].idx + "</td>";
 					listArea += "<td>" + obj.result[i].name + "</td>";
 					listArea += "<td>" + obj.result[i].c_category + "</td>";
-					listArea += "<td>" + obj.result[i].cs_category + "</td>";
+					listArea += "<td>" + obj.result[i].cs_cateogry + "</td>";
 					listArea += "<td>" + obj.result[i].price + "</td>";
 					listArea += "<td>" + obj.result[i].img_path + "</td>";
 					listArea += "<td>" + obj.result[i].hit + "</td>";
@@ -46,7 +62,7 @@
 				if (obj.startBlock == 0)
 					btnArea += "disabled";
 				btnArea += "'><</button>";
-				
+
 				for (var i = obj.startBlock; i < obj.endBlock; i++) {
 					btnArea += "<button onclick='pageMove(" + i
 							+ ")' type='button' class='btn btn-primary";
@@ -54,12 +70,12 @@
 						btnArea += "disabled";
 					btnArea += "'>" + (parseInt(i) + 1) + "</button>";
 				}
-				
+
 				btnArea += "<button type='button' class='btn btn-primary";
 				if (obj.endBlock == obj.totalBlock)
 					btnArea += "disabled";
 				btnArea += "'>></button>";
-				
+
 				$("#listArea").html(listArea);
 				$("#blockArea").html(btnArea);
 			}
@@ -92,11 +108,37 @@
 										id="basic-addon1"><i class="mdi mdi-magnify"
 										style="font-size: 25px;"></i></span>
 								</div>
-								<input type="search" class="form-control"
-									placeholder="Search Dashboard" id="search"
-									aria-label="Search Dashboard" onkeyup="searchItem();">
+								<div class="col-sm-5">
+									<input type="search" class="form-control" placeholder="Search"
+										id="search" aria-label="Search Dashboard"
+										onkeyup="searchItem();">
+								</div>
+								<div class="col-sm-4">
+									<select class="form-control form-white" id="sort"
+										data-placeholder="Choose a color..." name="category-color"
+										onchange="sortType();">
+										<option value="i_idx" disabled="disabled" selected="selected">정렬</option>
+										<option value="i_idx">번호순</option>
+										<option value="i_name">이름순</option>
+										<option value="i_price">가격순</option>
+										<option value="c_categoryName">(대)분류</option>
+										<option value="cs_categoryName">(소)분류</option>
+										<option value="i_date">등록일순</option>
+									</select>
+								</div>
+								<div class="col-sm-2">
+									<select class="form-control form-white" id="showCount"
+										data-placeholder="Choose a color..." name="category-color"
+										onchange="showCount();">
+										<option value="" disabled="disabled" selected="selected">보기</option>
+										<option value="5">5개</option>
+										<option value="10">10개</option>
+										<option value="20">20개</option>
+										<option value="30">30개</option>
+										<option value="50">50개</option>
+									</select>
+								</div>
 							</div>
-							<br>
 							<div class="table-responsive">
 								<table
 									class="table table-striped table-bordered zero-configuration">
@@ -128,6 +170,9 @@
 		</div>
 	</div>
 	<input type="hidden" id="pageNum" value="" />
+	<input type="hidden" id="sortType" value="" />
+	<input type="hidden" id="showType" value="5" />
+
 	<!--**********************************
             Content body end
         ***********************************-->
