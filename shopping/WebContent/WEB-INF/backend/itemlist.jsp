@@ -7,7 +7,11 @@
 
 <%@include file="include/pageMeta.jsp"%>
 <script>
-	function showCount(){
+	function excelDownload() {
+		location.href = "./ExcelFile.jsp";
+	}
+
+	function showCount() {
 		var showType = $("#showCount").val();
 		$("#showType").val(showType);
 		pageMove(0);
@@ -108,12 +112,12 @@
 										id="basic-addon1"><i class="mdi mdi-magnify"
 										style="font-size: 25px;"></i></span>
 								</div>
-								<div class="col-sm-5">
+								<div class="col-sm-4">
 									<input type="search" class="form-control" placeholder="Search"
 										id="search" aria-label="Search Dashboard"
 										onkeyup="searchItem();">
 								</div>
-								<div class="col-sm-4">
+								<div class="col-sm-3">
 									<select class="form-control form-white" id="sort"
 										data-placeholder="Choose a color..." name="category-color"
 										onchange="sortType();">
@@ -138,7 +142,12 @@
 										<option value="50">50개</option>
 									</select>
 								</div>
+								<div class="col-sm-1">
+									<button type="button" class="btn btn-success"
+										onclick="excelDownload();">엑셀 다운로드</button>
+								</div>
 							</div>
+							<br>
 							<div class="table-responsive">
 								<table
 									class="table table-striped table-bordered zero-configuration">
