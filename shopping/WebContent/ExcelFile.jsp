@@ -10,7 +10,7 @@
 	SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
 	String nowDate = date.format(cal.getTime());
 	response.setContentType("application/octet-stream");
-	response.setHeader("Content-Disposition", "attachment;filename=shopping_" + nowDate + ".xls"); //디폴트 파일명 지정
+	response.setHeader("Content-Disposition", "attachment;filename=shopping_" + nowDate + ".xls");
 	response.setHeader("Content-Description", "JSP Generated Data");
 %>
 
