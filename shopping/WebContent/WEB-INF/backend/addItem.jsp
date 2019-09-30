@@ -6,89 +6,6 @@
 <html>
 
 <%@include file="include/pageMeta.jsp"%>
-<script>
-	function excelDownload() {
-		location.href = "./ExcelFile.jsp";
-	}
-
-	function showCount() {
-		var showType = $("#showCount").val();
-		$("#showType").val(showType);
-		pageMove(0);
-	}
-
-	function sortType() {
-		var sortType = $("#sort").val();
-		$("#sortType").val(sortType);
-		pageMove(0);
-	}
-
-	function searchItem() {
-		$("#pageNum").val(0);
-		pageMove(0);
-	}
-
-	function pageMove(pageNum) {
-		$("#pageNum").val(pageNum);
-		var page = pageNum;
-		var search = $("#search").val();
-		var sortType = $("#sortType").val();
-		var showType = $("#showType").val();
-		$.ajax({
-			url : "./getListServlet",
-			type : "POST",
-			dataType : "json",
-			data : {
-				"pageNum" : page,
-				"search" : search,
-				"sortType" : sortType,
-				"showType" : showType
-			},
-			success : function(data) {
-				var obj = data;
-				var listArea = "";
-				var btnArea = "";
-
-				for (var i = 0; i < obj.result.length; i++) {
-					listArea += "<tr>";
-					listArea += "<td>" + obj.result[i].idx + "</td>";
-					listArea += "<td>" + obj.result[i].name + "</td>";
-					listArea += "<td>" + obj.result[i].c_category + "</td>";
-					listArea += "<td>" + obj.result[i].cs_cateogry + "</td>";
-					listArea += "<td>" + obj.result[i].price + "</td>";
-					listArea += "<td>" + obj.result[i].img_path + "</td>";
-					listArea += "<td>" + obj.result[i].hit + "</td>";
-					listArea += "<td>" + obj.result[i].date + "</td>";
-					listArea += "</tr>";
-				}
-
-				btnArea += "<button type='button' class='btn btn-primary";
-				if (obj.startBlock == 0)
-					btnArea += "disabled";
-				btnArea += "'><</button>";
-
-				for (var i = obj.startBlock; i < obj.endBlock; i++) {
-					btnArea += "<button onclick='pageMove(" + i
-							+ ")' type='button' class='btn btn-primary";
-					if (i == page)
-						btnArea += "disabled";
-					btnArea += "'>" + (parseInt(i) + 1) + "</button>";
-				}
-
-				btnArea += "<button type='button' class='btn btn-primary";
-				if (obj.endBlock == obj.totalBlock)
-					btnArea += "disabled";
-				btnArea += "'>></button>";
-
-				$("#listArea").html(listArea);
-				$("#blockArea").html(btnArea);
-			}
-		});
-	}
-	window.onload = function() {
-		pageMove(0);
-	}
-</script>
 <body>
 	<%@include file="include/headerTop.jsp"%>
 
@@ -99,89 +16,161 @@
 	<!--**********************************
             Content body start
         ***********************************-->
-	<div class="content-body">
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-12">
-					<div class="card">
-						<div class="card-body">
-							<div class="input-group icons col-sm-6">
-								<div class="input-group-prepend">
-									<span
-										class="input-group-text bg-transparent border-0 pr-2 pr-sm-3"
-										id="basic-addon1"><i class="mdi mdi-magnify"
-										style="font-size: 25px;"></i></span>
-								</div>
-								<div class="col-sm-4">
-									<input type="search" class="form-control" placeholder="Search"
-										id="search" aria-label="Search Dashboard"
-										onkeyup="searchItem();">
-								</div>
-								<div class="col-sm-3">
-									<select class="form-control form-white" id="sort"
-										data-placeholder="Choose a color..." name="category-color"
-										onchange="sortType();">
-										<option value="i_idx" disabled="disabled" selected="selected">정렬</option>
-										<option value="i_idx">번호순</option>
-										<option value="i_name">이름순</option>
-										<option value="i_price">가격순</option>
-										<option value="c_categoryName">(대)분류</option>
-										<option value="cs_categoryName">(소)분류</option>
-										<option value="i_date">등록일순</option>
-									</select>
-								</div>
-								<div class="col-sm-2">
-									<select class="form-control form-white" id="showCount"
-										data-placeholder="Choose a color..." name="category-color"
-										onchange="showCount();">
-										<option value="" disabled="disabled" selected="selected">보기</option>
-										<option value="5">5개</option>
-										<option value="10">10개</option>
-										<option value="20">20개</option>
-										<option value="30">30개</option>
-										<option value="50">50개</option>
-									</select>
-								</div>
-								<div class="col-sm-1">
-									<button type="button" class="btn btn-success"
-										onclick="excelDownload();">엑셀 다운로드</button>
-								</div>
-							</div>
-							<br>
-							<div class="table-responsive">
-								<table
-									class="table table-striped table-bordered zero-configuration">
-									<thead>
-										<tr>
-											<th>상품 번호</th>
-											<th>상품</th>
-											<th>대분류</th>
-											<th>소분류</th>
-											<th>가격</th>
-											<th>대표이미지</th>
-											<th>조회수</th>
-											<th>상품 등록일</th>
-										</tr>
-									</thead>
-									<tbody id="listArea">
-									</tbody>
-								</table>
-								<div class="button-group">
-									<div class="btn-toolbar">
-										<div id="blockArea" class="btn-group mr-2 mb-2"></div>
+	<br>
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-lg-12">
+				<div class="card">
+					<div class="card-body">
+						<div class="form-validation">
+							<form class="form-valide" action="#" method="post">
+								<div class="form-group row">
+									<label class="col-lg-4 col-form-label" for="val-username">Username
+										<span class="text-danger">*</span>
+									</label>
+									<div class="col-lg-6">
+										<input type="text" class="form-control" id="val-username"
+											name="val-username" placeholder="Enter a username..">
 									</div>
 								</div>
-							</div>
+								<div class="form-group row">
+									<label class="col-lg-4 col-form-label" for="val-email">Email
+										<span class="text-danger">*</span>
+									</label>
+									<div class="col-lg-6">
+										<input type="text" class="form-control" id="val-email"
+											name="val-email" placeholder="Your valid email..">
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-lg-4 col-form-label" for="val-password">Password
+										<span class="text-danger">*</span>
+									</label>
+									<div class="col-lg-6">
+										<input type="password" class="form-control" id="val-password"
+											name="val-password" placeholder="Choose a safe one..">
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-lg-4 col-form-label"
+										for="val-confirm-password">Confirm Password <span
+										class="text-danger">*</span>
+									</label>
+									<div class="col-lg-6">
+										<input type="password" class="form-control"
+											id="val-confirm-password" name="val-confirm-password"
+											placeholder="..and confirm it!">
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-lg-4 col-form-label" for="val-suggestions">Suggestions
+										<span class="text-danger">*</span>
+									</label>
+									<div class="col-lg-6">
+										<textarea class="form-control" id="val-suggestions"
+											name="val-suggestions" rows="5"
+											placeholder="What would you like to see?"></textarea>
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-lg-4 col-form-label" for="val-skill">Best
+										Skill <span class="text-danger">*</span>
+									</label>
+									<div class="col-lg-6">
+										<select class="form-control" id="val-skill" name="val-skill">
+											<option value="">Please select</option>
+											<option value="html">HTML</option>
+											<option value="css">CSS</option>
+											<option value="javascript">JavaScript</option>
+											<option value="angular">Angular</option>
+											<option value="angular">React</option>
+											<option value="vuejs">Vue.js</option>
+											<option value="ruby">Ruby</option>
+											<option value="php">PHP</option>
+											<option value="asp">ASP.NET</option>
+											<option value="python">Python</option>
+											<option value="mysql">MySQL</option>
+										</select>
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-lg-4 col-form-label" for="val-currency">Currency
+										<span class="text-danger">*</span>
+									</label>
+									<div class="col-lg-6">
+										<input type="text" class="form-control" id="val-currency"
+											name="val-currency" placeholder="$21.60">
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-lg-4 col-form-label" for="val-website">Website
+										<span class="text-danger">*</span>
+									</label>
+									<div class="col-lg-6">
+										<input type="text" class="form-control" id="val-website"
+											name="val-website" placeholder="http://example.com">
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-lg-4 col-form-label" for="val-phoneus">Phone
+										(US) <span class="text-danger">*</span>
+									</label>
+									<div class="col-lg-6">
+										<input type="text" class="form-control" id="val-phoneus"
+											name="val-phoneus" placeholder="212-999-0000">
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-lg-4 col-form-label" for="val-digits">Digits
+										<span class="text-danger">*</span>
+									</label>
+									<div class="col-lg-6">
+										<input type="text" class="form-control" id="val-digits"
+											name="val-digits" placeholder="5">
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-lg-4 col-form-label" for="val-number">Number
+										<span class="text-danger">*</span>
+									</label>
+									<div class="col-lg-6">
+										<input type="text" class="form-control" id="val-number"
+											name="val-number" placeholder="5.0">
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-lg-4 col-form-label" for="val-range">Range
+										[1, 5] <span class="text-danger">*</span>
+									</label>
+									<div class="col-lg-6">
+										<input type="text" class="form-control" id="val-range"
+											name="val-range" placeholder="4">
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-lg-4 col-form-label"><a href="#">Terms
+											&amp; Conditions</a> <span class="text-danger">*</span> </label>
+									<div class="col-lg-8">
+										<label class="css-control css-control-primary css-checkbox"
+											for="val-terms"> <input type="checkbox"
+											class="css-control-input" id="val-terms" name="val-terms"
+											value="1"> <span class="css-control-indicator"></span>
+											I agree to the terms
+										</label>
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class="col-lg-8 ml-auto">
+										<button type="submit" class="btn btn-primary">Submit</button>
+									</div>
+								</div>
+							</form>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<input type="hidden" id="pageNum" value="" />
-	<input type="hidden" id="sortType" value="" />
-	<input type="hidden" id="showType" value="5" />
-
 	<!--**********************************
             Content body end
         ***********************************-->
