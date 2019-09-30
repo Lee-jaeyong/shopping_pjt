@@ -115,7 +115,14 @@
 					<div class="main_content">
 
 						<!-- Products -->
-
+						<%
+							ArrayList<Sh_itemDTO> list = (ArrayList<Sh_itemDTO>) request.getAttribute("list");
+							int totalPage = (int) request.getAttribute("totalPage");
+						%>
+						
+						<input type="hidden" id="pageNum" value="0" /> <input
+							type="hidden" id="showNum" value="12" /> <input type="hidden"
+							id="pageNum" />
 						<div class="products_iso">
 							<div class="row">
 								<div class="col">
@@ -171,15 +178,13 @@
 
 										<!-- Product 1 -->
 										<%
-											ArrayList<Sh_itemDTO> list = (ArrayList<Sh_itemDTO>) request.getAttribute("list");
-
 											for (int i = 0; i < list.size(); i++) {
 										%>
 
 										<div class="product-item men">
 											<div class="product discount product_filter">
 												<div class="product_image">
-													<img src="<%=list.get(i).getMainImg()%>" alt="">
+													<img src="<%=list.get(i).getMainImg()%>" alt="" style="height: 250px;">
 												</div>
 												<div class="favorite favorite_left"></div>
 												<!-- 세일표시부분
@@ -197,7 +202,7 @@
 															NumberFormat nf = NumberFormat.getInstance();
 																String price = nf.format(list.get(i).getI_price());
 														%>
-														<%=price%>
+														₩ <%=price%>
 														<!-- $520.00<span>$590.00</span> -->
 													</div>
 												</div>
@@ -230,13 +235,18 @@
 											<div class="page_current">
 												<span>1</span>
 												<ul class="page_selection">
-													<li><a href="#">1</a></li>
-													<li><a href="#">2</a></li>
-													<li><a href="#">3</a></li>
+													<%
+														for (int i = 0; i < totalPage; i++) {
+													%>
+													<li><a href="category.do?pageNum=<%=i%>"><%=i + 1%></a></li>
+													<%
+														}
+													%>
 												</ul>
 											</div>
 											<div class="page_total">
-												<span>of</span> 3
+												<span>of</span>
+												<%=totalPage%>
 											</div>
 											<div id="next_page_1" class="page_next">
 												<a href="#"><i class="fa fa-long-arrow-right"

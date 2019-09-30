@@ -38,12 +38,14 @@ public class ShoppingDAO {
 		new ShoppingDAO();
 	}
 
-	public ArrayList<Sh_itemDTO> get_itemList() {
+	public ArrayList<Sh_itemDTO> get_itemList(int pageNum) {
 		ArrayList<Sh_itemDTO> list = new ArrayList<Sh_itemDTO>();
-		String sql = "select * from s_item,s_mainimg where s_item.i_idx = s_mainimg.img_idx limit 0,12";
+		String sql = "select * from s_item,s_mainimg where s_item.i_idx = s_mainimg.img_idx limit ?,12";
 
 		try {
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, pageNum * 12);
+			//pstmt.setInt(2, showNum);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {

@@ -17,10 +17,17 @@ public class ItemList_Action implements Action{
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		ActionForward forward = new ActionForward();
-		ArrayList<Sh_itemDTO> list = dao.get_itemList();
 		
+		int pageNum = 0;
+		//int showNum = Integer.parseInt(request.getParameter("showNum"));
+		if(request.getParameter("pageNum") != null) {
+		pageNum = Integer.parseInt(request.getParameter("pageNum"));
+		}
+		ArrayList<Sh_itemDTO> list = dao.get_itemList(pageNum);
+	
 		int totalItem = dao.getTotalItem();
 		int totalPage = (int)Math.ceil(totalItem / 12.0);
+		
 		request.setAttribute("list", list);
 		request.setAttribute("totalPage", totalPage);
 		
