@@ -11,14 +11,24 @@
 	function a() {
 		var d = document.getElementById("file").value.length;
 		var b = document.getElementById("file").value.length - 3;
-		var c = document.getElementById("file").value.substr(b,d);
+		var c = document.getElementById("file").value.substr(b, d);
 		alert(c);
 	}
 </script>
 </head>
 <body>
-	<input type="file" id="file" value="">
-	<button onclick="a();">dfdfsdfd</button>
+
+	<input type="file" id="file" name="file" onchange="b(this.value);" />
+	<div>
+		<img id="mainImg" src="" style="width: 300px; height: 300px;"/>
+	</div>
+	<script>
+		function b(imgPath) {
+			document.getElementById("mainImg").src = imgPath;
+			alert(document.getElementById("mainImg").src);
+		}
+	</script>
+
 </body>
 </html>
 
