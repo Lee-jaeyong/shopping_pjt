@@ -48,7 +48,7 @@ public class ShoppingDAO {
 
 			while (rs.next()) {
 				list.add(new Sh_itemDTO(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(8)));
-			}
+			}								//번호,이름,가격,이미지
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -60,7 +60,7 @@ public class ShoppingDAO {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
-			System.out.println(rs.getInt(1));
+			rs.next();
 			return rs.getInt(1);
 		} catch (Exception e) {
 			e.printStackTrace();
