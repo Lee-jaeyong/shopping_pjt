@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import shopping.backend.DTO.ItemDTO;
@@ -32,6 +33,56 @@ public class ItemDAO {
 	private void DBConnect() throws Exception {
 		Class.forName("com.mysql.jdbc.Driver");
 		conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/shopping", "root", "apmsetup");
+	}
+
+	public void insertItem(String i_name, int i_price, String i_info, int c_category, int cs_category, String i_mainImg,
+			String i_detailImg) throws SQLException {
+		try {
+			String sql = "insert into s_item values (NULL,?,?,?,0,?,0,now())";
+			String category = "";
+			String sm_category = "";
+
+			if (c_category == 1)
+				category = "상의";
+			if (cs_category == 1)
+				sm_category = "가디건";
+
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, i_name);
+			pstmt.setInt(2, i_price);
+			pstmt.setString(3, i_detailImg);
+			pstmt.setString(4, i_info);
+
+			pstmt.executeUpdate();
+
+			sql = "insert into s_category values (?,?,NULL)";
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setInt(1, c_category);
+			pstmt.setString(2, category);
+
+			pstmt.executeUpdate();
+
+			sql = "insert into s_mainimg values (NULL,?)";
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, i_mainImg);
+
+			pstmt.executeUpdate();
+
+			sql = "insert into s_small_category values (?,?,?,NULL)";
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setInt(1, c_category);
+			pstmt.setInt(2, cs_category);
+			pstmt.setString(3, sm_category);
+
+			pstmt.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			conn.rollback();
+		}
 	}
 
 	public int getTotallist(String c_category, String cs_category, String search) {

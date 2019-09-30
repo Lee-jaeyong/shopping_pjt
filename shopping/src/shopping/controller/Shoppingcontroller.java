@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import shopping.backend.model.AddItem_Action;
 import shopping.model.ItemList_Action;
 
 @WebServlet("/Shoppingcontroller")
@@ -46,7 +47,7 @@ public class Shoppingcontroller extends HttpServlet {
 		String front_path = "WEB-INF/front/";
 		String back_end = "WEB-INF/backend/";
 
-		 Action action = null;
+		Action action = null;
 		ActionForward forward = new ActionForward();
 
 		if (command.equals("index.do")) {
@@ -67,9 +68,12 @@ public class Shoppingcontroller extends HttpServlet {
 		} else if (command.equals("adminItemlist.do")) {
 			forward.setRedirect(false);
 			forward.setPath(back_end + "itemlist.jsp");
-		}else if (command.equals("adminAddItem.do")) {
+		} else if (command.equals("adminAddItem.do")) {
 			forward.setRedirect(false);
 			forward.setPath(back_end + "addItem.jsp");
+		} else if (command.equals("addItem.do")) {
+			action = new AddItem_Action();
+			forward = action.execute(request, response);
 		}
 
 		if (forward.isRedirect()) {

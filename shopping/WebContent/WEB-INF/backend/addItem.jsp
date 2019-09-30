@@ -23,14 +23,15 @@
 				<div class="card">
 					<div class="card-body">
 						<div class="form-validation">
-							<form class="form-valide" action="#" method="post">
+							<form class="form-valide" action="./addItem.do" method="post"
+								onsubmit="alert('상품 등록 완료');">
 								<div class="form-group row">
 									<label class="col-lg-4 col-form-label" for="val-username">상품
 										명 <span class="text-danger">*</span>
 									</label>
 									<div class="col-lg-6">
 										<input type="text" class="form-control" id="val-username"
-											name="val-username">
+											name="i_name">
 									</div>
 								</div>
 								<div class="form-group row">
@@ -39,7 +40,7 @@
 									</label>
 									<div class="col-lg-6">
 										<input type="text" class="form-control" id="val-email"
-											name="val-email">
+											name="i_price">
 									</div>
 								</div>
 								<div class="form-group row">
@@ -48,7 +49,7 @@
 									</label>
 									<div class="col-lg-6">
 										<textarea class="form-control" id="val-suggestions"
-											name="val-suggestions" rows="5"></textarea>
+											name="i_info" rows="5"></textarea>
 									</div>
 								</div>
 								<div class="form-group row">
@@ -56,23 +57,15 @@
 										류 <span class="text-danger">*</span>
 									</label>
 									<div class="col-lg-3">
-										<select class="form-control" id="val-skill" name="val-skill">
+										<select class="form-control" id="val-skill" name="c_category">
 											<option value="">(대)분류</option>
-											<option value="html">HTML</option>
-											<option value="css">CSS</option>
-											<option value="javascript">JavaScript</option>
-											<option value="angular">Angular</option>
-											<option value="angular">React</option>
+											<option value="1">상의</option>
 										</select>
 									</div>
 									<div class="col-lg-3">
-										<select class="form-control" id="val-skill" name="val-skill">
+										<select class="form-control" id="val-skill" name="cs_category">
 											<option value="">(소)분류</option>
-											<option value="html">HTML</option>
-											<option value="css">CSS</option>
-											<option value="javascript">JavaScript</option>
-											<option value="angular">Angular</option>
-											<option value="angular">React</option>
+											<option value="1">가디건</option>
 										</select>
 									</div>
 								</div>
@@ -81,7 +74,7 @@
 										이미지<span class="text-danger">*</span>
 									</label>
 									<div class="col-lg-6">
-										<input type="file">
+										<input type="file" name="mainImg">
 									</div>
 								</div>
 								<div class="form-group row">
@@ -96,7 +89,7 @@
 										페이지 등록<span class="text-danger">*</span>
 									</label>
 									<div class="col-lg-6">
-										<input type="file">
+										<input type="file" name="detailImg">
 									</div>
 								</div>
 								<div class="form-group row">
