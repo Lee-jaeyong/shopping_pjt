@@ -65,6 +65,9 @@ public class Shoppingcontroller extends HttpServlet {
 		} else if (command.equals("adminitemlist.do")) {
 			forward.setRedirect(false);
 			forward.setPath(back_end + "itemlist.jsp");
+		} else if (command.equals("adminAddItem.do")) {
+			forward.setRedirect(false);
+			forward.setPath(back_end + "additem.jsp");
 		}
 
 		if (forward.isRedirect()) {
