@@ -25,7 +25,7 @@ public class ItemList_Action implements Action{
 		if(request.getParameter("pageNum") != null) {
 		pageNum = Integer.parseInt(request.getParameter("pageNum"));
 		}
-		ArrayList<Sh_itemDTO> list = dao.get_itemList(pageNum);
+		ArrayList<Sh_itemDTO> list = dao.get_itemList(pageNum,12);
 	
 		int totalItem = dao.getTotalItem();
 		int totalPage = (int)Math.ceil(totalItem / 12.0);
