@@ -18,7 +18,7 @@ public class Shoppingcontroller extends HttpServlet {
 
 	public Shoppingcontroller() {
 		super();
-		
+
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -74,6 +74,9 @@ public class Shoppingcontroller extends HttpServlet {
 		} else if (command.equals("addItem.do")) {
 			action = new AddItem_Action();
 			forward = action.execute(request, response);
+		} else if (command.equals("addAllItem.do")) {
+			forward.setRedirect(false);
+			forward.setPath(back_end + "alladditem.jsp");
 		}
 
 		if (forward.isRedirect()) {

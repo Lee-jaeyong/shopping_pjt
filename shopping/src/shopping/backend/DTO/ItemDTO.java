@@ -13,6 +13,19 @@ public class ItemDTO {
 	private String cs_categoryName;
 	private String img_path;
 
+	private int c_categoryNum;
+	private int cs_categoryNum;
+
+	public ItemDTO(String i_name, int c_categoryNum, int cs_categoryNum, int i_price, String img_path,
+			String i_detailimg) {
+		this.i_name = i_name;
+		this.c_categoryNum = c_categoryNum;
+		this.cs_categoryNum = cs_categoryNum;
+		this.i_price = i_price;
+		this.img_path = img_path;
+		this.i_detailimg = i_detailimg;
+	}
+
 	public ItemDTO(int i_idx, String i_name, String c_categoryName, String cs_categoryName, int i_price,
 			String img_path, int i_hit, String i_date) {
 		this.i_idx = i_idx;
@@ -23,6 +36,22 @@ public class ItemDTO {
 		this.img_path = img_path;
 		this.i_hit = i_hit;
 		this.i_date = i_date;
+	}
+
+	public int getCs_categoryNum() {
+		return cs_categoryNum;
+	}
+
+	public void setCs_categoryNum(int cs_categoryNum) {
+		this.cs_categoryNum = cs_categoryNum;
+	}
+
+	public int getC_categoryNum() {
+		return c_categoryNum;
+	}
+
+	public void setC_categoryNum(int c_categoryNum) {
+		this.c_categoryNum = c_categoryNum;
 	}
 
 	public String getImg_path() {

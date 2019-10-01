@@ -14,6 +14,7 @@
 				<ul aria-expanded="false">
 					<li><a href="./adminItemlist.do">상 품 목 록</a></li>
 					<li><a href="./adminAddItem.do">상 품 등 록</a></li>
+					<li><a href="./addAllItem.do">상 품 (일 괄) 등 록</a></li>
 				</ul></li>
 			<li><a class="has-arrow" href="javascript:void()"
 				aria-expanded="false"> <i class="icon-graph menu-icon"></i> <span

@@ -32,7 +32,55 @@ public class ItemDAO {
 
 	private void DBConnect() throws Exception {
 		Class.forName("com.mysql.jdbc.Driver");
-		conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/shopping?useUnicode=true&characterEncoding=utf8", "root", "apmsetup");
+		conn = (Connection) DriverManager.getConnection(
+				"jdbc:mysql://localhost:3306/shopping?useUnicode=true&characterEncoding=utf8", "root", "apmsetup");
+	}
+
+	public void insertAllItem(String i_name, int c_category, int cs_category, int i_price, String i_main,
+			String i_detail) {
+		String sql = "insert into s_item values (NULL,?,?,?,0,'',0,now())";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, i_name);
+			pstmt.setInt(2, i_price);
+			pstmt.setString(3, i_detail);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		sql = "insert into s_category values (?,?,NULL)";
+		String category = "";
+		if (c_category == 1)
+			category = "상의";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, c_category);
+			pstmt.setString(2, category);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		sql = "insert into s_small_category values (?,?,?,NULL)";
+		String m_cs_category = "";
+		if (cs_category == 1)
+			m_cs_category = "가디건";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, c_category);
+			pstmt.setInt(2, cs_category);
+			pstmt.setString(3, m_cs_category);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		sql = "insert into s_mainimg values (NULL,?)";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, i_main);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void insertItem(String i_name, int i_price, String i_info, int c_category, int cs_category, String i_mainImg,
