@@ -18,7 +18,7 @@ public class Shoppingcontroller extends HttpServlet {
 
 	public Shoppingcontroller() {
 		super();
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -54,6 +54,7 @@ public class Shoppingcontroller extends HttpServlet {
 			forward.setRedirect(false);
 			forward.setPath(front_path + "index.jsp");
 		} else if (command.equals("category.do")) {
+			System.out.println(request.getParameter("showNum"));
 			action = new ItemList_Action();
 			forward = action.execute(request, response);
 		} else if (command.equals("contact.do")) {
