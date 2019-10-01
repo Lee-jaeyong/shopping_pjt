@@ -26,19 +26,23 @@ public class AddItem_Action implements Action {
 		String i_mainImg = request.getParameter("mainImg");
 		String i_detailImg = request.getParameter("detailImg");
 
-		String sub_i_mainImg = "C:\\Users\\LJY\\git\\shopping_pjt\\shopping\\WebContent\\front\\images\\mainImg\\"
+		String main_path = "front/images/mainImg/";
+		String detail_path = "front/images/detailImg/";
+
+		String sub_i_mainImg = "C:\\Users\\jiwon\\git\\shopping_pjt\\shopping\\WebContent\\front\\images\\mainImg\\"
 				+ i_mainImg.substring(i_mainImg.lastIndexOf("\\") + 1);
-		
-		String sub_i_detailImg = "C:\\Users\\LJY\\git\\shopping_pjt\\shopping\\WebContent\\front\\images\\detailImg\\"
+
+		String sub_i_detailImg = "C:\\Users\\jiwon\\git\\shopping_pjt\\shopping\\WebContent\\front\\images\\detailImg\\"
 				+ i_detailImg.substring(i_detailImg.lastIndexOf("\\") + 1);
 
 		FileCopy.fileCopy(i_mainImg, sub_i_mainImg);
 		FileCopy.fileCopy(i_detailImg, sub_i_detailImg);
 
-		/*
-		 * itemDAO.insertItem(i_name, i_price, i_info, c_category, cs_category,
-		 * i_mainImg, i_detailImg);
-		 */
+		i_mainImg = main_path + i_mainImg.substring(i_mainImg.lastIndexOf("\\") + 1);
+		i_detailImg = detail_path + i_detailImg.substring(i_detailImg.lastIndexOf("\\") + 1);
+
+		itemDAO.insertItem(i_name, i_price, i_info, c_category, cs_category, i_mainImg, i_detailImg);
+
 		forward.setRedirect(true);
 		forward.setPath("./adminItemlist.do");
 		return forward;

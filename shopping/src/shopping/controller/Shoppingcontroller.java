@@ -54,8 +54,8 @@ public class Shoppingcontroller extends HttpServlet {
 			forward.setRedirect(false);
 			forward.setPath(front_path + "index.jsp");
 		} else if (command.equals("category.do")) {
-			action = new ItemList_Action();
-			forward = action.execute(request, response);
+			forward.setRedirect(false);
+			forward.setPath(front_path + "categories.jsp");
 		} else if (command.equals("contact.do")) {
 			forward.setRedirect(false);
 			forward.setPath(front_path + "contact.jsp");

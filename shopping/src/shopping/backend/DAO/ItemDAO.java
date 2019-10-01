@@ -32,7 +32,7 @@ public class ItemDAO {
 
 	private void DBConnect() throws Exception {
 		Class.forName("com.mysql.jdbc.Driver");
-		conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/shopping", "root", "apmsetup");
+		conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/shopping?useUnicode=true&characterEncoding=utf8", "root", "apmsetup");
 	}
 
 	public void insertItem(String i_name, int i_price, String i_info, int c_category, int cs_category, String i_mainImg,

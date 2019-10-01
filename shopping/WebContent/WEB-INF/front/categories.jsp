@@ -13,13 +13,22 @@
 </head>
 <script type="text/javascript">
 	function showPage(num) {
+		var pageNum = $("#pageNum").val();
 		$.ajax({
-			url : "./category.do",
+			url : "./ShowSortServlet",
 			data : {
-				"showNum" : num
+				"showNum" : num,
+				"pageNum" : pageNum
 			},
-			dataType : "",
+			type : "post",
+			dataType : "json",
 			success : function(data) {
+				var list = data.result;
+				var pageNum = data.pageNum;
+				var showNum = data.showPage;
+				var totalPage = data.totalPage;
+
+				alert("sdf");
 
 			},
 			error : function(xhr, status, error) {
@@ -27,9 +36,10 @@
 			}
 		});
 	}
-	
+
 	window.onload = function() {
-		showPage(6);
+		var showNum = $("#showNum").val();
+		showPage(showNum);
 	}
 </script>
 <body>
@@ -135,15 +145,11 @@
 					<div class="main_content">
 
 						<!-- Products -->
-						<%
-							ArrayList<Sh_itemDTO> list = (ArrayList<Sh_itemDTO>) request.getAttribute("list");
-							int totalPage = (int) request.getAttribute("totalPage");
-							int pageNum = (int) request.getAttribute("pageNum");
-						%>
+
 
 						<input type="hidden" id="pageNum" value="0" /> <input
-							type="hidden" id="showNum" value="12" /> <input type="hidden"
-							id="pageNum" />
+							type="hidden" id="showNum" value="12" />
+
 						<div class="products_iso">
 							<div class="row">
 								<div class="col">
@@ -176,24 +182,19 @@
 										</ul>
 										<div class="pages d-flex flex-row align-items-center">
 											<div class="page_current">
-												<span><%=pageNum + 1%></span>
+												<span>00</span>
 												<ul class="page_selection">
-													<%
-														for (int i = 0; i < totalPage; i++) {
-													%>
-													<li><a href="category.do?pageNum=<%=i%>"><%=i + 1%></a></li>
-													<%
-														}
-													%>
+
+													<li><a href="#">11</a></li>
+
 												</ul>
 											</div>
 											<div class="page_total">
-												<span>of</span>
-												<%=totalPage%>
+												<span>of</span> 전체페이지
 											</div>
 											<div id="next_page" class="page_next">
-												<a href="category.do?pageNum=<%=pageNum + 1%>"><i
-													class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
+												<a href="#"><i class="fa fa-long-arrow-right"
+													aria-hidden="true"></i></a>
 											</div>
 										</div>
 
@@ -204,15 +205,12 @@
 									<div class="product-grid">
 
 										<!-- Product 1 -->
-										<%
-											for (int i = 0; i < list.size(); i++) {
-										%>
+
 
 										<div class="product-item men">
 											<div class="product discount product_filter">
 												<div class="product_image">
-													<img src="<%=list.get(i).getMainImg()%>" alt=""
-														style="height: 250px;">
+													<img src="img.jpg" alt="상품이미지" style="height: 250px;">
 												</div>
 												<div class="favorite favorite_left"></div>
 												<!-- 세일표시부분
@@ -223,15 +221,10 @@
 												 -->
 												<div class="product_info">
 													<h6 class="product_name">
-														<a href="single.html"><%=list.get(i).getI_name()%></a>
+														<a href="single.html"><!-- 상품 이름 --></a>
 													</h6>
 													<div class="product_price">
-														<%
-															NumberFormat nf = NumberFormat.getInstance();
-																String price = nf.format(list.get(i).getI_price());
-														%>
-														₩
-														<%=price%>
+														<!-- price 부분 -->
 														<!-- $520.00<span>$590.00</span> -->
 													</div>
 												</div>
@@ -240,9 +233,6 @@
 												<a href="#">add to cart</a>
 											</div>
 										</div>
-										<%
-											}
-										%>
 									</div>
 
 									<!-- Product Sorting -->
@@ -262,20 +252,14 @@
 										<span class="showing_results">Showing 1–3 of 12 results</span>
 										<div class="pages d-flex flex-row align-items-center">
 											<div class="page_current">
-												<span><%=pageNum + 1%></span>
+												<span><!-- 총 페이지 부분 --></span>
 												<ul class="page_selection">
-													<%
-														for (int i = 0; i < totalPage; i++) {
-													%>
-													<li><a href="category.do?pageNum=<%=i%>"><%=i + 1%></a></li>
-													<%
-														}
-													%>
+													<!-- 페이징 부분 -->
 												</ul>
 											</div>
 											<div class="page_total">
 												<span>of</span>
-												<%=totalPage%>
+												<!-- 총페이지 -->
 											</div>
 											<div id="next_page_1" class="page_next">
 												<a href="#"><i class="fa fa-long-arrow-right"
