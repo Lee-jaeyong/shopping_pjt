@@ -11,7 +11,27 @@
 <link rel="stylesheet" type="text/css"
 	href="front/styles/categories_responsive.css">
 </head>
+<script type="text/javascript">
+	function showPage(num) {
+		$.ajax({
+			url : "./category.do",
+			data : {
+				"showNum" : num
+			},
+			dataType : "",
+			success : function(data) {
 
+			},
+			error : function(xhr, status, error) {
+				alert("에러입니다.");
+			}
+		});
+	}
+	
+	window.onload = function() {
+		showPage(6);
+	}
+</script>
 <body>
 
 	<div class="super_container">
@@ -118,8 +138,9 @@
 						<%
 							ArrayList<Sh_itemDTO> list = (ArrayList<Sh_itemDTO>) request.getAttribute("list");
 							int totalPage = (int) request.getAttribute("totalPage");
+							int pageNum = (int) request.getAttribute("pageNum");
 						%>
-						
+
 						<input type="hidden" id="pageNum" value="0" /> <input
 							type="hidden" id="showNum" value="12" /> <input type="hidden"
 							id="pageNum" />
@@ -129,6 +150,7 @@
 
 									<!-- Product Sorting -->
 
+									<input type="hidden" id="showNum" value="12" />
 									<div
 										class="product_sorting_container product_sorting_container_top">
 										<ul class="product_sorting">
@@ -147,26 +169,31 @@
 											<li><span>Show</span> <span class="num_sorting_text">6</span>
 												<i class="fa fa-angle-down"></i>
 												<ul class="sorting_num">
-													<li class="num_sorting_btn"><span>6</span></li>
+													<li class="num_sorting_btn"><span>6</span></a></li>
 													<li class="num_sorting_btn"><span>12</span></li>
 													<li class="num_sorting_btn"><span>24</span></li>
 												</ul></li>
 										</ul>
 										<div class="pages d-flex flex-row align-items-center">
 											<div class="page_current">
-												<span>1</span>
+												<span><%=pageNum + 1%></span>
 												<ul class="page_selection">
-													<li><a href="#">1</a></li>
-													<li><a href="#">2</a></li>
-													<li><a href="#">3</a></li>
+													<%
+														for (int i = 0; i < totalPage; i++) {
+													%>
+													<li><a href="category.do?pageNum=<%=i%>"><%=i + 1%></a></li>
+													<%
+														}
+													%>
 												</ul>
 											</div>
 											<div class="page_total">
-												<span>of</span> 3
+												<span>of</span>
+												<%=totalPage%>
 											</div>
 											<div id="next_page" class="page_next">
-												<a href="#"><i class="fa fa-long-arrow-right"
-													aria-hidden="true"></i></a>
+												<a href="category.do?pageNum=<%=pageNum + 1%>"><i
+													class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
 											</div>
 										</div>
 
@@ -184,7 +211,8 @@
 										<div class="product-item men">
 											<div class="product discount product_filter">
 												<div class="product_image">
-													<img src="<%=list.get(i).getMainImg()%>" alt="" style="height: 250px;">
+													<img src="<%=list.get(i).getMainImg()%>" alt=""
+														style="height: 250px;">
 												</div>
 												<div class="favorite favorite_left"></div>
 												<!-- 세일표시부분
@@ -202,7 +230,8 @@
 															NumberFormat nf = NumberFormat.getInstance();
 																String price = nf.format(list.get(i).getI_price());
 														%>
-														₩ <%=price%>
+														₩
+														<%=price%>
 														<!-- $520.00<span>$590.00</span> -->
 													</div>
 												</div>
@@ -233,7 +262,7 @@
 										<span class="showing_results">Showing 1–3 of 12 results</span>
 										<div class="pages d-flex flex-row align-items-center">
 											<div class="page_current">
-												<span>1</span>
+												<span><%=pageNum + 1%></span>
 												<ul class="page_selection">
 													<%
 														for (int i = 0; i < totalPage; i++) {
