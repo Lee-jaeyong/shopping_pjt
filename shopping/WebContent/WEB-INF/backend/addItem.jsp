@@ -4,8 +4,22 @@
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-
 <%@include file="include/pageMeta.jsp"%>
+<script type="text/javascript">
+	function changeMainImg(input, kind) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+
+			reader.onload = function(e) {
+				if (kind == 'top')
+					$("#mainImg").attr("src", e.target.result);
+				else
+					$("#detailImg").attr("src", e.target.result);
+			}
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+</script>
 <body>
 	<%@include file="include/headerTop.jsp"%>
 
@@ -74,14 +88,16 @@
 										이미지<span class="text-danger">*</span>
 									</label>
 									<div class="col-lg-6">
-										<input type="file" name="mainImg">
+										<input id="mainImgVal" type="file" name="mainImg"
+											onchange="changeMainImg(this,'top');" accept="image/*">
 									</div>
 								</div>
 								<div class="form-group row">
 									<label class="col-lg-4 col-form-label" for="val-number">설정
 										이미지 <span class="text-danger">*</span>
-									</label> <img class="card-body col-lg-6" alt=""
-										src="backend/images/paypal.png" />
+									</label> <img id="mainImg" class="card-body col-lg-6" alt=""
+										src="backend/images/defaultImg.png"
+										style="width: 100px; height: 500px;" />
 								</div>
 								<br>
 								<div class="form-group row">
@@ -89,14 +105,16 @@
 										페이지 등록<span class="text-danger">*</span>
 									</label>
 									<div class="col-lg-6">
-										<input type="file" name="detailImg">
+										<input type="file" name="detailImg"
+											onchange="changeMainImg(this,'bottom');">
 									</div>
 								</div>
 								<div class="form-group row">
 									<label class="col-lg-4 col-form-label" for="val-number">(상세)설정
 										이미지 <span class="text-danger">*</span>
-									</label> <img class="card-body col-lg-6" alt=""
-										src="backend/images/paypal.png" />
+									</label> <img id="detailImg" class="card-body col-lg-6" alt=""
+										src="backend/images/camera.png"
+										style="width: 100px; height: 1000px;" />
 								</div>
 								<div class="form-group row">
 									<label class="col-lg-4 col-form-label"><span
