@@ -33,14 +33,24 @@
 			url : "./GetUserListServlet",
 			type : "POST",
 			dataType : "json",
-			data : {
-				"pageNum" : page,
-				"search" : search,
-				"sortType" : sortType,
-				"showType" : showType
-			},
 			success : function(data) {
-				alert(data);
+				var obj = data.result;
+				var userList = "";
+
+				for (var i = 0; i < obj.length; i++) {
+					userList += "<tr>";
+					userList += "<td>";
+					userList += obj[i].u_id;
+					userList += "</td>";
+					userList += "<td>" + obj[i].u_phone + "</td>";
+					userList += "<td><span>" + obj[i].u_name + "</span></td>";
+					userList += "<td><span>" + obj[i].u_birth + "</span></td>";
+					userList += "<td><span>" + obj[i].u_address
+							+ "</span></td>";
+					userList += "<td><span>" + obj[i].u_date
+							+ "</span></td></tr>";
+				}
+				$("#userList").html(userList);
 			}
 		});
 	}
@@ -79,23 +89,6 @@
 											</tr>
 										</thead>
 										<tbody id="userList">
-											<tr>
-												<td><img src="./backend/images/avatar/6.jpg"
-													class=" rounded-circle mr-3" alt=""> Megan S.</td>
-												<td>Galaxy</td>
-												<td><span>Japan</span></td>
-												<td>
-													<div>
-														<div class="progress" style="height: 6px">
-															<div class="progress-bar bg-success" style="width: 50%"></div>
-														</div>
-													</div>
-												</td>
-												<td><i class="fa fa-circle-o text-success  mr-2"></i>
-													Paid</td>
-												<td><span>Last Login</span> <span class="m-0 pl-3">10
-														sec ago</span></td>
-											</tr>
 										</tbody>
 									</table>
 								</div>

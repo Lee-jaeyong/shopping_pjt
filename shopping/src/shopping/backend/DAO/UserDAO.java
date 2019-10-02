@@ -39,16 +39,22 @@ public class UserDAO {
 	public ArrayList<UserDTO> SelectUserList(String search, int showType, int sortType) {
 		ArrayList<UserDTO> list = new ArrayList<UserDTO>();
 
-		String sql = "selcet u_idx,u_identy,u_phone1,u_phone2,u_phone3,u_name,u_birth,u_address,u_date from s_user";
+		String sql = "select u_idx,u_identy,u_phone1,u_phone2,u_phone3,u_name,u_birth,u_address,u_date from s_user";
 		try {
 			pstmt = (PreparedStatement) conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
-			
-			while(rs.next())
-			{
-				
+
+			while (rs.next()) {
+				int u_idx = rs.getInt(1);
+				String u_identy = rs.getString(2);
+				String u_phone = rs.getString(3) + "-" + rs.getString(4) + "-" + rs.getString(5);
+				String u_name = rs.getString(6);
+				String u_birth = rs.getString(7);
+				String u_address = rs.getString(8);
+				String u_date = rs.getString(9);
+				list.add(new UserDTO(u_idx, u_identy, u_phone, u_name, u_birth, u_address, u_date));
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

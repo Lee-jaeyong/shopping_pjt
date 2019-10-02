@@ -10,6 +10,26 @@ public class UserDTO {
 	private String u_birth;
 	private String u_address;
 	private String u_date;
+	private String u_phoneNumber;
+
+	public UserDTO(int u_idx, String u_identy, String u_phone, String u_name, String u_birth, String u_address,
+			String u_date) {
+		this.u_idx = u_idx;
+		this.u_id = u_identy;
+		this.u_phoneNumber = u_phone;
+		this.u_name = u_name;
+		this.u_birth = u_birth;
+		this.u_address = u_address;
+		this.u_date = u_date;
+	}
+
+	public String getU_phoneNumber() {
+		return u_phoneNumber;
+	}
+
+	public void setU_phoneNumber(String u_phoneNumber) {
+		this.u_phoneNumber = u_phoneNumber;
+	}
 
 	public int getU_idx() {
 		return u_idx;
