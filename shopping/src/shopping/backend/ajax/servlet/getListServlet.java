@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import shopping.backend.DAO.ItemDAO;
 import shopping.backend.DTO.ItemDTO;
+import shopping.collection.StringFilter;
 
 /**
  * Servlet implementation class getListServlet
@@ -30,7 +31,7 @@ public class getListServlet extends HttpServlet {
 
 		ItemDAO itemdao = ItemDAO.getInstance();
 
-		String search = request.getParameter("search");
+		String search = StringFilter.cleanXSS(request.getParameter("search"));
 		int page = Integer.parseInt(request.getParameter("pageNum"));
 		String sortType = request.getParameter("sortType");
 		int showType = Integer.parseInt(request.getParameter("showType"));

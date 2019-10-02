@@ -62,7 +62,6 @@ public class ExcelUpload {
 		XSSFRow row;
 
 		ArrayList<ItemDTO> addList = new ArrayList<ItemDTO>();
-
 		try {
 			XSSFWorkbook workbook = new XSSFWorkbook(fis);
 
@@ -77,13 +76,13 @@ public class ExcelUpload {
 				for (int r = 1; r < rows; r++) {
 					row = sheet.getRow(r);
 					if (row != null) {
-						String i_name = row.getCell(0).getStringCellValue();
+						String i_name = StringFilter.cleanXSS(row.getCell(0).getStringCellValue());
 						int c_category = (int) row.getCell(1).getNumericCellValue();
 						int cs_category = (int) row.getCell(2).getNumericCellValue();
 						int i_price = (int) row.getCell(3).getNumericCellValue();
-						String i_main = row.getCell(4).getStringCellValue();
-						String i_detail = row.getCell(5).getStringCellValue();
-						String i_info = row.getCell(6).getStringCellValue();
+						String i_main = StringFilter.cleanXSS(row.getCell(4).getStringCellValue());
+						String i_detail = StringFilter.cleanXSS(row.getCell(5).getStringCellValue());
+						String i_info = StringFilter.cleanXSS(row.getCell(6).getStringCellValue());
 						ItemDTO item = new ItemDTO(i_name, c_category, cs_category, i_price, i_main, i_detail, i_info);
 						addList.add(item);
 					}
