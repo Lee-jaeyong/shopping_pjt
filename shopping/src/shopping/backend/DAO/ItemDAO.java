@@ -36,6 +36,49 @@ public class ItemDAO {
 				"jdbc:mysql://localhost:3306/shopping?useUnicode=true&characterEncoding=utf8", "root", "apmsetup");
 	}
 
+	public int updateItem(ItemDTO item, int i_idx) {
+		try {
+			String sql = "update s_item set i_name = ?,i_price = ?,	i_detailimg = ?,i_info = ? where i_idx = " + i_idx;
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, item.getI_name());
+			pstmt.setInt(2, item.getI_price());
+			pstmt.setString(3, item.getI_detailimg());
+			pstmt.setString(4, item.getI_info());
+			pstmt.executeUpdate();
+			sql = "update s_mainimg set img_path = ? where img_idx = " + i_idx;
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, item.getImg_path());
+			pstmt.executeUpdate();
+			return 1;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+	}
+
+	public int deleteItem(int i_idx) {
+		try {
+			String sql = "delete from s_item where i_idx = " + i_idx;
+			pstmt = conn.prepareStatement(sql);
+			pstmt.executeUpdate();
+
+			sql = "delete from s_category where c_i_idx = " + i_idx;
+			pstmt = conn.prepareStatement(sql);
+			pstmt.executeUpdate();
+
+			sql = "delete from s_mainimg where img_idx = " + i_idx;
+			pstmt = conn.prepareStatement(sql);
+			pstmt.executeUpdate();
+
+			sql = "delete from s_small_category where cs_i_idx = " + i_idx;
+			pstmt = conn.prepareStatement(sql);
+			pstmt.executeUpdate();
+			return 1;
+		} catch (Exception e) {
+			return 0;
+		}
+	}
+
 	public void insertAllItem(String i_name, int c_category, int cs_category, int i_price, String i_main,
 			String i_detail, String i_info) {
 		String sql = "insert into s_item values (NULL,?,?,?,0,?,0,now())";
@@ -132,6 +175,24 @@ public class ItemDAO {
 			e.printStackTrace();
 			conn.rollback();
 		}
+	}
+
+	public ItemDTO selectItem(int i_idx) {
+		try {
+			String sql = "select i_name,c_idx,c_categoryName,cs_idx,cs_categoryName,i_price,img_path,i_detailimg,i_info "
+					+ "from s_item,s_mainimg,s_category,s_small_category "
+					+ "where s_item.i_idx = s_mainimg.img_idx and s_item.i_idx = s_category.c_i_idx and "
+					+ "s_item.i_idx = s_small_category.cs_i_idx and i_idx = " + i_idx;
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			rs.next();
+			ItemDTO item = new ItemDTO(rs.getString(1), rs.getInt(2), rs.getString(3), rs.getInt(4), rs.getString(5),
+					rs.getInt(6), rs.getString(7), rs.getString(8), rs.getString(9));
+			return item;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	public int getTotallist(String c_category, String cs_category, String search) {

@@ -78,6 +78,10 @@
 										+ "</td>";
 								listArea += "<td>" + obj.result[i].date
 										+ "</td>";
+								listArea += "<td><button type='button' class='btn btn-outline-dark' onclick='modifyItem("
+										+ obj.result[i].idx + ")'>수정</td>";
+								listArea += "<td><button type='button' class='btn btn-outline-danger' onclick='deleteItem("
+										+ obj.result[i].idx + ")'>삭제</td>";
 								listArea += "</tr>";
 							}
 
@@ -106,6 +110,27 @@
 					}
 				});
 	}
+	function deleteItem(i_idx) {
+		$.ajax({
+			url : "./ItemDeleteServlet",
+			data : {
+				"item_idx" : i_idx,
+			},
+			success : function(data) {
+				if (data == 'true') {
+					alert("삭제 완료");
+					pageMove(0);
+				} else
+					alert("삭제 도중 문제가 발생했습니다.");
+			}
+		});
+	}
+
+	function modifyItem(i_idx) {
+		$("#modify").val(i_idx);
+		$("#modifyForm").submit();
+	}
+
 	window.onload = function() {
 		pageMove(0);
 	}
@@ -182,6 +207,8 @@
 											<th>대표이미지</th>
 											<th>조회수</th>
 											<th>상품 등록일</th>
+											<th>삭제</th>
+											<th>수정</th>
 										</tr>
 									</thead>
 									<tbody id="listArea">
@@ -202,6 +229,9 @@
 	<input type="hidden" id="pageNum" value="" />
 	<input type="hidden" id="sortType" value="" />
 	<input type="hidden" id="showType" value="5" />
+	<form id="modifyForm" action="./modifyItem.do" method="post">
+		<input type="hidden" name="i_idx" id="modify" value="" />
+	</form>
 
 	<!--**********************************
             Content body end

@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import shopping.backend.model.AddItem_Action;
+import shopping.backend.model.ModifyItem_Action;
+import shopping.backend.model.SelectItem_Action;
 
 @WebServlet("/Shoppingcontroller")
 public class Shoppingcontroller extends HttpServlet {
@@ -76,8 +78,13 @@ public class Shoppingcontroller extends HttpServlet {
 		} else if (command.equals("addAllItem.do")) {
 			forward.setRedirect(false);
 			forward.setPath(back_end + "alladditem.jsp");
+		} else if (command.equals("modifyItem.do")) {
+			action = new SelectItem_Action();
+			forward = action.execute(request, response);
+		} else if (command.equals("modifyItemExecute.do")) {
+			action = new ModifyItem_Action();
+			forward = action.execute(request, response);
 		}
-
 		if (forward.isRedirect()) {
 			response.sendRedirect(forward.getPath());
 		} else {
