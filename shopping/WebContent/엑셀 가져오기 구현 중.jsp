@@ -21,7 +21,7 @@
 	<input type="file" id="file" name="file" onchange="b(this.value);" />
 	<div>
 		<img id="mainImg" src="" style="width: 300px; height: 300px;"/>
-	</div>dㄹㄴㅇㄹㄴㅇㄹㅇㄴ
+	</div>
 	<script>
 		function b(imgPath) {
 			document.getElementById("mainImg").src = imgPath;

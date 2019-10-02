@@ -35,7 +35,8 @@ public class ExcelUploadServlet extends HttpServlet {
 			int i_price = list.get(i).getI_price();
 			String i_main = list.get(i).getImg_path();
 			String i_detail = list.get(i).getI_detailimg();
-			itemDAO.insertAllItem(i_name, c_category, cs_category, i_price, i_main, i_detail);
+			String i_info = list.get(i).getI_info();
+			itemDAO.insertAllItem(i_name, c_category, cs_category, i_price, i_main, i_detail, i_info);
 		}
 	}
 }

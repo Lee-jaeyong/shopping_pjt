@@ -38,7 +38,7 @@
 				<div class="card">
 					<div class="card-body">
 						<h4 class="card-title">상품 일괄 등록</h4>
-						<br> <input type="file" id="excelFile" value="" accept=".xls">
+						<br> <input type="file" id="excelFile" value="" accept=".xlsx">
 						<button class="btn mb-1 btn-rounded btn-info"
 							onclick="fileUpload();">업로드</button>
 						<br> <br>

@@ -22,7 +22,6 @@ public class ExcelUpload {
 		try {
 			XSSFWorkbook workbook = new XSSFWorkbook(fis);
 
-			// sheet수 취득
 			int sheetCn = workbook.getNumberOfSheets();
 
 			for (int cn = 0; cn < sheetCn; cn++) {
@@ -40,7 +39,8 @@ public class ExcelUpload {
 						int i_price = (int) row.getCell(3).getNumericCellValue();
 						String i_main = row.getCell(4).getStringCellValue();
 						String i_detail = row.getCell(5).getStringCellValue();
-						ItemDTO item = new ItemDTO(i_name, c_category, cs_category, i_price, i_main, i_detail);
+						String i_info = row.getCell(6).getStringCellValue();
+						ItemDTO item = new ItemDTO(i_name, c_category, cs_category, i_price, i_main, i_detail, i_info);
 						addList.add(item);
 					}
 				}

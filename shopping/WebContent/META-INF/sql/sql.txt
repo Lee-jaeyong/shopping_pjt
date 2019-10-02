@@ -1,0 +1,253 @@
+-- phpMyAdmin SQL Dump
+-- version 3.2.3
+-- http://www.phpmyadmin.net
+--
+-- 호스트: localhost
+-- 처리한 시간: 19-10-02 09:27 
+-- 서버 버전: 5.1.41
+-- PHP 버전: 5.2.12
+
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+
+--
+-- 데이터베이스: `shopping`
+--
+
+-- --------------------------------------------------------
+
+--
+-- 테이블 구조 `s_category`
+--
+
+CREATE TABLE IF NOT EXISTS `s_category` (
+  `c_idx` int(11) NOT NULL,
+  `c_categoryName` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `c_i_idx` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`c_i_idx`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=37 ;
+
+--
+-- 테이블의 덤프 데이터 `s_category`
+--
+
+INSERT INTO `s_category` (`c_idx`, `c_categoryName`, `c_i_idx`) VALUES
+(1, '상의', 1),
+(1, '상의', 2),
+(1, '상의', 3),
+(1, '상의', 4),
+(1, '상의', 5),
+(1, '상의', 16),
+(1, '상의', 15),
+(1, '상의', 14),
+(1, '상의', 13),
+(1, '상의', 12),
+(1, '상의', 11),
+(1, '상의', 10),
+(1, '상의', 9),
+(1, '상의', 8),
+(1, '상의', 7),
+(1, '상의', 34),
+(1, '상의', 36);
+
+-- --------------------------------------------------------
+
+--
+-- 테이블 구조 `s_item`
+--
+
+CREATE TABLE IF NOT EXISTS `s_item` (
+  `i_idx` int(11) NOT NULL AUTO_INCREMENT,
+  `i_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `i_price` int(11) NOT NULL,
+  `i_detailimg` text COLLATE utf8_unicode_ci NOT NULL,
+  `i_option_id` int(11) NOT NULL,
+  `i_info` text COLLATE utf8_unicode_ci NOT NULL,
+  `i_hit` int(11) NOT NULL DEFAULT '0',
+  `i_date` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`i_idx`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=37 ;
+
+--
+-- 테이블의 덤프 데이터 `s_item`
+--
+
+INSERT INTO `s_item` (`i_idx`, `i_name`, `i_price`, `i_detailimg`, `i_option_id`, `i_info`, `i_hit`, `i_date`) VALUES
+(1, '램스울V가디건', 143100, '', 2, '', 0, '2019-09-27 17:45:36'),
+(2, '[LL] 캐시골지V가디건', 18000, '', 2, '', 0, '2019-09-27 17:45:36'),
+(3, '탄탄레글런루즈CD', 25000, '', 0, '', 0, '2019-09-27 17:45:36'),
+(4, '램스울라운드가디건', 19900, '', 0, '', 0, '2019-09-27 17:45:36'),
+(5, '여리브이CD&스커트set', 26000, '', 0, '', 0, '2019-09-27 17:45:36'),
+(7, '도톰코지Y가디건', 22800, '', 0, '', 0, '2019-09-27 17:45:36'),
+(8, '모카루즈가디건', 18900, '', 0, '', 0, '2019-09-27 17:45:36'),
+(9, '박시쥬리가디건', 18000, '', 0, '', 0, '2019-09-27 17:45:36'),
+(10, '알파카V울가디건', 29000, '', 0, '', 0, '2019-09-27 17:45:36'),
+(11, '캐시V넥가디건', 19900, '', 0, '', 0, '2019-09-27 17:45:36'),
+(12, '무드골지가디건&스커트set', 28000, '', 0, '', 0, '2019-09-27 17:45:36'),
+(13, '탄탄Y니트가디건', 19900, '', 0, '', 0, '2019-09-27 17:45:36'),
+(14, '물결단크롭CD', 19900, '', 0, '', 0, '2019-09-27 17:45:36'),
+(15, '캐시Y포켓가디건', 19900, '', 0, '', 0, '2019-09-27 17:45:36'),
+(16, '탄탄심쿵가디건', 18900, '', 0, '', 0, '2019-09-27 17:45:36'),
+(34, '이재용', 3213, 'front/images/detailImg/littledeep_cat_style1.png', 0, '이재용입니다', 0, '2019-10-01 22:45:00'),
+(36, '윤지원 입니당', 1312, 'front/images/detailImg/제목 없음.png', 0, '윤지원 입니당', 0, '2019-10-01 22:51:29');
+
+-- --------------------------------------------------------
+
+--
+-- 테이블 구조 `s_mainimg`
+--
+
+CREATE TABLE IF NOT EXISTS `s_mainimg` (
+  `img_idx` int(11) NOT NULL AUTO_INCREMENT,
+  `img_path` text COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`img_idx`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=37 ;
+
+--
+-- 테이블의 덤프 데이터 `s_mainimg`
+--
+
+INSERT INTO `s_mainimg` (`img_idx`, `img_path`) VALUES
+(1, 'front/images/mainImg/1.jpeg'),
+(2, 'front/images/mainImg/2.gif'),
+(3, 'front/images/mainImg/3.jpeg'),
+(4, 'front/images/mainImg/4.jpeg'),
+(5, 'front/images/mainImg/5.jpeg'),
+(7, 'front/images/mainImg/7.jpeg'),
+(8, 'front/images/mainImg/8.jpeg'),
+(9, 'front/images/mainImg/9.jpeg'),
+(10, 'front/images/mainImg/10.jpeg'),
+(11, 'front/images/mainImg/11.jpeg'),
+(12, 'front/images/mainImg/12.jpeg'),
+(13, 'front/images/mainImg/13.jpeg'),
+(14, 'front/images/mainImg/14.jpeg'),
+(15, 'front/images/mainImg/15.jpeg'),
+(16, 'front/images/mainImg/16.jpeg'),
+(34, 'front/images/mainImg/littledeep_cat_style1.png'),
+(36, 'front/images/mainImg/제목 없음.png');
+
+-- --------------------------------------------------------
+
+--
+-- 테이블 구조 `s_option`
+--
+
+CREATE TABLE IF NOT EXISTS `s_option` (
+  `op_sc_idx` int(11) NOT NULL,
+  `op_info_color` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `op_info_size` varchar(100) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- 테이블의 덤프 데이터 `s_option`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- 테이블 구조 `s_order`
+--
+
+CREATE TABLE IF NOT EXISTS `s_order` (
+  `o_idx` int(11) NOT NULL AUTO_INCREMENT,
+  `o_u_idx` int(11) NOT NULL,
+  `o_i_idx` int(11) NOT NULL,
+  `o_i_price` int(11) NOT NULL,
+  `o_count` int(11) NOT NULL,
+  `o_ordername` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `o_address` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `o_option` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `o_date` int(11) NOT NULL,
+  PRIMARY KEY (`o_idx`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+--
+-- 테이블의 덤프 데이터 `s_order`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- 테이블 구조 `s_small_category`
+--
+
+CREATE TABLE IF NOT EXISTS `s_small_category` (
+  `cs_c_idx` int(11) NOT NULL,
+  `cs_idx` int(11) NOT NULL,
+  `cs_categoryName` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `cs_i_idx` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`cs_i_idx`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=37 ;
+
+--
+-- 테이블의 덤프 데이터 `s_small_category`
+--
+
+INSERT INTO `s_small_category` (`cs_c_idx`, `cs_idx`, `cs_categoryName`, `cs_i_idx`) VALUES
+(1, 1, '가디건', 1),
+(1, 1, '가디건', 2),
+(1, 1, '가디건', 3),
+(1, 1, '가디건', 4),
+(1, 1, '가디건', 5),
+(1, 1, '가디건', 7),
+(1, 1, '가디건', 8),
+(1, 1, '가디건', 9),
+(1, 1, '가디건', 10),
+(1, 1, '가디건', 11),
+(1, 1, '가디건', 12),
+(1, 1, '가디건', 13),
+(1, 1, '가디건', 14),
+(1, 1, '가디건', 15),
+(1, 1, '가디건', 16),
+(1, 1, '가디건', 34),
+(1, 1, '가디건', 36);
+
+-- --------------------------------------------------------
+
+--
+-- 테이블 구조 `s_stock`
+--
+
+CREATE TABLE IF NOT EXISTS `s_stock` (
+  `st_i_idx` int(11) NOT NULL,
+  `st_i_stock` int(11) NOT NULL,
+  `st_sc_idx` int(11) NOT NULL,
+  `st_op_idx` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- 테이블의 덤프 데이터 `s_stock`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- 테이블 구조 `s_user`
+--
+
+CREATE TABLE IF NOT EXISTS `s_user` (
+  `u_idx` int(11) NOT NULL AUTO_INCREMENT,
+  `u_identy` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `u_password` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `u_phone1` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `u_phone2` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `u_phone3` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `u_name` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `u_birth` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `u_address` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `u_date` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`u_idx`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+--
+-- 테이블의 덤프 데이터 `s_user`
+--
+

@@ -17,13 +17,14 @@ public class ItemDTO {
 	private int cs_categoryNum;
 
 	public ItemDTO(String i_name, int c_categoryNum, int cs_categoryNum, int i_price, String img_path,
-			String i_detailimg) {
+			String i_detailimg, String i_info) {
 		this.i_name = i_name;
 		this.c_categoryNum = c_categoryNum;
 		this.cs_categoryNum = cs_categoryNum;
 		this.i_price = i_price;
 		this.img_path = img_path;
 		this.i_detailimg = i_detailimg;
+		this.i_info = i_info;
 	}
 
 	public ItemDTO(int i_idx, String i_name, String c_categoryName, String cs_categoryName, int i_price,

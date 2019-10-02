@@ -37,13 +37,14 @@ public class ItemDAO {
 	}
 
 	public void insertAllItem(String i_name, int c_category, int cs_category, int i_price, String i_main,
-			String i_detail) {
-		String sql = "insert into s_item values (NULL,?,?,?,0,'',0,now())";
+			String i_detail, String i_info) {
+		String sql = "insert into s_item values (NULL,?,?,?,0,?,0,now())";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, i_name);
 			pstmt.setInt(2, i_price);
 			pstmt.setString(3, i_detail);
+			pstmt.setString(4, i_info);
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
