@@ -19,6 +19,37 @@
 			reader.readAsDataURL(input.files[0]);
 		}
 	}
+	function checkInput() {
+		if ($("#i_name").val() == "") {
+			alert("상품명을 등록해주세요");
+			$("#i_name").focus();
+		} else if ($("#i_price").val() == "") {
+			alert("상품 가격을 등록해주세요");
+			$("#i_price").focus();
+		} else if ($("#i_price").val() == "") {
+			alert("상품 가격을 등록해주세요");
+			$("#i_price").focus();
+		} else if (isNaN($("#i_price").val())) {
+			alert("가격이 잘못 입력되었습니다.");
+			$("#i_price").focus();
+		} else if ($("#c_category").val() == "0"
+				|| $("#cs_category").val() == "0") {
+			alert("상품 카테고리를 등록해주세요");
+			$("#c_category").focus();
+		} else if ($("#mainImgVal").val() == "") {
+			alert("상품 대표이미지를 등록해주세요");
+			$("#mainImgVal").focus();
+		} else if ($("#detailImgVal").val() == "") {
+			alert("상품 상세페이지를 등록해주세요");
+			$("#detailImgVal").focus();
+		} else if ($("#checkAdd").is(":checked") == false) {
+			alert("상품 등록 동의를 체크해주세요");
+			$("#checkAdd").focus();
+		} else {
+			$("#addItem").submit();
+			alert("등록 완료");
+		}
+	}
 </script>
 <body>
 	<%@include file="include/headerTop.jsp"%>
@@ -37,14 +68,14 @@
 				<div class="card">
 					<div class="card-body">
 						<div class="form-validation">
-							<form class="form-valide" action="./addItem.do" method="post"
-								onsubmit="alert('상품 등록 완료');">
+							<form id="addItem" class="form-valide" action="./addItem.do"
+								method="post">
 								<div class="form-group row">
 									<label class="col-lg-4 col-form-label" for="val-username">상품
 										명 <span class="text-danger">*</span>
 									</label>
 									<div class="col-lg-6">
-										<input type="text" class="form-control" id="val-username"
+										<input type="text" class="form-control" id="i_name"
 											name="i_name">
 									</div>
 								</div>
@@ -53,7 +84,7 @@
 										격 <span class="text-danger">*</span>
 									</label>
 									<div class="col-lg-6">
-										<input type="text" class="form-control" id="val-email"
+										<input type="text" class="form-control" id="i_price"
 											name="i_price">
 									</div>
 								</div>
@@ -71,14 +102,15 @@
 										류 <span class="text-danger">*</span>
 									</label>
 									<div class="col-lg-3">
-										<select class="form-control" id="val-skill" name="c_category">
-											<option value="">(대)분류</option>
+										<select class="form-control" id="c_category" name="c_category">
+											<option value="0">(대)분류</option>
 											<option value="1">상의</option>
 										</select>
 									</div>
 									<div class="col-lg-3">
-										<select class="form-control" id="val-skill" name="cs_category">
-											<option value="">(소)분류</option>
+										<select class="form-control" id="cs_category"
+											name="cs_category">
+											<option value="0">(소)분류</option>
 											<option value="1">가디건</option>
 										</select>
 									</div>
@@ -89,7 +121,8 @@
 									</label>
 									<div class="col-lg-6">
 										<input id="mainImgVal" type="file" name="mainImg"
-											onchange="changeMainImg(this,'top');" accept="image/*">
+											onchange="changeMainImg(this,'top');"
+											accept=".img, .gif, .png">
 									</div>
 								</div>
 								<div class="form-group row">
@@ -105,8 +138,9 @@
 										페이지 등록<span class="text-danger">*</span>
 									</label>
 									<div class="col-lg-6">
-										<input type="file" name="detailImg"
-											onchange="changeMainImg(this,'bottom');">
+										<input type="file" id="detailImgVal" name="detailImg"
+											onchange="changeMainImg(this,'bottom');"
+											accept=".img, .gif, .png">
 									</div>
 								</div>
 								<div class="form-group row">
@@ -122,15 +156,16 @@
 									<div class="col-lg-8">
 										<label class="css-control css-control-primary css-checkbox"
 											for="val-terms"> <input type="checkbox"
-											class="css-control-input" id="val-terms" name="val-terms"
-											value="1"> <span class="css-control-indicator"></span>
-											I agree to the terms
+											class="css-control-input" id="checkAdd" name="val-terms"
+											value="true"> <span class="css-control-indicator"></span>
+											상품을 등록합니다.
 										</label>
 									</div>
 								</div>
 								<div class="form-group row">
 									<div class="col-lg-8 ml-auto">
-										<button type="submit" class="btn btn-primary">상품 등록</button>
+										<button type="button" class="btn btn-primary"
+											onclick="checkInput();">상품 등록</button>
 									</div>
 								</div>
 							</form>
