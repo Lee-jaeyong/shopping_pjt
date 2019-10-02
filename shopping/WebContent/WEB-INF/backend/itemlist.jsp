@@ -7,6 +7,10 @@
 
 <%@include file="include/pageMeta.jsp"%>
 <script>
+	function numberWithCommas(x) {
+		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	}
+
 	function excelDownload() {
 		location.href = "./ExcelFile.jsp";
 	}
@@ -34,56 +38,73 @@
 		var search = $("#search").val();
 		var sortType = $("#sortType").val();
 		var showType = $("#showType").val();
-		$.ajax({
-			url : "./getListServlet",
-			type : "POST",
-			dataType : "json",
-			data : {
-				"pageNum" : page,
-				"search" : search,
-				"sortType" : sortType,
-				"showType" : showType
-			},
-			success : function(data) {
-				var obj = data;
-				var listArea = "";
-				var btnArea = "";
+		$
+				.ajax({
+					url : "./getListServlet",
+					type : "POST",
+					dataType : "json",
+					data : {
+						"pageNum" : page,
+						"search" : search,
+						"sortType" : sortType,
+						"showType" : showType
+					},
+					success : function(data) {
+						var obj = data;
+						var listArea = "";
+						var btnArea = "";
 
-				for (var i = 0; i < obj.result.length; i++) {
-					listArea += "<tr>";
-					listArea += "<td>" + obj.result[i].idx + "</td>";
-					listArea += "<td>" + obj.result[i].name + "</td>";
-					listArea += "<td>" + obj.result[i].c_category + "</td>";
-					listArea += "<td>" + obj.result[i].cs_cateogry + "</td>";
-					listArea += "<td>" + obj.result[i].price + "</td>";
-					listArea += "<td>" + obj.result[i].img_path + "</td>";
-					listArea += "<td>" + obj.result[i].hit + "</td>";
-					listArea += "<td>" + obj.result[i].date + "</td>";
-					listArea += "</tr>";
-				}
+						if (obj.result.length == 0) {
+							listArea += "<tr>";
+							listArea += "<td colspan='9'>* 등록된 상품이 존재하지 않습니다.</td>";
+							listArea += "</tr>";
+						} else {
+							for (var i = 0; i < obj.result.length; i++) {
+								listArea += "<tr>";
+								listArea += "<td>" + obj.result[i].idx
+										+ "</td>";
+								listArea += "<td>" + obj.result[i].name
+										+ "</td>";
+								listArea += "<td>" + obj.result[i].c_category
+										+ "</td>";
+								listArea += "<td>" + obj.result[i].cs_cateogry
+										+ "</td>";
+								listArea += "<td>￦"
+										+ numberWithCommas(obj.result[i].price)
+										+ "</td>";
+								listArea += "<td>" + obj.result[i].img_path
+										+ "</td>";
+								listArea += "<td>" + obj.result[i].hit
+										+ "</td>";
+								listArea += "<td>" + obj.result[i].date
+										+ "</td>";
+								listArea += "</tr>";
+							}
 
-				btnArea += "<button type='button' class='btn btn-primary";
-				if (obj.startBlock == 0)
-					btnArea += "disabled";
-				btnArea += "'><</button>";
+							btnArea += "<button type='button' class='btn btn-primary";
+							if (obj.startBlock == 0)
+								btnArea += "disabled";
+							btnArea += "'><</button>";
 
-				for (var i = obj.startBlock; i < obj.endBlock; i++) {
-					btnArea += "<button onclick='pageMove(" + i
-							+ ")' type='button' class='btn btn-primary";
-					if (i == page)
-						btnArea += "disabled";
-					btnArea += "'>" + (parseInt(i) + 1) + "</button>";
-				}
+							for (var i = obj.startBlock; i < obj.endBlock; i++) {
+								btnArea += "<button onclick='pageMove("
+										+ i
+										+ ")' type='button' class='btn btn-primary";
+								if (i == page)
+									btnArea += "disabled";
+								btnArea += "'>" + (parseInt(i) + 1)
+										+ "</button>";
+							}
 
-				btnArea += "<button type='button' class='btn btn-primary";
-				if (obj.endBlock == obj.totalBlock)
-					btnArea += "disabled";
-				btnArea += "'>></button>";
-
-				$("#listArea").html(listArea);
-				$("#blockArea").html(btnArea);
-			}
-		});
+							btnArea += "<button type='button' class='btn btn-primary";
+							if (obj.endBlock == obj.totalBlock)
+								btnArea += "disabled";
+							btnArea += "'>></button>";
+						}
+						$("#listArea").html(listArea);
+						$("#blockArea").html(btnArea);
+					}
+				});
 	}
 	window.onload = function() {
 		pageMove(0);
