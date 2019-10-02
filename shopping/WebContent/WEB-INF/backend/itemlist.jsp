@@ -38,7 +38,8 @@
 		var search = $("#search").val();
 		var sortType = $("#sortType").val();
 		var showType = $("#showType").val();
-		$.ajax({
+		$
+				.ajax({
 					url : "./getListServlet",
 					type : "POST",
 					dataType : "json",
@@ -93,7 +94,7 @@
 												"#showType").val()))
 										+ ")'><</button>";
 
-							for (var i = obj.startBlock; i < obj.endBlock; i++) {
+							for (var i = parseInt(obj.startBlock); i < parseInt(obj.endBlock); i++) {
 								btnArea += "<button onclick='pageMove("
 										+ i
 										+ ")' type='button' class='btn btn-primary";
