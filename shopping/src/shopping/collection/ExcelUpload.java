@@ -13,7 +13,7 @@ import shopping.backend.DTO.ItemDTO;
 public class ExcelUpload {
 	public static String ExcelParseJson(String path) {
 		try {
-			FileInputStream fis = new FileInputStream(path);
+			FileInputStream fis = new FileInputStream("C:\\Users\\km\\Desktop\\1.xlsx");
 			XSSFRow row;
 
 			StringBuilder json = new StringBuilder();

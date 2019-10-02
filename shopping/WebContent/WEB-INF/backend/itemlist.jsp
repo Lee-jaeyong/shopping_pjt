@@ -38,8 +38,7 @@
 		var search = $("#search").val();
 		var sortType = $("#sortType").val();
 		var showType = $("#showType").val();
-		$
-				.ajax({
+		$.ajax({
 					url : "./getListServlet",
 					type : "POST",
 					dataType : "json",
@@ -85,10 +84,14 @@
 								listArea += "</tr>";
 							}
 
-							btnArea += "<button type='button' class='btn btn-primary";
+							btnArea += "<button type='button' class='btn btn-primary ";
 							if (obj.startBlock == 0)
-								btnArea += "disabled";
-							btnArea += "'><</button>";
+								btnArea += "disabled'><</button>";
+							else
+								btnArea += "' onclick='pageMove("
+										+ (parseInt(obj.startBlock) - parseInt($(
+												"#showType").val()))
+										+ ")'><</button>";
 
 							for (var i = obj.startBlock; i < obj.endBlock; i++) {
 								btnArea += "<button onclick='pageMove("
@@ -100,10 +103,14 @@
 										+ "</button>";
 							}
 
-							btnArea += "<button type='button' class='btn btn-primary";
+							btnArea += "<button type='button' class='btn btn-primary ";
 							if (obj.endBlock == obj.totalBlock)
-								btnArea += "disabled";
-							btnArea += "'>></button>";
+								btnArea += "disabled'>></button>";
+							else
+								btnArea += "' onclick='pageMove("
+										+ (parseInt(obj.startBlock) + parseInt($(
+												"#showType").val()))
+										+ ")'>></button>";
 						}
 						$("#listArea").html(listArea);
 						$("#blockArea").html(btnArea);
