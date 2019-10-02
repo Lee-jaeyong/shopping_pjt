@@ -6,6 +6,7 @@
         ***********************************-->
 <div class="nk-sidebar">
 	<div class="nk-nav-scroll">
+	
 		<ul class="metismenu" id="menu">
 			<li><a class="has-arrow" href="javascript:void()"
 				aria-expanded="false"> <i class="icon-speedometer menu-icon"></i><span
@@ -21,8 +22,8 @@
 					class="nav-text">회원 관리</span>
 			</a>
 				<ul aria-expanded="false">
-					<li><a href="./adminItemlist.do">회 원 정 보</a></li>
-					<li><a href="./adminAddItem.do">이벤트 이메일 전송</a></li>
+					<li><a href=./adminUserList.do>회 원 정 보</a></li>
+					<li><a href="#">이벤트 이메일 전송</a></li>
 				</ul></li>
 			<li><a class="has-arrow" href="javascript:void()"
 				aria-expanded="false"> <i class="icon-graph menu-icon"></i> <span
