@@ -15,8 +15,34 @@
 				"path" : $("#excelFile").val()
 			},
 			success : function(data) {
-				alert("등록 완료");
 				$("#excelFile").val("");
+			}
+		});
+	}
+
+	function showExcelData() {
+		$.ajax({
+			url : "./ShowExcelDataServlet",
+			type : "post",
+			data : {
+				"path" : $("#excelFile").val()
+			},
+			dataType : "json",
+			success : function(data) {
+				var obj = data.result;
+				var section = "";
+				for (var i = 0; i < obj.length; i++) {
+					section += "<tr>";
+					section += "<td>" + obj[i].i_name + "</td>";
+					section += "<td>" + obj[i].c_category + "</td>";
+					section += "<td>" + obj[i].cs_category + "</td>";
+					section += "<td>" + obj[i].i_price + "</td>";
+					section += "<td>" + obj[i].i_main + "</td>";
+					section += "<td>" + obj[i].i_detail + "</td>";
+					section += "<td>" + obj[i].i_info + "</td>";
+					section += "</tr>";
+				}
+				$("#sectionTableBody").html(section);
 			}
 		});
 	}
@@ -38,7 +64,8 @@
 				<div class="card">
 					<div class="card-body">
 						<h4 class="card-title">상품 일괄 등록</h4>
-						<br> <input type="file" id="excelFile" value="" accept=".xlsx">
+						<br> <input type="file" id="excelFile" value=""
+							accept=".xlsx" onchange="showExcelData();">
 						<button class="btn mb-1 btn-rounded btn-info"
 							onclick="fileUpload();">업로드</button>
 						<br> <br>
@@ -46,83 +73,16 @@
 							<table class="table header-border table-hover verticle-middle">
 								<thead>
 									<tr>
-										<th scope="col">#</th>
-										<th scope="col">Product</th>
-										<th scope="col">Popularity</th>
-										<th scope="col">Sales</th>
+										<th scope="col">상품명</th>
+										<th scope="col">대분류</th>
+										<th scope="col">소분류</th>
+										<th scope="col">가격</th>
+										<th scope="col">대표이미지</th>
+										<th scope="col">상세이미지</th>
+										<th scope="col">상품 정보</th>
 									</tr>
 								</thead>
-								<tbody>
-									<tr>
-										<th>1</th>
-										<td>Air Conditioner</td>
-										<td>
-											<div class="progress" style="height: 10px">
-												<div class="progress-bar gradient-1" style="width: 70%;"
-													role="progressbar">
-													<span class="sr-only">70% Complete</span>
-												</div>
-											</div>
-										</td>
-										<td><span class="label gradient-1 btn-rounded">70%</span>
-										</td>
-									</tr>
-									<tr>
-										<th>2</th>
-										<td>Textiles</td>
-										<td>
-											<div class="progress" style="height: 10px">
-												<div class="progress-bar gradient-2" style="width: 70%;"
-													role="progressbar">
-													<span class="sr-only">70% Complete</span>
-												</div>
-											</div>
-										</td>
-										<td><span class="label btn-rounded gradient-2">70%</span>
-										</td>
-									</tr>
-									<tr>
-										<th>3</th>
-										<td>Milk Powder</td>
-										<td>
-											<div class="progress" style="height: 10px">
-												<div class="progress-bar gradient-3" style="width: 70%;"
-													role="progressbar">
-													<span class="sr-only">70% Complete</span>
-												</div>
-											</div>
-										</td>
-										<td><span class="label btn-rounded gradient-3">70%</span>
-										</td>
-									</tr>
-									<tr>
-										<th>4</th>
-										<td>Vehicles</td>
-										<td>
-											<div class="progress" style="height: 10px">
-												<div class="progress-bar gradient-8" style="width: 70%;"
-													role="progressbar">
-													<span class="sr-only">70% Complete</span>
-												</div>
-											</div>
-										</td>
-										<td><span class="label gradient-8 btn-rounded">70%</span>
-										</td>
-									</tr>
-									<tr>
-										<th>5</th>
-										<td>Boats</td>
-										<td>
-											<div class="progress" style="height: 10px">
-												<div class="progress-bar gradient-1" style="width: 70%;"
-													role="progressbar">
-													<span class="sr-only">70% Complete</span>
-												</div>
-											</div>
-										</td>
-										<td><span class="label gradient-1 btn-rounded">70%</span>
-										</td>
-									</tr>
+								<tbody id="sectionTableBody">
 								</tbody>
 							</table>
 						</div>
