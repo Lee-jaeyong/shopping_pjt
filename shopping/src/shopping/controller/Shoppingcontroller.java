@@ -47,6 +47,7 @@ public class Shoppingcontroller extends HttpServlet {
 		String command = requestURI.substring(cmdIdx);
 		String front_path = "WEB-INF/front/";
 		String back_end = "WEB-INF/backend/";
+		String back_end_item = "WEB-INF/backend/item/";
 
 		Action action = null;
 		ActionForward forward = new ActionForward();
@@ -68,16 +69,16 @@ public class Shoppingcontroller extends HttpServlet {
 			forward.setPath(back_end + "index.jsp");
 		} else if (command.equals("adminItemlist.do")) {
 			forward.setRedirect(false);
-			forward.setPath(back_end + "itemlist.jsp");
+			forward.setPath(back_end_item + "itemlist.jsp");
 		} else if (command.equals("adminAddItem.do")) {
 			forward.setRedirect(false);
-			forward.setPath(back_end + "addItem.jsp");
+			forward.setPath(back_end_item + "addItem.jsp");
 		} else if (command.equals("addItem.do")) {
 			action = new AddItem_Action();
 			forward = action.execute(request, response);
 		} else if (command.equals("addAllItem.do")) {
 			forward.setRedirect(false);
-			forward.setPath(back_end + "alladditem.jsp");
+			forward.setPath(back_end_item + "alladditem.jsp");
 		} else if (command.equals("modifyItem.do")) {
 			action = new SelectItem_Action();
 			forward = action.execute(request, response);

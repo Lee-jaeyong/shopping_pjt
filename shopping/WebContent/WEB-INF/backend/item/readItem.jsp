@@ -5,13 +5,13 @@
 <!DOCTYPE html>
 <html>
 
-<%@include file="include/pageMeta.jsp"%>
+<%@include file="../include/pageMeta.jsp"%>
 <body>
-	<%@include file="include/headerTop.jsp"%>
+	<%@include file="../include/headerTop.jsp"%>
 
-	<%@include file="include/headerMenu.jsp"%>
+	<%@include file="../include/headerMenu.jsp"%>
 
-	<%@include file="include/sideMenu.jsp"%>
+	<%@include file="../include/sideMenu.jsp"%>
 
 	<!--**********************************
             Content body start
@@ -22,11 +22,11 @@
 	<!--**********************************
             Content body end
         ***********************************-->
-	<%@include file="include/footer.jsp"%>
+	<%@include file="../include/footer.jsp"%>
 	<!--**********************************
         Main wrapper end
     ***********************************-->
-	<%@include file="include/script.html"%>
+	<%@include file="../include/script.html"%>
 </body>
 
 </html>
