@@ -49,6 +49,7 @@ public class Shoppingcontroller extends HttpServlet {
 		String back_end = "WEB-INF/backend/";
 		String back_end_item = "WEB-INF/backend/item/";
 		String back_end_user = "WEB-INF/backend/user/";
+		String back_end_category = "WEB-INF/backend/category/";
 
 		Action action = null;
 		ActionForward forward = new ActionForward();
@@ -69,13 +70,13 @@ public class Shoppingcontroller extends HttpServlet {
 			forward.setRedirect(false);
 			forward.setPath(front_path + "page-login.html");
 		}
-		// 백엔드 시작
-		// 관리자 인덱스 페이지
+		// backend
+		// adminIndex
 		else if (command.equals("adminPage.do")) {
 			forward.setRedirect(false);
 			forward.setPath(back_end + "index.jsp");
 		}
-		// 상품 관리
+		// itemList
 		else if (command.equals("adminItemlist.do")) {
 			forward.setRedirect(false);
 			forward.setPath(back_end_item + "itemlist.jsp");
@@ -95,12 +96,16 @@ public class Shoppingcontroller extends HttpServlet {
 			action = new ModifyItem_Action();
 			forward = action.execute(request, response);
 		}
-		// 회원 관리
+		// userList
 		else if (command.equals("adminUserList.do")) {
 			forward.setRedirect(false);
 			forward.setPath(back_end_user + "userlist.jsp");
 		}
-
+		// categoryList
+		else if (command.equals("adminCategoryList.do")) {
+			forward.setRedirect(false);
+			forward.setPath(back_end_category + "categoryList.jsp");
+		}
 		if (forward.isRedirect()) {
 			response.sendRedirect(forward.getPath());
 		} else {

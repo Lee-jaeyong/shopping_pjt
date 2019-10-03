@@ -42,7 +42,7 @@
 						관리</span>
 			</a>
 				<ul aria-expanded="false">
-					<li><a href="#">카테고리 정보</a></li>
+					<li><a href="./adminCategoryList.do">카테고리 정보</a></li>
 					<li><a href="#">카테고리 등록</a></li>
 				</ul></li>
 			<li class="mega-menu mega-menu-sm"><a class="has-arrow"

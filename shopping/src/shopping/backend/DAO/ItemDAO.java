@@ -212,11 +212,13 @@ public class ItemDAO {
 	public ArrayList<ItemDTO> getlist(int page, String search, String sortType, int showType) {
 		ArrayList<ItemDTO> list = new ArrayList<ItemDTO>();
 		try {
-			String sql = "select distinct(i_idx),\r\n" + "i_name,\r\n" + "c_categoryName,\r\n" + "cs_categoryName,\r\n"
-					+ "i_price,\r\n" + "img_path,\r\n" + "i_hit,\r\n" + "i_date\r\n"
-					+ "from s_item,s_mainimg,s_category,s_small_category\r\n"
-					+ "where s_item.i_idx = s_mainimg.img_idx and\r\n" + " s_item.i_idx = s_category.c_i_idx and \r\n"
-					+ "s_item.i_idx = s_small_category.cs_i_idx\r\n and i_name like ? order by " + sortType + " desc";
+			String sql = "SELECT DISTINCT (\r\n" + "i_idx\r\n"
+					+ "), i_name, c_categoryName, cs_categoryName, i_price, img_path, i_hit, i_date\r\n"
+					+ "FROM s_item, s_mainimg, s_category, s_small_category, s_categoryName, s_small_categoryName\r\n"
+					+ "WHERE s_item.i_idx = s_mainimg.img_idx\r\n" + "AND s_categoryName.cn_idx = s_category.c_idx\r\n"
+					+ "AND s_small_category.cs_idx = s_small_categoryName.csn_idx\r\n"
+					+ "AND s_item.i_idx = s_category.c_i_idx\r\n" + "AND s_item.i_idx = s_small_category.cs_i_idx\r\n"
+					+ "AND i_name like ? order by " + sortType + " desc";
 			if (page != -1)
 				sql += " limit " + page * showType + "," + showType + "";
 			pstmt = conn.prepareStatement(sql);
