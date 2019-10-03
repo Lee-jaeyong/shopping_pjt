@@ -11,37 +11,27 @@
 <link rel="stylesheet" type="text/css"
 	href="front/styles/categories_responsive.css">
 </head>
+
 <script type="text/javascript">
-	function showPage(num) {
-		var pageNum = $("#pageNum").val();
-		$.ajax({
-			url : "./ShowSortServlet",
-			data : {
-				"showNum" : num,
-				"pageNum" : pageNum
-			},
-			type : "post",
-			dataType : "json",
-			success : function(data) {
-				var list = data.result;
-				var pageNum = data.pageNum;
-				var showNum = data.showPage;
-				var totalPage = data.totalPage;
 
-				alert("sdf");
-
-			},
-			error : function(xhr, status, error) {
-				alert("에러입니다.");
-			}
-		});
+	function showNum(num){
+		$("#showNum").val(num);
+		pageMove(0,num);
+		
+	}
+	
+	function next(showNum){
+		var num = $("#pageNum").val();
+		pageMove(num+1,showNum);
 	}
 
-	window.onload = function() {
-		var showNum = $("#showNum").val();
-		showPage(showNum);
+	function pageMove(num,num1) {
+		$("#pageNum").val(num);
+		$("#showNum").val(num1);
+		$("#pageInfo").submit();
 	}
 </script>
+
 <body>
 
 	<div class="super_container">
@@ -146,9 +136,17 @@
 
 						<!-- Products -->
 
+						<form id="pageInfo" method="post" action="category.do">
+							<input type="hidden" name="pageNum" id="pageNum" value="0"/> 
+							<input type="hidden" name="showNum" id="showNum" value ="12"/>
 
-						<input type="hidden" id="pageNum" value="0" /> <input
-							type="hidden" id="showNum" value="12" />
+						</form>
+						<%
+							ArrayList<Sh_itemDTO> list = (ArrayList<Sh_itemDTO>) request.getAttribute("list");
+							int totalPage = Integer.parseInt(request.getAttribute("totalPage").toString());
+							int pageNum = Integer.parseInt(request.getAttribute("pageNum").toString());
+							int showNum = Integer.parseInt(request.getAttribute("showNum").toString());
+						%>
 
 						<div class="products_iso">
 							<div class="row">
@@ -156,7 +154,6 @@
 
 									<!-- Product Sorting -->
 
-									<input type="hidden" id="showNum" value="12" />
 									<div
 										class="product_sorting_container product_sorting_container_top">
 										<ul class="product_sorting">
@@ -172,28 +169,28 @@
 														data-isotope-option='{ "sortBy": "name" }'><span>Product
 															Name</span></li>
 												</ul></li>
-											<li><span>Show</span> <span class="num_sorting_text">6</span>
+											<li><span>Show</span> <span class="num_sorting_text"><%=showNum %></span>
 												<i class="fa fa-angle-down"></i>
 												<ul class="sorting_num">
-													<li class="num_sorting_btn"><span>6</span></a></li>
-													<li class="num_sorting_btn"><span>12</span></li>
-													<li class="num_sorting_btn"><span>24</span></li>
+													<li class="num_sorting_btn"><a href="javascript:showNum(6);"><span>6</span></a></li>
+													<li class="num_sorting_btn"><a href="javascript:showNum(12);"><span>12</span></a></li>
+													<li class="num_sorting_btn"><a href="javascript:showNum(24);"><span>24</span></a></li>
 												</ul></li>
 										</ul>
 										<div class="pages d-flex flex-row align-items-center">
 											<div class="page_current">
-												<span>00</span>
+												<span><%=pageNum+1 %></span>
 												<ul class="page_selection">
-
-													<li><a href="#">11</a></li>
-
+													<%for(int i=0;i<totalPage;i++){ %>
+													<li><a href="javascript:pageMove(<%=i%>,<%=showNum%>);"><%=i+1%></a></li>
+													<%} %>
 												</ul>
 											</div>
 											<div class="page_total">
-												<span>of</span> 전체페이지
+												<span>of</span> <%=totalPage %>
 											</div>
 											<div id="next_page" class="page_next">
-												<a href="#"><i class="fa fa-long-arrow-right"
+												<a href="javascript:next(<%=showNum%>);"><i class="fa fa-long-arrow-right"
 													aria-hidden="true"></i></a>
 											</div>
 										</div>
@@ -205,34 +202,35 @@
 									<div class="product-grid">
 
 										<!-- Product 1 -->
-
-
-										<div class="product-item men">
-											<div class="product discount product_filter">
+										<%
+											for (int i = 0; i < list.size(); i++) {
+												String price = NumberFormat.getInstance().format(list.get(i).getI_price());
+										%>
+										<div class="product-item women">
+											<div class="product product_filter">
 												<div class="product_image">
-													<img src="img.jpg" alt="상품이미지" style="height: 250px;">
+													<img src="<%=list.get(i).getMainImg()%>" alt=""
+														style="height: 250px;">
 												</div>
-												<div class="favorite favorite_left"></div>
-												<!-- 세일표시부분
-												<div
-													class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center">
-													<span>-$20</span>
-												</div>
-												 -->
+												<div class="favorite"></div>
 												<div class="product_info">
 													<h6 class="product_name">
-														<a href="single.html"><!-- 상품 이름 --></a>
+														<a href="single.html"><%=list.get(i).getI_name()%></a>
 													</h6>
 													<div class="product_price">
-														<!-- price 부분 -->
-														<!-- $520.00<span>$590.00</span> -->
-													</div>
+														￦
+														<%=price%></div>
 												</div>
 											</div>
 											<div class="red_button add_to_cart_button">
-												<a href="#">add to cart</a>
+												<a href="#">장바구니 추가</a>
 											</div>
 										</div>
+										<%
+											}
+										%>
+
+
 									</div>
 
 									<!-- Product Sorting -->
@@ -252,17 +250,19 @@
 										<span class="showing_results">Showing 1–3 of 12 results</span>
 										<div class="pages d-flex flex-row align-items-center">
 											<div class="page_current">
-												<span><!-- 총 페이지 부분 --></span>
+												<span><%=pageNum+1 %></span>
 												<ul class="page_selection">
-													<!-- 페이징 부분 -->
+													<%for(int i=0;i<totalPage;i++){ %>
+													<li><a href="javascript:pageMove(<%=i%>,<%=showNum%>);"><%=i+1%></a></li>
+													<%} %>
 												</ul>
 											</div>
 											<div class="page_total">
 												<span>of</span>
-												<!-- 총페이지 -->
+												<%=totalPage %>
 											</div>
 											<div id="next_page_1" class="page_next">
-												<a href="#"><i class="fa fa-long-arrow-right"
+												<a href="javascript:next(<%=showNum%>);"><i class="fa fa-long-arrow-right"
 													aria-hidden="true"></i></a>
 											</div>
 										</div>

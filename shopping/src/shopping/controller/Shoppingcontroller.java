@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import shopping.backend.model.AddItem_Action;
 import shopping.backend.model.ModifyItem_Action;
 import shopping.backend.model.SelectItem_Action;
+import shopping.model.category_Action;
 
 @WebServlet("/Shoppingcontroller")
 public class Shoppingcontroller extends HttpServlet {
@@ -58,8 +59,8 @@ public class Shoppingcontroller extends HttpServlet {
 			forward.setRedirect(false);
 			forward.setPath(front_path + "index.jsp");
 		} else if (command.equals("category.do")) {
-			forward.setRedirect(false);
-			forward.setPath(front_path + "categories.jsp");
+			action = new category_Action();
+			forward = action.execute(request, response);
 		} else if (command.equals("contact.do")) {
 			forward.setRedirect(false);
 			forward.setPath(front_path + "contact.jsp");
