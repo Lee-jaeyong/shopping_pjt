@@ -40,16 +40,16 @@ public class ShoppingDAO {
 
 	public ArrayList<Sh_itemDTO> get_itemList(int pageNum,int showNum) {
 		ArrayList<Sh_itemDTO> list = new ArrayList<Sh_itemDTO>();
-		String sql = "select * from s_item,s_mainimg where s_item.i_idx = s_mainimg.img_idx limit ?,?";
+		String sql = "select i_idx,i_name,i_price,img_path from s_item,s_mainimg where s_item.i_idx=s_mainimg.img_idx limit ?,?";
 
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, pageNum * 12);
+			pstmt.setInt(1, pageNum * showNum);
 			pstmt.setInt(2, showNum);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				list.add(new Sh_itemDTO(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(8)));
+				list.add(new Sh_itemDTO(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4)));
 			}								//번호,이름,가격,이미지
 		} catch (Exception e) {
 			e.printStackTrace();
