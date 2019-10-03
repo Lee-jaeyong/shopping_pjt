@@ -47,7 +47,7 @@ public class GetUserListServlet extends HttpServlet {
 			json.append("{\"u_id\":\"" + list.get(i).getU_id() + "\",\"u_phone\":\"" + list.get(i).getU_phoneNumber()
 					+ "\",\"u_name\":\"" + list.get(i).getU_name() + "\",\"u_birth\":\"" + list.get(i).getU_birth()
 					+ "\",\"u_address\":\"" + list.get(i).getU_address() + "\",\"u_date\":\"" + list.get(i).getU_date()
-					+ "\"}");
+					+ "\",\"u_email\":\"" + list.get(i).getU_email() + "\"}");
 			if (i != list.size() - 1)
 				json.append(",");
 		}

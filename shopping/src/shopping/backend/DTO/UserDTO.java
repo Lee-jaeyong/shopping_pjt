@@ -11,9 +11,10 @@ public class UserDTO {
 	private String u_address;
 	private String u_date;
 	private String u_phoneNumber;
+	private String u_email;
 
 	public UserDTO(int u_idx, String u_identy, String u_phone, String u_name, String u_birth, String u_address,
-			String u_date) {
+			String u_date, String u_email) {
 		this.u_idx = u_idx;
 		this.u_id = u_identy;
 		this.u_phoneNumber = u_phone;
@@ -21,6 +22,15 @@ public class UserDTO {
 		this.u_birth = u_birth;
 		this.u_address = u_address;
 		this.u_date = u_date;
+		this.u_email = u_email;
+	}
+
+	public String getU_email() {
+		return u_email;
+	}
+
+	public void setU_email(String u_email) {
+		this.u_email = u_email;
 	}
 
 	public String getU_phoneNumber() {

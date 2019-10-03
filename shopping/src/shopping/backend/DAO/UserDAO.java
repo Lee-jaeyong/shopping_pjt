@@ -39,7 +39,7 @@ public class UserDAO {
 	public ArrayList<UserDTO> SelectUserList(int pageNum, String search, int showType, String sortType) {
 		ArrayList<UserDTO> list = new ArrayList<UserDTO>();
 
-		String sql = "select u_idx,u_identy,u_phone1,u_phone2,u_phone3,u_name,u_birth,u_address,u_date from s_user";
+		String sql = "select u_idx,u_identy,u_phone1,u_phone2,u_phone3,u_name,u_birth,u_address,u_date,u_email from s_user";
 		sql += " where u_name like ? order by " + sortType + " desc limit ?," + showType;
 		try {
 			pstmt = (PreparedStatement) conn.prepareStatement(sql);
@@ -55,7 +55,8 @@ public class UserDAO {
 				String u_birth = rs.getString(7);
 				String u_address = rs.getString(8);
 				String u_date = rs.getString(9);
-				list.add(new UserDTO(u_idx, u_identy, u_phone, u_name, u_birth, u_address, u_date));
+				String u_email = rs.getString(10);
+				list.add(new UserDTO(u_idx, u_identy, u_phone, u_name, u_birth, u_address, u_date, u_email));
 			}
 
 		} catch (Exception e) {

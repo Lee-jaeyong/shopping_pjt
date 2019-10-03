@@ -56,6 +56,8 @@
 								userList += "<td>" + obj[i].u_phone + "</td>";
 								userList += "<td><span>" + obj[i].u_name
 										+ "</span></td>";
+								userList += "<td><span>" + obj[i].u_email
+										+ "</span></td>";
 								userList += "<td><span>" + obj[i].u_birth
 										+ "</span></td>";
 								userList += "<td><span>" + obj[i].u_address
@@ -156,6 +158,7 @@
 												<th>아이디</th>
 												<th>휴대폰 번호</th>
 												<th>회원 이름</th>
+												<th>이메일</th>
 												<th>생년월일</th>
 												<th>주소</th>
 												<th>가입일</th>
