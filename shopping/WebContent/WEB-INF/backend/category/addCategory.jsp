@@ -6,10 +6,25 @@
 <html>
 <%@include file="../include/pageMeta.jsp"%>
 <script>
+	function categoryClick(value) {
+		$("#categoryClick").val(value);
+	}
+
 	function add_category() {
 		var ckind = parseInt($("#val-skill").val());
+		if ($("#categoryClick").val() == 0 && $("#c_category").val() == '') {
+			alert("(대)카테고리를 입력해주세요");
+			return;
+		} else if ($("#categoryClick").val() == 1
+				&& ($("#cs_category").val() == '' || ckind == -1)) {
+			if (ckind == -1)
+				alert("(대)해당하는 카테고리를 선택해주세요");
+			else
+				alert("(소)카테고리를 입력해주세요");
+			return;
+		}
 		var name;
-		if (ckind == -1)
+		if ($("#categoryClick").val() == 0)
 			name = $("#c_category").val();
 		else
 			name = $("#cs_category").val();
@@ -21,6 +36,8 @@
 				"ckind" : ckind,
 			},
 			success : function(data) {
+				alert("카테고리 등록 완료");
+				location.href = './adminCategoryList.do';
 			}
 		});
 	}
@@ -75,7 +92,7 @@
 						</ul>
 						<div class="tab-content">
 							<div class="tab-pane fade show active" id="home" role="tabpanel">
-								<div class="p-t-15">
+								<div class="p-t-15" onclick="categoryClick(0);">
 									<div class="col-lg-6">
 										<div class="form-group">
 											<h5>(대)카테고리</h5>
@@ -84,13 +101,12 @@
 										</div>
 										<button type="button"
 											onclick="add_category(); showCategory();"
-											class="btn mb-1 btn-secondary btn-block" data-toggle='modal'
-											data-target='.bd-example-modal-sm'>등 록</button>
+											class="btn mb-1 btn-secondary btn-block">등 록</button>
 									</div>
 								</div>
 							</div>
 							<div class="tab-pane fade" id="profile">
-								<div class="p-t-15">
+								<div class="p-t-15" onclick="categoryClick(1);">
 									<div class="col-lg-6">
 										<div class="form-group">
 											<h5>(소)카테고리</h5>
@@ -101,8 +117,7 @@
 										<br />
 										<button type="button"
 											onclick="add_category(); showCategory();"
-											class="btn mb-1 btn-secondary btn-block" data-toggle='modal'
-											data-target='.bd-example-modal-sm'>등 록</button>
+											class="btn mb-1 btn-secondary btn-block">등 록</button>
 									</div>
 								</div>
 							</div>
@@ -112,25 +127,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog"
-		aria-hidden="true">
-		<div class="modal-dialog modal-sm">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title">카테고리 등록</h5>
-					<button type="button" class="close" data-dismiss="modal">
-						<span>&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">카테고리가 등록되었습니다.</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary"
-						data-dismiss="modal"
-						onclick="location.href='./adminCategoryList.do'">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
+	<input type="hidden" id="categoryClick" value="0" />
 	<!--**********************************
             Content body end
         ***********************************-->

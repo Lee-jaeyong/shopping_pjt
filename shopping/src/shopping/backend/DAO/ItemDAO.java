@@ -139,11 +139,10 @@ public class ItemDAO {
 
 			pstmt.executeUpdate();
 
-			sql = "insert into s_category values (?,?,NULL)";
+			sql = "insert into s_category values (?,NULL)";
 			pstmt = conn.prepareStatement(sql);
 
 			pstmt.setInt(1, c_category);
-			pstmt.setString(2, category);
 
 			pstmt.executeUpdate();
 
@@ -154,12 +153,11 @@ public class ItemDAO {
 
 			pstmt.executeUpdate();
 
-			sql = "insert into s_small_category values (?,?,?,NULL)";
+			sql = "insert into s_small_category values (?,?,NULL)";
 			pstmt = conn.prepareStatement(sql);
 
 			pstmt.setInt(1, c_category);
 			pstmt.setInt(2, cs_category);
-			pstmt.setString(3, sm_category);
 
 			pstmt.executeUpdate();
 
