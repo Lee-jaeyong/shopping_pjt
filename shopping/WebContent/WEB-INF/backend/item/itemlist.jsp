@@ -60,6 +60,7 @@
 						} else {
 							for (var i = 0; i < obj.result.length; i++) {
 								listArea += "<tr>";
+								listArea += "<td width='50px;'><img src='"+obj.result[i].img_path+"' style='width:70px; height:50px;'/></td>";
 								listArea += "<td>" + obj.result[i].idx
 										+ "</td>";
 								listArea += "<td>" + obj.result[i].name
@@ -205,6 +206,7 @@
 									class="table table-striped table-bordered zero-configuration">
 									<thead>
 										<tr>
+											<th>상품 이미지</th>
 											<th>상품 번호</th>
 											<th>상품</th>
 											<th>대분류</th>

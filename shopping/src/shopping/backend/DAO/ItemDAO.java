@@ -179,10 +179,12 @@ public class ItemDAO {
 
 	public ItemDTO selectItem(int i_idx) {
 		try {
-			String sql = "select i_name,c_idx,c_categoryName,cs_idx,cs_categoryName,i_price,img_path,i_detailimg,i_info "
-					+ "from s_item,s_mainimg,s_category,s_small_category "
-					+ "where s_item.i_idx = s_mainimg.img_idx and s_item.i_idx = s_category.c_i_idx and "
-					+ "s_item.i_idx = s_small_category.cs_i_idx and i_idx = " + i_idx;
+			String sql = "SELECT i_name, c_idx, c_categoryName, cs_idx, cs_categoryName, i_price, img_path, i_detailimg, i_info\r\n"
+					+ "FROM s_item, s_mainimg, s_category, s_small_category, s_categoryname, s_small_categoryname\r\n"
+					+ "WHERE s_item.i_idx = s_mainimg.img_idx\r\n" + "AND s_item.i_idx = s_category.c_i_idx\r\n"
+					+ "AND s_categoryname.cn_idx = s_category.c_idx\r\n"
+					+ "AND s_small_category.cs_c_idx = s_small_categoryname.csn_idx\r\n"
+					+ "AND s_item.i_idx = s_small_category.cs_i_idx\r\n" + "AND i_idx = " + i_idx;
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			rs.next();

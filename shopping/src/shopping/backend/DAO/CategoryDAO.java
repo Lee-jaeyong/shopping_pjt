@@ -36,6 +36,23 @@ public class CategoryDAO {
 		}
 	}
 
+	public int addCategory(String category, int ckind) {
+		String sql = "";
+		if (ckind == -1)
+			sql = "insert into s_categoryname values (NULL,?)";
+		else
+			sql = "insert into s_small_categoryname values (" + ckind + ",NULL,?)";
+		int count = 0;
+		try {
+			pstmt = (PreparedStatement) conn.prepareStatement(sql);
+			pstmt.setString(1, category);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return count;
+	}
+
 	public ArrayList<CategoryDTO> getCategoryList() {
 		ArrayList<CategoryDTO> list = new ArrayList<CategoryDTO>();
 		String sql = "select * from s_categoryName";
@@ -53,7 +70,7 @@ public class CategoryDAO {
 
 	public ArrayList<CategoryDTO> getCsCategoryList(int category) {
 		ArrayList<CategoryDTO> list = new ArrayList<CategoryDTO>();
-		String sql = "select cs_categoryName from s_small_categoryname where csn_idx = " + category;
+		String sql = "select cs_categoryName from s_small_categoryname where c_idx = " + category;
 		try {
 			pstmt = (PreparedStatement) conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
