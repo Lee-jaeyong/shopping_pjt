@@ -168,10 +168,10 @@ public class ItemDAO {
 			conn.rollback();
 		}
 	}
-
+	
 	public ItemDTO selectItem(int i_idx) {
 		try {
-			String sql = "SELECT i_name, c_idx, c_categoryName, cs_idx, cs_categoryName, i_price, img_path, i_detailimg, i_info\r\n"
+			String sql = "SELECT i_name, s_category.c_idx, c_categoryName, cs_idx, cs_categoryName, i_price, img_path, i_detailimg, i_info\r\n"
 					+ "FROM s_item, s_mainimg, s_category, s_small_category, s_categoryname, s_small_categoryname\r\n"
 					+ "WHERE s_item.i_idx = s_mainimg.img_idx\r\n" + "AND s_item.i_idx = s_category.c_i_idx\r\n"
 					+ "AND s_categoryname.cn_idx = s_category.c_idx\r\n"
