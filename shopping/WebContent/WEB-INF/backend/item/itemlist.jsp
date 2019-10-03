@@ -28,7 +28,6 @@
 	}
 
 	function searchItem() {
-		$("#pageNum").val(0);
 		pageMove(0);
 	}
 
@@ -80,7 +79,7 @@
 										+ "</td>";
 								listArea += "<td><button type='button' class='btn btn-outline-dark' onclick='modifyItem("
 										+ obj.result[i].idx + ")'>수정</td>";
-								listArea += "<td><button type='button' class='btn btn-outline-danger' onclick='deleteItem("
+								listArea += "<td><button type='button' data-toggle='modal' data-target='.bd-example-modal-sm' class='btn btn-outline-danger' onclick='deleteItem("
 										+ obj.result[i].idx + ")'>삭제</td>";
 								listArea += "</tr>";
 							}
@@ -126,7 +125,6 @@
 			},
 			success : function(data) {
 				if (data == 'true') {
-					alert("삭제 완료");
 					pageMove(0);
 				} else
 					alert("삭제 도중 문제가 발생했습니다.");
@@ -225,6 +223,24 @@
 								<div class="button-group">
 									<div class="btn-toolbar">
 										<div id="blockArea" class="btn-group mr-2 mb-2"></div>
+									</div>
+								</div>
+								<div class="modal fade bd-example-modal-sm" tabindex="-1"
+									role="dialog" aria-hidden="true">
+									<div class="modal-dialog modal-sm">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title">상품 삭제</h5>
+												<button type="button" class="close" data-dismiss="modal">
+													<span>&times;</span>
+												</button>
+											</div>
+											<div class="modal-body">상품이 제거되었습니다.</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-secondary"
+													data-dismiss="modal">Close</button>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>

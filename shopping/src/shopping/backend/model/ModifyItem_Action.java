@@ -27,10 +27,10 @@ public class ModifyItem_Action implements Action {
 		String main_path = "front/images/mainImg/";
 		String detail_path = "front/images/detailImg/";
 
-		String sub_i_mainImg = "C:\\Users\\km\\git\\shopping_pjt\\shopping\\WebContent\\front\\images\\mainImg\\"
+		String sub_i_mainImg = "C:\\Users\\LJY\\git\\shopping_pjt\\shopping\\WebContent\\front\\images\\mainImg\\"
 				+ i_mainImg.substring(i_mainImg.lastIndexOf("\\") + 1);
 
-		String sub_i_detailImg = "C:\\Users\\km\\git\\shopping_pjt\\shopping\\WebContent\\front\\images\\detailImg\\"
+		String sub_i_detailImg = "C:\\Users\\LJY\\git\\shopping_pjt\\shopping\\WebContent\\front\\images\\detailImg\\"
 				+ i_detailImg.substring(i_detailImg.lastIndexOf("\\") + 1);
 
 		FileCopy.fileCopy(i_mainImg, sub_i_mainImg);

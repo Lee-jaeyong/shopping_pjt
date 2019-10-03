@@ -26,7 +26,19 @@ public class GetUserListServlet extends HttpServlet {
 		response.setContentType("text/html; charset=utf-8");
 		UserDAO userDAO = UserDAO.getInstance();
 
-		ArrayList<UserDTO> list = userDAO.SelectUserList("", 0, 0);
+		int pageNum = Integer.parseInt(request.getParameter("pageNum"));
+		String search = request.getParameter("search");
+		int showType = Integer.parseInt(request.getParameter("showType"));
+		String sortType = request.getParameter("sortType");
+
+		ArrayList<UserDTO> list = userDAO.SelectUserList(pageNum * showType, search, showType, sortType);
+
+		int totalCount = userDAO.getTotalCount(search);
+		int startBlock = pageNum / showType * showType;
+		int endBlock = startBlock + 10;
+		int totalBlock = (int) (Math.ceil(totalCount / (showType * 1.0)));
+		if (endBlock > totalBlock)
+			endBlock = totalBlock;
 		StringBuilder json = new StringBuilder();
 
 		json.append("{\"result\":[");
@@ -39,7 +51,8 @@ public class GetUserListServlet extends HttpServlet {
 			if (i != list.size() - 1)
 				json.append(",");
 		}
-		json.append("]}");
+		json.append("], \"totalBlock\":\"" + totalBlock + "\", \"startBlock\":\"" + startBlock + "\",\"endBlock\":\""
+				+ endBlock + "\"}");
 		response.getWriter().write(json.toString());
 	}
 

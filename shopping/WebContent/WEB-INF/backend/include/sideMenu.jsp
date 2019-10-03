@@ -6,7 +6,7 @@
         ***********************************-->
 <div class="nk-sidebar">
 	<div class="nk-nav-scroll">
-	
+
 		<ul class="metismenu" id="menu">
 			<li><a class="has-arrow" href="javascript:void()"
 				aria-expanded="false"> <i class="icon-speedometer menu-icon"></i><span
@@ -18,7 +18,7 @@
 					<li><a href="./addAllItem.do">상 품 (일 괄) 등 록</a></li>
 				</ul></li>
 			<li><a class="has-arrow" href="javascript:void()"
-				aria-expanded="false"> <i class="icon-speedometer menu-icon"></i><span
+				aria-expanded="false"> <i class="icon-badge menu-icon"></i><span
 					class="nav-text">회원 관리</span>
 			</a>
 				<ul aria-expanded="false">

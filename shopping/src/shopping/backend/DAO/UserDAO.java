@@ -36,12 +36,15 @@ public class UserDAO {
 		}
 	}
 
-	public ArrayList<UserDTO> SelectUserList(String search, int showType, int sortType) {
+	public ArrayList<UserDTO> SelectUserList(int pageNum, String search, int showType, String sortType) {
 		ArrayList<UserDTO> list = new ArrayList<UserDTO>();
 
 		String sql = "select u_idx,u_identy,u_phone1,u_phone2,u_phone3,u_name,u_birth,u_address,u_date from s_user";
+		sql += " where u_name like ? order by " + sortType + " desc limit ?," + showType;
 		try {
 			pstmt = (PreparedStatement) conn.prepareStatement(sql);
+			pstmt.setString(1, "%" + search + "%");
+			pstmt.setInt(2, pageNum);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
@@ -59,5 +62,19 @@ public class UserDAO {
 			e.printStackTrace();
 		}
 		return list;
+	}
+
+	public int getTotalCount(String search) {
+		String sql = "select count(u_idx) from s_user where u_name like ?";
+		try {
+			pstmt = (PreparedStatement) conn.prepareStatement(sql);
+			pstmt.setString(1, "%" + search + "%");
+			rs = pstmt.executeQuery();
+			rs.next();
+			return rs.getInt(1);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 0;
 	}
 }

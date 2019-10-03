@@ -13,7 +13,7 @@ public class SelectItem_Action implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = new ActionForward();
-		String back_end = "WEB-INF/backend/";
+		String back_end = "WEB-INF/backend/item/";
 		ItemDAO itemDAO = ItemDAO.getInstance();
 		ItemDTO item = itemDAO.selectItem(Integer.parseInt(request.getParameter("i_idx")));
 		request.setAttribute("item", item);
