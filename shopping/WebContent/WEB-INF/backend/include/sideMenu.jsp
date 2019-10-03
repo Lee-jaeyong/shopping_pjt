@@ -8,26 +8,70 @@
 	<div class="nk-nav-scroll">
 
 		<ul class="metismenu" id="menu">
-			<li><a class="has-arrow" href="javascript:void()"
-				aria-expanded="false"> <i class="icon-speedometer menu-icon"></i><span
-					class="nav-text">상 품</span>
+			<li class="nav-label">Shopping</li>
+			<li class="mega-menu mega-menu-sm"><a class="has-arrow"
+				href="javascript:void()" aria-expanded="false"> <i
+					class="icon-speedometer menu-icon"></i><span class="nav-text">상
+						품</span>
 			</a>
 				<ul aria-expanded="false">
 					<li><a href="./adminItemlist.do">상 품 목 록</a></li>
 					<li><a href="./adminAddItem.do">상 품 등 록</a></li>
 					<li><a href="./addAllItem.do">상 품 (일 괄) 등 록</a></li>
 				</ul></li>
-			<li><a class="has-arrow" href="javascript:void()"
-				aria-expanded="false"> <i class="icon-badge menu-icon"></i><span
-					class="nav-text">회원 관리</span>
+			<li class="mega-menu mega-menu-sm"><a class="has-arrow"
+				href="javascript:void()" aria-expanded="false"> <i
+					class="icon-badge menu-icon"></i><span class="nav-text">회원
+						관리</span>
 			</a>
 				<ul aria-expanded="false">
-					<li><a href=./adminUserList.do>회 원 정 보</a></li>
+					<li><a href="./adminUserList.do">회 원 정 보</a></li>
 					<li><a href="#">이벤트 이메일 전송</a></li>
 				</ul></li>
-			<li><a class="has-arrow" href="javascript:void()"
-				aria-expanded="false"> <i class="icon-graph menu-icon"></i> <span
-					class="nav-text">Charts</span>
+			<li class="mega-menu mega-menu-sm"><a class="has-arrow"
+				href="javascript:void()" aria-expanded="false"> <i
+					class="icon-globe-alt menu-icon"></i><span class="nav-text">주문
+						관리</span>
+			</a>
+				<ul aria-expanded="false">
+					<li><a href="#">주 문 정 보</a></li>
+				</ul></li>
+			<li class="mega-menu mega-menu-sm"><a class="has-arrow"
+				href="javascript:void()" aria-expanded="false"> <i
+					class="icon-menu menu-icon"></i><span class="nav-text">카테고리
+						관리</span>
+			</a>
+				<ul aria-expanded="false">
+					<li><a href="#">카테고리 정보</a></li>
+					<li><a href="#">카테고리 등록</a></li>
+				</ul></li>
+			<li class="mega-menu mega-menu-sm"><a class="has-arrow"
+				href="javascript:void()" aria-expanded="false"> <i
+					class="icon-grid menu-icon"></i><span class="nav-text">후기 관리</span>
+			</a>
+				<ul aria-expanded="false">
+					<li><a href="#">후 기 정 보</a></li>
+				</ul></li>
+			<li class="mega-menu mega-menu-sm"><a class="has-arrow"
+				href="javascript:void()" aria-expanded="false"> <i
+					class="icon-note menu-icon"></i><span class="nav-text">Q/A
+						관리</span>
+			</a>
+				<ul aria-expanded="false">
+					<li><a href="#">등록된 질문</a></li>
+				</ul></li>
+			<li class="mega-menu mega-menu-sm"><a class="has-arrow"
+				href="javascript:void()" aria-expanded="false"> <i
+					class="icon-badge menu-icon"></i><span class="nav-text">평점
+						관리</span>
+			</a>
+				<ul aria-expanded="false">
+					<li><a href="#">평 점 정 보</a></li>
+				</ul></li>
+			<li class="mega-menu mega-menu-sm"><a class="has-arrow"
+				href="javascript:void()" aria-expanded="false"> <i
+					class="icon-graph menu-icon"></i> <span class="nav-text">매출
+						현황</span>
 			</a>
 				<ul aria-expanded="false">
 					<li><a href="./chart-flot.html">Flot</a></li>
@@ -38,9 +82,9 @@
 					<li><a href="./chart-peity.html">Peity</a></li>
 				</ul></li>
 			<li class="nav-label">Pages</li>
-			<li><a class="has-arrow" href="javascript:void()"
-				aria-expanded="false"> <i class="icon-notebook menu-icon"></i><span
-					class="nav-text">Pages</span>
+			<li class="mega-menu mega-menu-sm"><a class="has-arrow"
+				href="javascript:void()" aria-expanded="false"> <i
+					class="icon-notebook menu-icon"></i><span class="nav-text">Pages</span>
 			</a>
 				<ul aria-expanded="false">
 					<li><a href="./page-login.html">Login</a></li>
