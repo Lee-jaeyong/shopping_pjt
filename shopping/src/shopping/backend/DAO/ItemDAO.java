@@ -92,27 +92,19 @@ public class ItemDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		sql = "insert into s_category values (?,?,NULL)";
-		String category = "";
-		if (c_category == 1)
-			category = "상의";
+		sql = "insert into s_category values (?,NULL)";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, c_category);
-			pstmt.setString(2, category);
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		sql = "insert into s_small_category values (?,?,?,NULL)";
-		String m_cs_category = "";
-		if (cs_category == 1)
-			m_cs_category = "가디건";
+		sql = "insert into s_small_category values (?,?,NULL)";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, c_category);
 			pstmt.setInt(2, cs_category);
-			pstmt.setString(3, m_cs_category);
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
