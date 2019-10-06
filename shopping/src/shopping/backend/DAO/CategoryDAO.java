@@ -30,7 +30,7 @@ public class CategoryDAO {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = (Connection) DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/shopping?useUnicode=true&characterEncoding=utf8", "root", "apmsetup");
+					"jdbc:mysql://localhost:3307/shopping?useUnicode=true&characterEncoding=utf8", "root", "apmsetup");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

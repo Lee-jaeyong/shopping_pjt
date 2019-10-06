@@ -63,8 +63,16 @@
 								listArea += "<td width='50px;'><img src='"+obj.result[i].img_path+"' style='width:70px; height:50px;'/></td>";
 								listArea += "<td>" + obj.result[i].idx
 										+ "</td>";
-								listArea += "<td>" + obj.result[i].name
-										+ "</td>";
+
+								var name = obj.result[i].name;
+								name = name.substr(0, name.indexOf(search))
+										+ "<span style='background-color:yellow;'>"
+										+ search
+										+ "</span>"
+										+ name.substr(name.indexOf(search)
+												+ search.length, name.length);
+
+								listArea += "<td>" + name + "</td>";
 								listArea += "<td>" + obj.result[i].c_category
 										+ "</td>";
 								listArea += "<td>" + obj.result[i].cs_cateogry

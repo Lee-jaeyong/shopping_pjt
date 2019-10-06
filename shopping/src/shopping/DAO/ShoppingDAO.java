@@ -31,14 +31,15 @@ public class ShoppingDAO {
 
 	private void DBConnect() throws Exception {
 		Class.forName("com.mysql.jdbc.Driver");
-		conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/shopping", "root", "apmsetup");
+		conn = (Connection) DriverManager.getConnection(
+				"jdbc:mysql://localhost:3307/shopping?useUnicode=true&characterEncoding=utf8", "root", "apmsetup");
 	}
 
 	public static void main(String[] args) throws Exception {
 		new ShoppingDAO();
 	}
 
-	public ArrayList<Sh_itemDTO> get_itemList(int pageNum,int showNum) {
+	public ArrayList<Sh_itemDTO> get_itemList(int pageNum, int showNum) {
 		ArrayList<Sh_itemDTO> list = new ArrayList<Sh_itemDTO>();
 		String sql = "select i_idx,i_name,i_price,img_path from s_item,s_mainimg where s_item.i_idx=s_mainimg.img_idx limit ?,?";
 
@@ -50,7 +51,7 @@ public class ShoppingDAO {
 
 			while (rs.next()) {
 				list.add(new Sh_itemDTO(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4)));
-			}								//번호,이름,가격,이미지
+			} // 번호,이름,가격,이미지
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
