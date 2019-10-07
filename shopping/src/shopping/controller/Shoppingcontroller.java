@@ -52,7 +52,8 @@ public class Shoppingcontroller extends HttpServlet {
 		String back_end_item = "WEB-INF/backend/item/";
 		String back_end_user = "WEB-INF/backend/user/";
 		String back_end_category = "WEB-INF/backend/category/";
-
+		String back_end_orders = "WEB-INF/backend/order/";
+		
 		Action action = null;
 		ActionForward forward = new ActionForward();
 
@@ -113,6 +114,11 @@ public class Shoppingcontroller extends HttpServlet {
 		} else if (command.equals("adminAddCategory.do")) {
 			forward.setRedirect(false);
 			forward.setPath(back_end_category + "addCategory.jsp");
+		}
+		// orderList
+		else if (command.equals("adminOrderList.do")) {
+			forward.setRedirect(false);
+			forward.setPath(back_end_orders + "orders.jsp");
 		}
 
 		if (forward.isRedirect()) {

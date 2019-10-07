@@ -34,7 +34,7 @@
 						관리</span>
 			</a>
 				<ul aria-expanded="false">
-					<li><a href="#">주 문 정 보</a></li>
+					<li><a href="./adminOrderList.do">주 문 정 보</a></li>
 				</ul></li>
 			<li class="mega-menu mega-menu-sm"><a class="has-arrow"
 				href="javascript:void()" aria-expanded="false"> <i
