@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import shopping.backend.model.AddItemPage_Action;
 import shopping.backend.model.AddItem_Action;
 import shopping.backend.model.ModifyItem_Action;
 import shopping.backend.model.SelectItem_Action;
@@ -85,8 +86,8 @@ public class Shoppingcontroller extends HttpServlet {
 			forward.setRedirect(false);
 			forward.setPath(back_end_item + "itemlist.jsp");
 		} else if (command.equals("adminAddItem.do")) {
-			forward.setRedirect(false);
-			forward.setPath(back_end_item + "addItem.jsp");
+			action = new AddItemPage_Action();
+			forward = action.execute(request, response);
 		} else if (command.equals("addItem.do")) {
 			action = new AddItem_Action();
 			forward = action.execute(request, response);

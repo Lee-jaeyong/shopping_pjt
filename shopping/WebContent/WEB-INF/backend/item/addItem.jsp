@@ -1,11 +1,38 @@
+<%@page import="shopping.backend.DTO.CategoryDTO"%>
 <%@page import="shopping.backend.DTO.ItemDTO"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%
+	ArrayList<CategoryDTO> list = (ArrayList<CategoryDTO>) request.getAttribute("list");
+%>
 <!DOCTYPE html>
 <html>
 <%@include file="../include/pageMeta.jsp"%>
 <script type="text/javascript">
+	function cs_category_list() {
+		$
+				.ajax({
+					url : "./GetCsCategoryList_AddItem",
+					type : "POST",
+					dataType : "json",
+					data : {
+						"category" : $("#c_category").val()
+					},
+					success : function(data) {
+						var html = "";
+						html += "<select class='form-control' id='cs_category' name='cs_category'>";
+						html += "<option value='0'>(소)분류</option>";
+						for (var i = 0; i < data.result.length; i++) {
+							html += "<option value='"+data.result[i].idx+"'>"
+									+ data.result[i].value + "</option>";
+						}
+						html += "</select>";
+						$("#cs_categoryArea").html(html);
+					}
+				});
+	}
+
 	function changeMainImg(input, kind) {
 		if (input.files && input.files[0]) {
 			var reader = new FileReader();
@@ -102,16 +129,22 @@
 										류 <span class="text-danger">*</span>
 									</label>
 									<div class="col-lg-3">
-										<select class="form-control" id="c_category" name="c_category">
+										<select class="form-control" id="c_category" name="c_category"
+											onchange="cs_category_list();">
 											<option value="0">(대)분류</option>
-											<option value="1">상의</option>
+											<%
+												for (int i = 0; i < list.size(); i++) {
+											%>
+											<option value="<%=list.get(i).getC_idx()%>"><%=list.get(i).getC_name()%></option>
+											<%
+												}
+											%>
 										</select>
 									</div>
-									<div class="col-lg-3">
+									<div class="col-lg-3" id="cs_categoryArea">
 										<select class="form-control" id="cs_category"
 											name="cs_category">
 											<option value="0">(소)분류</option>
-											<option value="1">가디건</option>
 										</select>
 									</div>
 								</div>

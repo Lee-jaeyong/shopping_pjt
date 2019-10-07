@@ -30,7 +30,7 @@ public class CategoryDAO {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = (Connection) DriverManager.getConnection(
-					"jdbc:mysql://localhost:3307/shopping?useUnicode=true&characterEncoding=utf8", "root", "apmsetup");
+					"jdbc:mysql://localhost:3306/shopping?useUnicode=true&characterEncoding=utf8", "root", "apmsetup");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -70,12 +70,12 @@ public class CategoryDAO {
 
 	public ArrayList<CategoryDTO> getCsCategoryList(int category) {
 		ArrayList<CategoryDTO> list = new ArrayList<CategoryDTO>();
-		String sql = "select cs_categoryName from s_small_categoryname where c_idx = " + category;
+		String sql = "select csn_idx,cs_categoryName from s_small_categoryname where c_idx = " + category;
 		try {
 			pstmt = (PreparedStatement) conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
-				list.add(new CategoryDTO(rs.getString(1)));
+				list.add(new CategoryDTO(rs.getInt(1), rs.getString(2)));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

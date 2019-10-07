@@ -32,7 +32,7 @@ public class ShoppingDAO {
 	private void DBConnect() throws Exception {
 		Class.forName("com.mysql.jdbc.Driver");
 		conn = (Connection) DriverManager.getConnection(
-				"jdbc:mysql://localhost:3307/shopping?useUnicode=true&characterEncoding=utf8", "root", "apmsetup");
+				"jdbc:mysql://localhost:3306/shopping?useUnicode=true&characterEncoding=utf8", "root", "apmsetup");
 	}
 
 	public static void main(String[] args) throws Exception {
@@ -51,7 +51,7 @@ public class ShoppingDAO {
 
 			while (rs.next()) {
 				list.add(new Sh_itemDTO(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4)));
-			} // 번호,이름,가격,이미지
+			} 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

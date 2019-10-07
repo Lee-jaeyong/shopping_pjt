@@ -33,7 +33,7 @@ public class ItemDAO {
 	private void DBConnect() throws Exception {
 		Class.forName("com.mysql.jdbc.Driver");
 		conn = (Connection) DriverManager.getConnection(
-				"jdbc:mysql://localhost:3307/shopping?useUnicode=true&characterEncoding=utf8", "root", "apmsetup");
+				"jdbc:mysql://localhost:3306/shopping?useUnicode=true&characterEncoding=utf8", "root", "apmsetup");
 	}
 
 	public int updateItem(ItemDTO item, int i_idx) {
