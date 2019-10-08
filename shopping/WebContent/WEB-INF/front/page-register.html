@@ -17,7 +17,119 @@
 <link href="./backend/css/style.css" rel="stylesheet">
 
 </head>
+<script type="text/javascript">
 
+	function DupCheck(){
+		var dupId = $("#id").val();
+		$.ajax({
+			url :"./duplicationCheck",
+			data : {
+				"dupId" : dupId
+			},
+			type : "GET",
+			dataType : "text",
+			success : function(data){
+				if(dupId != ""){
+				$("#DupCheck").html(data);
+				$("#DupCheck").val(data);
+				}
+			},
+			error : function(request,status,error){
+				alert("중복확인에러입니다.");
+			}
+			
+		});
+	}
+
+	function inputCheck(){
+		
+		var inputId = true;
+		if($("#DupCheck").val() == "멋진 아이디네요!"){
+			inputId = false;
+		}
+		
+		if($("#id").val() == "" || inputId){
+			alert("아이디를 확인해주세요");
+			$("#id").focus();
+		}else if($("#password").val() == "" || PWpattern()){
+			alert("비밀번호를 확인해주세요");
+			$("#password").focus();
+		}else if($("#passwordCheck").val() == "" || PWcheck()){
+			alert("비밀번호를 재확인해주세요");
+			$("#passwordCheck").focus();
+		}else if($("#email").val() == "" || emailCheck()){
+			alert("이메일을 입력해주세요");
+			$("#email").focus();
+		}else if($("#name").val() == "" || nameCheck()){
+			alert("이름을 입력해주세요");
+			$("#name").focus();
+		}else if($("#phone").val() == "" || phoneCheck()){
+			alert("핸드폰번호를 입력해주세요");
+			$("#phone").focus();
+		}
+		else if($("#birth").val() == "" || birthCheck()){
+			alert("생년월일을 입력해주세요");
+			$("#birth").focus();
+		}else{
+			$("#registerForm").submit();
+		}
+	}
+	
+	function PWpattern(){
+		
+		var pw = $("#password").val();
+	
+		if(/^[a-zA-Z0-9]*$/.test(pw) && pw.length <= 16 && pw.length >= 8 ){
+			$("#PWcheck").text("OK");
+			return false;
+		}else{
+			$("#PWcheck").text("8~16자 영문 대 소문자, 숫자를 사용하세요.");
+			return true;
+		}
+	}
+	
+	function PWcheck(){
+		var phone1 = $("#password").val();
+		var phone2 = $("#passwordCheck").val();
+		
+		if(phone1 == phone2){
+			return false;
+		}else{
+			return true;
+		}
+	}
+	
+	function emailCheck(){
+		
+		if(/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/.test($("#email").val()))
+			return false;
+		else
+			return true;
+	}
+	
+	function nameCheck(){	
+		var pt = true;
+		if(/^[가-힣]*$/.test($("#name").val()))
+			pt = false;
+		return pt;
+	}
+	
+	function phoneCheck(){
+		var pt = true;
+		if(/^01(?:0|1|[6-9])-(?:\d{3}|\d{4})-\d{4}$/.test($("#phone").val()))
+			pt = false;
+		return pt;
+	}
+	function birthCheck(){
+		var pt = true;
+		if(/\d{6}/.test($("#birth").val()))
+			pt = false;
+		return pt;
+		
+	}
+		
+	
+</script>
 <body class="h-100">
 
 	<!--*******************
@@ -48,24 +160,49 @@
 							<div class="card-body pt-5">
 
 								<a class="text-center" href="./index.do">
-									<h4>Rosella</h4>
+									<h4>회원가입</h4>
 								</a>
 
-								<form class="mt-5 mb-5 login-input">
+								<form class="mt-5 mb-5 login-input" id="registerForm">
 									<div class="form-group">
-										<input type="text" class="form-control" placeholder="Name"
+										<input type="text" id="id" class="form-control"
+											placeholder="아이디" onblur="DupCheck();" required><span
+											id="DupCheck"></span>
+									</div>
+									<div class="form-group">
+										<input type="password" id="password" class="form-control"
+											onblur="PWpattern();" placeholder="비밀번호" required><span
+											id="PWcheck"></span>
+									</div>
+									<div class="form-group">
+										<input type="password" id="passwordCheck" class="form-control"
+											placeholder="비밀번호확인" required>
+									</div>
+									<div class="form-group">
+										<input type="email" id="email" class="form-control"
+											placeholder="이메일" required>
+									</div>
+									<div class="form-group">
+										<input type="text" id="name" pattern="^[가-힣]*$"
+											title="'ex ) 홍길동'" class="form-control" placeholder="이름"
 											required>
 									</div>
 									<div class="form-group">
-										<input type="email" class="form-control" placeholder="Email"
-											required>
+										<input type="text" id="phone"
+											pattern="^01(?:0|1|[6-9])-(?:\d{3}|\d{4})-\d{4}$"
+											title="'ex ) 010-1234-5678'" class="form-control"
+											placeholder="핸드폰  ex ) 010-1234-5678" required>
 									</div>
 									<div class="form-group">
-										<input type="password" class="form-control"
-											placeholder="Password" required>
+										<input type="text" id="birth" pattern="\d{6}" title="'yymmdd'"
+											class="form-control" placeholder="생년월일(6자리)" required>
 									</div>
-									<button class="btn login-form__btn submit w-100">Sign
-										in</button>
+									<div class="form-group">
+										<input type="text" id="address" class="form-control"
+											placeholder="주소" required>
+									</div>
+									<input type="button" class="btn login-form__btn submit w-100"
+										onClick="inputCheck();" value="회원가입" />
 								</form>
 								<p class="mt-5 login-form__footer">
 									Have account <a href="./login.do" class="text-primary">Sign
