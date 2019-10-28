@@ -14,6 +14,7 @@ import shopping.backend.model.AddItem_Action;
 import shopping.backend.model.ModifyItem_Action;
 import shopping.backend.model.SelectItem_Action;
 import shopping.model.Category_Action;
+import shopping.model.RegisterCheck_Action;
 
 @WebServlet("/Shoppingcontroller")
 public class Shoppingcontroller extends HttpServlet {
@@ -58,8 +59,8 @@ public class Shoppingcontroller extends HttpServlet {
 		ActionForward forward = new ActionForward();
 
 		if (command.equals("index.do")) {
-			forward.setRedirect(false);
-			forward.setPath(front_path + "index.jsp");
+			action = new RegisterCheck_Action();
+			forward = action.execute(request, response);
 		} else if (command.equals("category.do")) {
 			action = new Category_Action();
 			forward = action.execute(request, response);

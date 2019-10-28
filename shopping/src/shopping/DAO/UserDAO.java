@@ -11,6 +11,7 @@ public class UserDAO {
 	Connection conn = null;
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
+	int re;
 	
 	public static UserDAO getInstance() {
 		if(userDAO == null)
@@ -52,7 +53,30 @@ public class UserDAO {
 			e.printStackTrace();
 		}
 		
-		return check;
+		return check;	
+	}
+	
+	public void joinDB(String id,String pw,String email,String name,String phone1,String phone2,String phone3,String birth,String address) {
+		String sql = "INSERT INTO s_user(u_identy,u_password,u_email,u_phone1,u_phone2,u_phone3,u_name,u_birth,u_address) "
+					+ "VALUES(?,?,?,?,?,?,?,?,?);";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setString(2, pw);
+			pstmt.setString(3, email);
+			pstmt.setString(4, phone1);
+			pstmt.setString(5, phone2);
+			pstmt.setString(6, phone3);
+			pstmt.setString(7, name);
+			pstmt.setString(8, birth);
+			pstmt.setString(9, address);
+			
+			re = pstmt.executeUpdate();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 		
 	}
 	

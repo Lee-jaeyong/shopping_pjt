@@ -58,21 +58,25 @@
 			alert("비밀번호를 재확인해주세요");
 			$("#passwordCheck").focus();
 		}else if($("#email").val() == "" || emailCheck()){
-			alert("이메일을 입력해주세요");
+			alert("이메일을 확인해주세요");
 			$("#email").focus();
 		}else if($("#name").val() == "" || nameCheck()){
-			alert("이름을 입력해주세요");
+			alert("이름을 확인해주세요");
 			$("#name").focus();
 		}else if($("#phone").val() == "" || phoneCheck()){
-			alert("핸드폰번호를 입력해주세요");
+			alert("핸드폰번호를 확인해주세요");
 			$("#phone").focus();
 		}
 		else if($("#birth").val() == "" || birthCheck()){
-			alert("생년월일을 입력해주세요");
+			alert("생년월일을 확인해주세요");
 			$("#birth").focus();
 		}else{
 			$("#registerForm").submit();
+			alert($("#address").val());
+			alert("회원가입 완료");
 		}
+		
+		
 	}
 	
 	function PWpattern(){
@@ -163,14 +167,14 @@
 									<h4>회원가입</h4>
 								</a>
 
-								<form class="mt-5 mb-5 login-input" id="registerForm">
+								<form class="mt-5 mb-5 login-input" id="registerForm" method="post" action="index.do">
 									<div class="form-group">
-										<input type="text" id="id" class="form-control"
+										<input type="text" name="inputId" id="id" class="form-control"
 											placeholder="아이디" onblur="DupCheck();" required><span
 											id="DupCheck"></span>
 									</div>
 									<div class="form-group">
-										<input type="password" id="password" class="form-control"
+										<input type="password" name="inputPw" id="password" class="form-control"
 											onblur="PWpattern();" placeholder="비밀번호" required><span
 											id="PWcheck"></span>
 									</div>
@@ -179,26 +183,23 @@
 											placeholder="비밀번호확인" required>
 									</div>
 									<div class="form-group">
-										<input type="email" id="email" class="form-control"
+										<input type="email" name="email" id="email" class="form-control"
 											placeholder="이메일" required>
 									</div>
 									<div class="form-group">
-										<input type="text" id="name" pattern="^[가-힣]*$"
-											title="'ex ) 홍길동'" class="form-control" placeholder="이름"
+										<input type="text" name="name" id="name" class="form-control" placeholder="이름"
 											required>
 									</div>
 									<div class="form-group">
-										<input type="text" id="phone"
-											pattern="^01(?:0|1|[6-9])-(?:\d{3}|\d{4})-\d{4}$"
-											title="'ex ) 010-1234-5678'" class="form-control"
+										<input type="text" name="phone" id="phone" class="form-control"
 											placeholder="핸드폰  ex ) 010-1234-5678" required>
 									</div>
 									<div class="form-group">
-										<input type="text" id="birth" pattern="\d{6}" title="'yymmdd'"
+										<input type="text" name="birth" id="birth" 
 											class="form-control" placeholder="생년월일(6자리)" required>
 									</div>
 									<div class="form-group">
-										<input type="text" id="address" class="form-control"
+										<input type="text" name="address" id="address" class="form-control"
 											placeholder="주소" required>
 									</div>
 									<input type="button" class="btn login-form__btn submit w-100"

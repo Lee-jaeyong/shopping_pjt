@@ -37,12 +37,12 @@ public class duplicationCheck extends HttpServlet {
 		if(i==true && id.length() >= 5 && id.length() <= 20)
 		{
 			if(dao.dupCheck(id)) {
-				result = "¸ÚÁø ¾ÆÀÌµð³×¿ä!";
+				result = "ë©‹ì§„ ì•„ì´ë””ë„¤ìš”!";
 			}else {
-				result = "ÀÌ¹Ì Á¸ÀçÇÏ´Â ¾ÆÀÌµðÀÔ´Ï´Ù.";
+				result = "ì´ë¯¸ ì¡´ìž¬í•˜ëŠ” ì•„ì´ë””ìž…ë‹ˆë‹¤.";
 			}
 		}else {
-			result = "5~20ÀÚÀÇ ¿µ¹® ¼Ò¹®ÀÚ, ¼ýÀÚ¸¸ »ç¿ë °¡´ÉÇÕ´Ï´Ù.";
+			result = "5~20ìžì˜ ì˜ë¬¸ ì†Œë¬¸ìž, ìˆ«ìžë§Œ ì‚¬ìš© ê°€ëŠ¥í•©ë‹ˆë‹¤.";
 		}
 		
 		

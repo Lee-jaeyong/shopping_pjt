@@ -10,18 +10,22 @@
 	href="front/styles/categories_styles.css">
 <link rel="stylesheet" type="text/css"
 	href="front/styles/categories_responsive.css">
-</head>
 
 <script type="text/javascript">
+
 	function showNum(num) {
 		$("#showNum").val(num);
 		pageMove(0, num);
-
 	}
 
-	function next(showNum) {
-		var num = $("#pageNum").val();
-		pageMove(num + 1, showNum);
+	function next(pageNum,showNum,totalPage) {
+		if(totalPage < pageNum+2)
+			alert("마지막 페이지 입니다.")
+		else{
+			$("#pageNum").val(pageNum+1);
+			var num = $("#pageNum").val();
+			pageMove(num++, showNum);	
+		}
 	}
 
 	function pageMove(num, num1) {
@@ -185,7 +189,7 @@
 												<i class="fa fa-angle-down"></i>
 												<ul class="sorting_num">
 													<li class="num_sorting_btn"><a
-														href="javascript:showNum(6);"><span>6</span></a></li>
+														href="javascript:showNum(4);"><span>4</span></a></li>
 													<li class="num_sorting_btn"><a
 														href="javascript:showNum(12);"><span>12</span></a></li>
 													<li class="num_sorting_btn"><a
@@ -211,7 +215,7 @@
 												<%=totalPage%>
 											</div>
 											<div id="next_page" class="page_next">
-												<a href="javascript:next(<%=showNum%>);"><i
+												<a href="javascript:next(<%=pageNum %>,<%=showNum%>,<%=totalPage%>);"><i
 													class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
 											</div>
 										</div>
@@ -288,7 +292,7 @@
 												<%=totalPage%>
 											</div>
 											<div id="next_page_1" class="page_next">
-												<a href="javascript:next(<%=showNum%>);"><i
+												<a href="javascript:next(<%=pageNum %>,<%=showNum%>,<%=totalPage%>);"><i
 													class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
 											</div>
 										</div>
