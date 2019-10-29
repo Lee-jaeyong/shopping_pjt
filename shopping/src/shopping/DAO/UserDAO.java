@@ -12,6 +12,7 @@ public class UserDAO {
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
 	int re;
+	int fdsafdsf;
 	
 	public static UserDAO getInstance() {
 		if(userDAO == null)
