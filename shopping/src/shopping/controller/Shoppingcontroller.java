@@ -13,7 +13,9 @@ import shopping.backend.model.AddItemPage_Action;
 import shopping.backend.model.AddItem_Action;
 import shopping.backend.model.ModifyItem_Action;
 import shopping.backend.model.SelectItem_Action;
+import shopping.collection.StringFilter;
 import shopping.model.Category_Action;
+import shopping.model.LoginCheck_Action;
 import shopping.model.RegisterCheck_Action;
 
 @WebServlet("/Shoppingcontroller")
@@ -54,13 +56,13 @@ public class Shoppingcontroller extends HttpServlet {
 		String back_end_user = "WEB-INF/backend/user/";
 		String back_end_category = "WEB-INF/backend/category/";
 		String back_end_orders = "WEB-INF/backend/order/";
-		
+
 		Action action = null;
 		ActionForward forward = new ActionForward();
 
 		if (command.equals("index.do")) {
-			action = new RegisterCheck_Action();
-			forward = action.execute(request, response);
+			forward.setRedirect(false);
+			forward.setPath(front_path + "index.jsp");
 		} else if (command.equals("category.do")) {
 			action = new Category_Action();
 			forward = action.execute(request, response);
@@ -70,12 +72,24 @@ public class Shoppingcontroller extends HttpServlet {
 		} else if (command.equals("single.do")) {
 			forward.setRedirect(false);
 			forward.setPath(front_path + "single.jsp");
-		} else if (command.equals("login.do")) {
-			forward.setRedirect(false);
-			forward.setPath(front_path + "page-login.html");
-		} else if (command.equals("join.do")) {
+		}
+		// 로그인 파트
+		else if (command.equals("login.do")) {
+			if (request.getParameter("id") != null) {
+				action = new LoginCheck_Action();
+				forward = action.execute(request, response);
+			} else {
+				forward.setRedirect(false);
+				forward.setPath(front_path + "page-login.jsp");
+			}
+		}
+		// 회원가입 파트
+		else if (command.equals("join.do")) {
 			forward.setRedirect(false);
 			forward.setPath(front_path + "page-register.html");
+		} else if (command.equals("joinOk.do")) {
+			action = new RegisterCheck_Action();
+			forward = action.execute(request, response);
 		}
 		// backend
 		// adminIndex

@@ -71,12 +71,9 @@
 			alert("생년월일을 확인해주세요");
 			$("#birth").focus();
 		}else{
-			$("#registerForm").submit();
-			alert($("#address").val());
+			$("#registerForm").attr("action","joinOk.do").attr("method","post").submit();
 			alert("회원가입 완료");
 		}
-		
-		
 	}
 	
 	function PWpattern(){
@@ -167,40 +164,41 @@
 									<h4>회원가입</h4>
 								</a>
 
-								<form class="mt-5 mb-5 login-input" id="registerForm" method="post" action="index.do">
+								<form class="mt-5 mb-5 login-input" id="registerForm">
 									<div class="form-group">
 										<input type="text" name="inputId" id="id" class="form-control"
 											placeholder="아이디" onblur="DupCheck();" required><span
 											id="DupCheck"></span>
 									</div>
 									<div class="form-group">
-										<input type="password" name="inputPw" id="password" class="form-control"
-											onblur="PWpattern();" placeholder="비밀번호" required><span
-											id="PWcheck"></span>
+										<input type="password" name="inputPw" id="password"
+											class="form-control" onblur="PWpattern();" placeholder="비밀번호"
+											required><span id="PWcheck"></span>
 									</div>
 									<div class="form-group">
 										<input type="password" id="passwordCheck" class="form-control"
 											placeholder="비밀번호확인" required>
 									</div>
 									<div class="form-group">
-										<input type="email" name="email" id="email" class="form-control"
-											placeholder="이메일" required>
+										<input type="email" name="email" id="email"
+											class="form-control" placeholder="이메일" required>
 									</div>
 									<div class="form-group">
-										<input type="text" name="name" id="name" class="form-control" placeholder="이름"
+										<input type="text" name="name" id="name" class="form-control"
+											placeholder="이름" required>
+									</div>
+									<div class="form-group">
+										<input type="text" name="phone" id="phone"
+											class="form-control" placeholder="핸드폰  ex ) 010-1234-5678"
 											required>
 									</div>
 									<div class="form-group">
-										<input type="text" name="phone" id="phone" class="form-control"
-											placeholder="핸드폰  ex ) 010-1234-5678" required>
-									</div>
-									<div class="form-group">
-										<input type="text" name="birth" id="birth" 
+										<input type="text" name="birth" id="birth"
 											class="form-control" placeholder="생년월일(6자리)" required>
 									</div>
 									<div class="form-group">
-										<input type="text" name="address" id="address" class="form-control"
-											placeholder="주소" required>
+										<input type="text" name="address" id="address"
+											class="form-control" placeholder="주소" required>
 									</div>
 									<input type="button" class="btn login-form__btn submit w-100"
 										onClick="inputCheck();" value="회원가입" />

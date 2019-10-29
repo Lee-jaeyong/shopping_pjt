@@ -80,6 +80,28 @@ public class UserDAO {
 		
 	}
 	
+	public int loginCheck(String id,String pw) {
+		
+		int result = -1;
+		String sql = "SELECT count(u_idx) FROM s_user WHERE u_identy = ? AND u_password = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setString(2, pw);
+			
+			rs = pstmt.executeQuery();
+			rs.next();
+			
+			result = rs.getInt(1);
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return result;
+	}
 	
 	
 	
