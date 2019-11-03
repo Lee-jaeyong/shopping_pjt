@@ -8,15 +8,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import shopping.backend.model.AddItemPage_Action;
 import shopping.backend.model.AddItem_Action;
 import shopping.backend.model.ModifyItem_Action;
 import shopping.backend.model.SelectItem_Action;
-import shopping.collection.StringFilter;
 import shopping.model.Category_Action;
+import shopping.model.DeleteShoppingCart_Action;
 import shopping.model.LoginCheck_Action;
 import shopping.model.RegisterCheck_Action;
+import shopping.model.SelectItemAction;
+import shopping.model.addShoppingCart_Action;
 
 @WebServlet("/Shoppingcontroller")
 public class Shoppingcontroller extends HttpServlet {
@@ -61,8 +64,7 @@ public class Shoppingcontroller extends HttpServlet {
 		ActionForward forward = new ActionForward();
 
 		if (command.equals("index.do")) {
-			forward.setRedirect(false);
-			forward.setPath(front_path + "index.jsp");
+			forward = sessionCheck(request, false, front_path + "index.jsp");
 		} else if (command.equals("category.do")) {
 			action = new Category_Action();
 			forward = action.execute(request, response);
@@ -70,8 +72,18 @@ public class Shoppingcontroller extends HttpServlet {
 			forward.setRedirect(false);
 			forward.setPath(front_path + "contact.jsp");
 		} else if (command.equals("single.do")) {
-			forward.setRedirect(false);
-			forward.setPath(front_path + "single.jsp");
+			action = new SelectItemAction();
+			forward = action.execute(request, response);
+		}
+		//장바구니 파트
+		else if (command.equals("cart.do")) {
+			forward = sessionCheck(request, false, front_path + "shoppingCart.jsp");
+		} else if(command.equals("addCart.do")) {
+			action = new addShoppingCart_Action();
+			forward = action.execute(request, response);
+		} else if(command.equals("delCart.do")) {
+			action = new DeleteShoppingCart_Action();
+			forward = action.execute(request, response);
 		}
 		// 로그인 파트
 		else if (command.equals("login.do")) {
@@ -143,5 +155,18 @@ public class Shoppingcontroller extends HttpServlet {
 			dispatcher.forward(request, response);
 		}
 
+	}
+
+	private ActionForward sessionCheck(HttpServletRequest request, boolean redirect, String path) {
+		ActionForward forward = new ActionForward();
+		HttpSession session = request.getSession();
+		if (session.getAttribute("u_id") == null) {
+			forward.setRedirect(true);
+			forward.setPath("./login.do");
+		} else {
+			forward.setRedirect(redirect);
+			forward.setPath(path);
+		}
+		return forward;
 	}
 }

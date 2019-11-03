@@ -1,15 +1,71 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.Date"%>
+<%@page import="shopping.DTO.Sh_itemDTO"%>
+<%@page import="java.text.NumberFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <%@include file="include/pageMeta.html"%>
-<link rel="stylesheet" type="text/css" href="front/styles/single_styles.css">
+<link rel="stylesheet" type="text/css"
+	href="front/styles/single_styles.css">
 <link rel="stylesheet" type="text/css"
 	href="front/styles/single_responsive.css">
 </head>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript">
+	function addCart() {
+		if ($("#user").val() == "") {
+			alert("로그인이 필요합니다.");
+		} else {
+
+			var count = $("#quantity_value").text();
+			var user = $("#user").val();
+			var i_idx = $("#i_idx").val();
+			var color = $("#sel1 option:selected").val();
+			var size = $("#sel2 option:selected").val();
+
+			if (color == "defalutColor") {
+				alert("색상을 선택해주세요");
+			} else if (size == "defalutSize") {
+				alert("사이즈를 선택해주세요");
+			} else {
+
+				$.ajax({
+					url : "addCart.do",
+					type : "post",
+					data : {
+						"count" : count,
+						"size" : size,
+						"color" : color,
+						"i_idx" : i_idx,
+						"user" : user
+					},
+					success : function(data) {
+						alert("장바구니에 추가했습니다.");
+					}
+
+				});
+			}
+		}
+	}
+</script>
 
 <body>
+	<%
+		String user = "";
+		if (session.getAttribute("u_id") != null)
+			user = (String) session.getAttribute("u_id");
+	%>
 
+	<%
+		Sh_itemDTO item = ((Sh_itemDTO) request.getAttribute("item"));
+		ArrayList<Sh_itemDTO> colorAndSize = ((ArrayList<Sh_itemDTO>) request.getAttribute("colorAndSize"));
+		String price = NumberFormat.getInstance().format(item.getI_price());
+	%>
+	<input type="hidden" id="i_idx" value="<%=item.getI_idx()%>" />
+	<input type="hidden" id="user" value="<%=user%>" />
 	<div class="super_container">
 		<!-- Header -->
 		<%@include file="include/header.html"%>
@@ -38,22 +94,10 @@
 				<div class="col-lg-7">
 					<div class="single_product_pics">
 						<div class="row">
-							<div class="col-lg-3 thumbnails_col order-lg-1 order-2">
-								<div class="single_product_thumbnails">
-									<ul>
-										<li><img src="front/images/single_1_thumb.jpg" alt=""
-											data-image="front/images/single_1.jpg"></li>
-										<li class="active"><img src="front/images/single_2_thumb.jpg"
-											alt="" data-image="front/images/single_2.jpg"></li>
-										<li><img src="front/images/single_3_thumb.jpg" alt=""
-											data-image="front/images/single_3.jpg"></li>
-									</ul>
-								</div>
-							</div>
 							<div class="col-lg-9 image_col order-lg-2 order-1">
 								<div class="single_product_image">
-									<div class="single_product_image_background"
-										style="background-image: url(front/images/single_2.jpg)"></div>
+									<img class="single_product_image_background"
+										src="<%=item.getMainImg()%>">
 								</div>
 							</div>
 						</div>
@@ -62,45 +106,78 @@
 				<div class="col-lg-5">
 					<div class="product_details">
 						<div class="product_details_title">
-							<h2>Pocket cotton sweatshirt</h2>
-							<p>Nam tempus turpis at metus scelerisque placerat nulla
-								deumantos solicitud felis. Pellentesque diam dolor, elementum
-								etos lobortis des mollis ut...</p>
+							<h2><%=item.getI_name()%></h2>
+							<p style="height: 160px;"><%=item.getInfo()%></p>
 						</div>
 						<div
 							class="free_delivery d-flex flex-row align-items-center justify-content-center">
-							<span class="ti-truck"></span><span>free delivery</span>
+							<span class="ti-truck"></span><span>무료 배송</span>
 						</div>
-						<div class="original_price">$629.99</div>
-						<div class="product_price">$495.00</div>
-						<ul class="star_rating">
-							<li><i class="fa fa-star" aria-hidden="true"></i></li>
-							<li><i class="fa fa-star" aria-hidden="true"></i></li>
-							<li><i class="fa fa-star" aria-hidden="true"></i></li>
-							<li><i class="fa fa-star" aria-hidden="true"></i></li>
-							<li><i class="fa fa-star-o" aria-hidden="true"></i></li>
-						</ul>
+
+						<div class="product_price" style="padding-top: 50px">
+							￦
+							<%=price%>원
+						</div>
 						<div class="product_color">
-							<span>Select Color:</span>
-							<ul>
-								<li style="background: #e54e5d"></li>
-								<li style="background: #252525"></li>
-								<li style="background: #60b3f3"></li>
-							</ul>
+							<span>색상:</span>
+							<div class="form-group">
+								<select class="form-control" id="sel1">
+									<option value="defalutColor" selected>색상을 선택해주세요</option>
+									<%
+										for (int i = 0; i < colorAndSize.size(); i++) {
+											String color = colorAndSize.get(i).getColor();
+											boolean chk = true;
+											for (int j = 0; j <= i; j++) {
+												if (i != j && color.equals(colorAndSize.get(j).getColor())) {
+													chk = false;
+													break;
+												}
+											}
+											if (chk == false)
+												continue;
+									%>
+									<option><%=color%></option>
+									<%
+										}
+									%>
+								</select>
+							</div>
+							<span>사이즈:</span>
+							<div class="form-group">
+								<select class="form-control" id="sel2">
+									<option value="defalutSize" selected>사이즈를 선택해주세요</option>
+									<%
+										for (int i = 0; i < colorAndSize.size(); i++) {
+											String size = colorAndSize.get(i).getSize();
+											boolean chk = true;
+											for (int j = 0; j <= i; j++) {
+												if (i != j && size.equals(colorAndSize.get(j).getSize())) {
+													chk = false;
+													break;
+												}
+											}
+											if (chk == false)
+												continue;
+									%>
+									<option><%=size%></option>
+									<%
+										}
+									%>
+								</select>
+							</div>
 						</div>
 						<div
 							class="quantity d-flex flex-column flex-sm-row align-items-sm-center">
-							<span>Quantity:</span>
+							<span>수량:</span>
 							<div class="quantity_selector">
 								<span class="minus"><i class="fa fa-minus"
-									aria-hidden="true"></i></span> <span id="quantity_value">1</span> <span
-									class="plus"><i class="fa fa-plus" aria-hidden="true"></i></span>
+									aria-hidden="true"></i></span> <span id="quantity_value" value="sdf">1</span>
+								<span class="plus"><i class="fa fa-plus"
+									aria-hidden="true"></i></span>
 							</div>
-							<div class="red_button add_to_cart_button">
-								<a href="#">add to cart</a>
+							<div class="red_button add_to_cart_button" style="width: 220px;">
+								<a href="javascript:addCart();">장바구니 추가</a>
 							</div>
-							<div
-								class="product_favorite d-flex flex-column align-items-center justify-content-center"></div>
 						</div>
 					</div>
 				</div>
@@ -129,50 +206,17 @@
 				</div>
 				<div class="row">
 					<div class="col">
-
 						<!-- Tab Description -->
-
 						<div id="tab_1" class="tab_container active">
 							<div class="row">
 								<div class="col-lg-5 desc_col">
-									<div class="tab_title">
-										<h4>Description</h4>
-									</div>
-									<div class="tab_text_block">
-										<h2>Pocket cotton sweatshirt</h2>
-										<p>Nam tempus turpis at metus scelerisque placerat nulla
-											deumantos solicitud felis. Pellentesque diam dolor, elementum
-											etos lobortis des mollis ut...</p>
-									</div>
-									<div class="tab_image">
-										<img src="front/images/desc_1.jpg" alt="">
-									</div>
-									<div class="tab_text_block">
-										<h2>Pocket cotton sweatshirt</h2>
-										<p>Nam tempus turpis at metus scelerisque placerat nulla
-											deumantos solicitud felis. Pellentesque diam dolor, elementum
-											etos lobortis des mollis ut...</p>
-									</div>
-								</div>
-								<div class="col-lg-5 offset-lg-2 desc_col">
-									<div class="tab_image">
-										<img src="front/images/desc_2.jpg" alt="">
-									</div>
-									<div class="tab_text_block">
-										<h2>Pocket cotton sweatshirt</h2>
-										<p>Nam tempus turpis at metus scelerisque placerat nulla
-											deumantos solicitud felis. Pellentesque diam dolor, elementum
-											etos lobortis des mollis ut...</p>
-									</div>
-									<div class="tab_image desc_last">
-										<img src="front/images/desc_3.jpg" alt="">
-									</div>
+									<img src="<%=item.getDetailImg() %>" style="width: 1300px;"
+										alt="">
 								</div>
 							</div>
 						</div>
 
 						<!-- Tab Additional Info -->
-
 						<div id="tab_2" class="tab_container">
 							<div class="row">
 								<div class="col additional_info_col">
@@ -188,21 +232,15 @@
 								</div>
 							</div>
 						</div>
-
 						<!-- Tab Reviews -->
-
 						<div id="tab_3" class="tab_container">
 							<div class="row">
-
 								<!-- User Reviews -->
-
 								<div class="col-lg-6 reviews_col">
 									<div class="tab_title reviews_title">
 										<h4>Reviews (2)</h4>
 									</div>
-
 									<!-- User Review -->
-
 									<div
 										class="user_review_container d-flex flex-column flex-sm-row">
 										<div class="user">
@@ -225,9 +263,7 @@
 												magna aliqua.</p>
 										</div>
 									</div>
-
 									<!-- User Review -->
-
 									<div
 										class="user_review_container d-flex flex-column flex-sm-row">
 										<div class="user">
@@ -251,11 +287,8 @@
 										</div>
 									</div>
 								</div>
-
 								<!-- Add Review -->
-
 								<div class="col-lg-6 add_review_col">
-
 									<div class="add_review">
 										<form id="review_form" action="post">
 											<div>
@@ -287,20 +320,14 @@
 											</div>
 										</form>
 									</div>
-
 								</div>
-
 							</div>
 						</div>
-
 					</div>
 				</div>
 			</div>
-
 		</div>
-
 		<!-- Benefit -->
-
 		<div class="benefit">
 			<div class="container">
 				<div class="row benefit_row">

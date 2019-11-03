@@ -24,7 +24,6 @@ public class RegisterCheck_Action implements Action {
 		String phone = request.getParameter("phone");
 		String birth = request.getParameter("birth");
 		String address = request.getParameter("address");
-
 		inputId = StringFilter.cleanXSS(inputId);
 		inputPw = StringFilter.cleanXSS(inputPw);
 		inputPw = StringFilter.MD5(inputPw);
@@ -37,7 +36,7 @@ public class RegisterCheck_Action implements Action {
 		String[] ph = phone.split("-");
 
 		dao.joinDB(inputId, inputPw, email, name, ph[0], ph[1], ph[2], birth, address);
-
+		
 		forward.setRedirect(true);
 		forward.setPath("./index.do");
 

@@ -1,7 +1,9 @@
 package shopping.model;
 
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import shopping.DAO.UserDAO;
 import shopping.collection.StringFilter;
@@ -26,6 +28,8 @@ public class LoginCheck_Action implements Action {
 		int result = dao.loginCheck(id, pw);
 
 		if (result > 0) {
+			HttpSession session = request.getSession();
+			session.setAttribute("u_id", id);
 			forward.setRedirect(true);
 			forward.setPath("./index.do");
 		} else {

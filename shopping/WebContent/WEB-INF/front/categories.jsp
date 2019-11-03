@@ -12,19 +12,18 @@
 	href="front/styles/categories_responsive.css">
 
 <script type="text/javascript">
-
 	function showNum(num) {
 		$("#showNum").val(num);
 		pageMove(0, num);
 	}
 
-	function next(pageNum,showNum,totalPage) {
-		if(totalPage < pageNum+2)
+	function next(pageNum, showNum, totalPage) {
+		if (totalPage < pageNum + 2)
 			alert("마지막 페이지 입니다.")
-		else{
-			$("#pageNum").val(pageNum+1);
+		else {
+			$("#pageNum").val(pageNum + 1);
 			var num = $("#pageNum").val();
-			pageMove(num++, showNum);	
+			pageMove(num++, showNum);
 		}
 	}
 
@@ -33,10 +32,17 @@
 		$("#showNum").val(num1);
 		$("#pageInfo").submit();
 	}
+
+	function singlePageMove(i_idx) {
+		$("#singlePage").val(i_idx);
+		$("#singlePageForm").attr("method", "post").attr("action",
+				"./single.do").submit();
+	}
 </script>
-
 <body>
-
+	<form id="singlePageForm">
+		<input type="hidden" name="i_idx" id="singlePage" value="" />
+	</form>
 	<div class="super_container">
 
 		<!-- Header -->
@@ -106,7 +112,6 @@
 								<li><i class="fa fa-square-o" aria-hidden="true"></i><span>XXL</span></li>
 							</ul>
 						</div>
-
 						<!-- Color -->
 						<div class="sidebar_section">
 							<div class="sidebar_title">
@@ -150,12 +155,12 @@
 							int pageNum = Integer.parseInt(request.getAttribute("pageNum").toString());
 							int showNum = Integer.parseInt(request.getAttribute("showNum").toString());
 						%>
-
 						<div class="products_iso">
 							<div class="row">
 								<div class="col">
 									<div>
-										<table class="table table-bordered" style="text-align: center;">
+										<table class="table table-bordered"
+											style="text-align: center;">
 											<tr>
 												<td>가디건</td>
 												<td>니트</td>
@@ -168,7 +173,7 @@
 											</tr>
 										</table>
 									</div>
-									<br/>
+									<br />
 									<!-- Product Sorting -->
 									<div
 										class="product_sorting_container product_sorting_container_top">
@@ -215,7 +220,8 @@
 												<%=totalPage%>
 											</div>
 											<div id="next_page" class="page_next">
-												<a href="javascript:next(<%=pageNum %>,<%=showNum%>,<%=totalPage%>);"><i
+												<a
+													href="javascript:next(<%=pageNum%>,<%=showNum%>,<%=totalPage%>);"><i
 													class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
 											</div>
 										</div>
@@ -232,21 +238,24 @@
 												String price = NumberFormat.getInstance().format(list.get(i).getI_price());
 										%>
 										<div class="product-item women">
-											<div class="product product_filter">
-												<div class="product_image">
-													<img src="<%=list.get(i).getMainImg()%>" alt=""
-														style="height: 250px;">
+											<a
+												href="javascript:singlePageMove(<%=list.get(i).getI_idx()%>)">
+												<div class="product product_filter">
+													<div class="product_image">
+														<img src="<%=list.get(i).getMainImg()%>" alt=""
+															style="height: 250px;">
+													</div>
+													<div class="favorite"></div>
+													<div class="product_info">
+														<h6 class="product_name">
+															<a href="single.html"><%=list.get(i).getI_name()%></a>
+														</h6>
+														<div class="product_price">
+															￦
+															<%=price%></div>
+													</div>
 												</div>
-												<div class="favorite"></div>
-												<div class="product_info">
-													<h6 class="product_name">
-														<a href="single.html"><%=list.get(i).getI_name()%></a>
-													</h6>
-													<div class="product_price">
-														￦
-														<%=price%></div>
-												</div>
-											</div>
+											</a>
 											<div class="red_button add_to_cart_button">
 												<a href="#">장바구니 추가</a>
 											</div>
@@ -292,7 +301,8 @@
 												<%=totalPage%>
 											</div>
 											<div id="next_page_1" class="page_next">
-												<a href="javascript:next(<%=pageNum %>,<%=showNum%>,<%=totalPage%>);"><i
+												<a
+													href="javascript:next(<%=pageNum%>,<%=showNum%>,<%=totalPage%>);"><i
 													class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
 											</div>
 										</div>

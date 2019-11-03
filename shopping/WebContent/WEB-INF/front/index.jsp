@@ -3,8 +3,10 @@
 <!DOCTYPE html>
 <html>
 <%@include file="include/pageMeta.html"%>
-<link rel="stylesheet" type="text/css" href="front/styles/main_styles.css">
-<link rel="stylesheet" type="text/css" href="front/styles/responsive.css">
+<link rel="stylesheet" type="text/css"
+	href="front/styles/main_styles.css">
+<link rel="stylesheet" type="text/css"
+	href="front/styles/responsive.css">
 </head>
 <body>
 
