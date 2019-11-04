@@ -31,24 +31,66 @@
 		pageMove(0);
 	}
 
-	function showStock(i_idx){
+	function showStock(i_idx) {
+		$
+				.ajax({
+					url : "./getItemStockServlet",
+					data : {
+						"data" : i_idx
+					},
+					dataType : "json",
+					success : function(data) {
+						var result = data.result;
+						var html = "";
+						for (var i = 0; i < result.length; i++) {
+							html += "<div class='input-group mb-3'>";
+							html += "<div class='input-group-prepend'>";
+							html += "<span class='input-group-text'>"
+									+ result[i].color + "[" + result[i].size
+									+ "]</span></div>";
+							html += "<input type='text' name='stockInput' class='form-control' value='"+result[i].stock+"'></div>";
+							html += "<input type='hidden' name='stockIdx' value='"+result[i].op_idx+"'/>";
+						}
+						$("#modal-body").html(html);
+					}
+				});
+	}
+
+	function saveStock() {
+		var dataArray = new Array($("input[name='stockInput']").length);
+		var keyArray = new Array($("input[name='stockInput']").length);
+		for (var i = 0; i < dataArray.length; i++) {
+			dataArray[i] = $("input[name='stockInput']")[i].value;
+			if (dataArray[i] === '' || isNaN(dataArray[i])) {
+				alert("항목을 다시 입력해주세요.");
+				return;
+			}
+			keyArray[i] = $("input[name='stockIdx']")[i].value;
+		}
 		$.ajax({
-			url : "./getItemStockServlet",
-			data : {"data" : i_idx},
+			url : "./SaveItemStockServlet",
+			data : {
+				"updateStock" : dataArray.toString(),
+				"updateKey" : keyArray.toString()
+			},
 			dataType : "json",
-			success : function(data){
-				alert(data);
+			success : function(data) {
+				if (data.result === 'true')
+					alert("재고 수정 완료");
+				else
+					alert("재고 수정 실패");
 			}
 		});
 	}
-	
+
 	function pageMove(pageNum) {
 		$("#pageNum").val(pageNum);
 		var page = pageNum;
 		var search = $("#search").val();
 		var sortType = $("#sortType").val();
 		var showType = $("#showType").val();
-		$.ajax({
+		$
+				.ajax({
 					url : "./getListServlet",
 					type : "POST",
 					dataType : "json",
@@ -94,7 +136,8 @@
 										+ "</td>";
 								listArea += "<td>" + obj.result[i].date
 										+ "</td>";
-								listArea += "<td><button type='button' data-toggle='modal' data-target='#myModal' class='btn btn-outline-dark'>재고 수정</td>";
+								listArea += "<td><button type='button' data-toggle='modal' data-target='#myModal' class='btn btn-outline-dark' onclick='showStock("
+										+ obj.result[i].idx + ");'>재고 수정</td>";
 								listArea += "<td><button type='button' class='btn btn-outline-dark' onclick='modifyItem("
 										+ obj.result[i].idx + ")'>수정</td>";
 								listArea += "<td><button type='button' class='btn btn-outline-danger' onclick='deleteItem("
@@ -133,7 +176,7 @@
 						$("#listArea").html(listArea);
 						$("#blockArea").html(btnArea);
 					},
-					error : function(data,a,b){
+					error : function(data, a, b) {
 						alert(a);
 					}
 				});
@@ -267,19 +310,11 @@
 				</div>
 
 				<!-- Modal body -->
-				<div class="modal-body">
-					<div class="input-group mb-3">
-						<div class="input-group-prepend">
-							<span class="input-group-text">Default</span>
-						</div>
-						<input type="text" class="form-control" value="">
-					</div>
-				</div>
-
+				<div class="modal-body" id="modal-body"></div>
 				<!-- Modal footer -->
 				<div class="modal-footer">
-					<button type="button" class="btn btn-danger" data-dismiss="modal">재고
-						수정</button>
+					<button type="button" class="btn btn-danger" data-dismiss="modal"
+						onclick="saveStock();">재고 수정</button>
 					<button type="button" class="btn btn-danger" data-dismiss="modal">확인</button>
 				</div>
 

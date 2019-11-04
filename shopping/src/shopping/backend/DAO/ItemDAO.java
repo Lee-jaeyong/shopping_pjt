@@ -36,6 +36,19 @@ public class ItemDAO {
 				"jdbc:mysql://localhost:3306/shopping?useUnicode=true&characterEncoding=utf8", "root", "apmsetup");
 	}
 
+	public int selectMaxIdx() {
+		try {
+			String sql = "select max(i_idx) from s_item";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			rs.next();
+			return rs.getInt(1);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
 	public int updateItem(ItemDTO item, int i_idx) {
 		try {
 			String sql = "update s_item set i_name = ?,i_price = ?,	i_detailimg = ?,i_info = ? where i_idx = " + i_idx;
@@ -236,12 +249,55 @@ public class ItemDAO {
 
 	public ArrayList<ItemDTO> getStockList(int i_idx) {
 		ArrayList<ItemDTO> list = new ArrayList<ItemDTO>();
-		String sql = "select ";
+		String sql = "select op_info_color,op_info_size,st_i_stock,op_idx " + "from s_stock, s_option "
+				+ "where s_stock.st_op_idx = s_option.op_idx and op_i_idx = " + i_idx;
 		try {
-			
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				list.add(new ItemDTO(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getInt(4)));
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return list;
+	}
+
+	public boolean updateStock(int op_idx, int stock) {
+		String sql = "update s_stock " + " set st_i_stock = " + stock + " where st_op_idx = " + op_idx;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.executeUpdate();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	public boolean insertOption(int i_idx, String color, String size) {
+		String sql = "insert into s_option values (" + i_idx + ",?,'" + size + "',null)";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, color);
+			pstmt.executeUpdate();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	public boolean insertStock(int i_idx) {
+		String sql = "insert into s_stock values (?,0,null)";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, i_idx);
+			pstmt.executeUpdate();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 }

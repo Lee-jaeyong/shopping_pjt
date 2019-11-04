@@ -27,11 +27,17 @@ public class ModifyItem_Action implements Action {
 		String main_path = "front/images/mainImg/";
 		String detail_path = "front/images/detailImg/";
 
-		String sub_i_mainImg = "C:\\Users\\LJY\\git\\shopping_pjt\\shopping\\WebContent\\front\\images\\mainImg\\"
-				+ i_mainImg.substring(i_mainImg.lastIndexOf("\\") + 1);
+		String sub_i_mainImg = this.getClass().getResource("/").getPath()
+				.replace("WEB-INF/classes/", "front\\images\\mainImg")
+				.replace("eclipse-workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/shopping",
+						"git\\shopping_pjt\\shopping\\WebContent")
+				.substring(1) + "\\" + i_mainImg.substring(i_mainImg.lastIndexOf("\\") + 1);
 
-		String sub_i_detailImg = "C:\\Users\\LJY\\git\\shopping_pjt\\shopping\\WebContent\\front\\images\\detailImg\\"
-				+ i_detailImg.substring(i_detailImg.lastIndexOf("\\") + 1);
+		String sub_i_detailImg = this.getClass().getResource("/").getPath()
+				.replace("WEB-INF/classes/", "front\\images\\mainImg")
+				.replace("eclipse-workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/shopping",
+						"git\\shopping_pjt\\shopping\\WebContent")
+				.substring(1) + "\\" + i_detailImg.substring(i_detailImg.lastIndexOf("\\") + 1);
 
 		FileCopy.fileCopy(i_mainImg, sub_i_mainImg);
 		FileCopy.fileCopy(i_detailImg, sub_i_detailImg);
@@ -39,7 +45,8 @@ public class ModifyItem_Action implements Action {
 		i_mainImg = main_path + i_mainImg.substring(i_mainImg.lastIndexOf("\\") + 1);
 		i_detailImg = detail_path + i_detailImg.substring(i_detailImg.lastIndexOf("\\") + 1);
 
-		ItemDTO item = new ItemDTO(i_name, c_category, cs_category, i_price, i_mainImg, i_detailImg, i_info);
+		ItemDTO item = new ItemDTO(i_name, c_category, cs_category, i_price, i_mainImg.replace(".jpg", ".jpeg"),
+				i_detailImg.replace(".jpg", ".jpeg"), i_info);
 
 		int i_idx = Integer.parseInt(request.getParameter("i_idx"));
 		itemDAO.updateItem(item, i_idx);

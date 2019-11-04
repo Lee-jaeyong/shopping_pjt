@@ -12,9 +12,19 @@ public class ItemDTO {
 	private String c_cagetoryName;
 	private String cs_categoryName;
 	private String img_path;
-
 	private int c_categoryNum;
 	private int cs_categoryNum;
+	private String op_info_color;
+	private String op_info_size;
+	private int st_i_stock;
+	private int op_idx;
+
+	public ItemDTO(String op_info_color, String op_info_size, int st_i_stock, int op_idx) {
+		this.op_info_color = op_info_color;
+		this.op_info_size = op_info_size;
+		this.st_i_stock = st_i_stock;
+		this.op_idx = op_idx;
+	}
 
 	public ItemDTO(String i_name, int c_categoryNum, int cs_categoryNum, int i_price, String img_path,
 			String i_detailimg, String i_info) {
@@ -50,6 +60,38 @@ public class ItemDTO {
 		this.img_path = img_path;
 		this.i_hit = i_hit;
 		this.i_date = i_date;
+	}
+
+	public int getOp_idx() {
+		return op_idx;
+	}
+
+	public void setOp_idx(int op_idx) {
+		this.op_idx = op_idx;
+	}
+
+	public String getOp_info_color() {
+		return op_info_color;
+	}
+
+	public void setOp_info_color(String op_info_color) {
+		this.op_info_color = op_info_color;
+	}
+
+	public String getOp_info_size() {
+		return op_info_size;
+	}
+
+	public void setOp_info_size(String op_info_size) {
+		this.op_info_size = op_info_size;
+	}
+
+	public int getSt_i_stock() {
+		return st_i_stock;
+	}
+
+	public void setSt_i_stock(int st_i_stock) {
+		this.st_i_stock = st_i_stock;
 	}
 
 	public int getCs_categoryNum() {

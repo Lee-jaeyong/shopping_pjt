@@ -10,6 +10,20 @@
 <html>
 <%@include file="../include/pageMeta.jsp"%>
 <script type="text/javascript">
+	var colorIdx = 0;
+
+	function addColors() {
+		$("#colorArea")
+				.append(
+						"<div class='row' id='color"+colorIdx+"'><input type='text' name='color'><input type='button' onclick='deleteColor("
+								+ colorIdx + ");' value='X'></div>");
+		colorIdx = colorIdx + 1;
+	}
+
+	function deleteColor(colorIdx) {
+		$("#color" + colorIdx).remove();
+	}
+
 	function cs_category_list() {
 		$
 				.ajax({
@@ -47,12 +61,28 @@
 		}
 	}
 	function checkInput() {
+		var colorArray = new Array($("input[name='color']").length);
+		var sizeArray = [];
+		for (var i = 0; i < colorArray.length; i++) {
+			colorArray[i] = $("input[name='color']")[i].value;
+		}
+		$("input[name='size']:checked").each(function(i) {
+			sizeArray.push($(this).val());
+		});
+		$("#itemSize").val(sizeArray.toString());
+		$("#itemColor").val(colorArray.toString());
 		if ($("#i_name").val() == "") {
 			alert("상품명을 등록해주세요");
 			$("#i_name").focus();
 		} else if ($("#i_price").val() == "") {
 			alert("상품 가격을 등록해주세요");
 			$("#i_price").focus();
+		} else if (colorArray.length == 0) {
+			alert("상품 색상을 1개 이상 입력해주세요");
+			$("#addColorBtn").focus();
+		} else if (sizeArray.length == 0) {
+			alert("상품 사이즈를 1개 이상 선택해주세요.");
+			$("#addSize").focus();
 		} else if ($("#i_price").val() == "") {
 			alert("상품 가격을 등록해주세요");
 			$("#i_price").focus();
@@ -73,7 +103,8 @@
 			alert("상품 등록 동의를 체크해주세요");
 			$("#checkAdd").focus();
 		} else {
-			$("#addItem").submit();
+			$("#addItem").attr("action", "./addItem.do").attr("method", "post")
+					.submit();
 			alert("등록 완료");
 		}
 	}
@@ -95,8 +126,9 @@
 				<div class="card">
 					<div class="card-body">
 						<div class="form-validation">
-							<form id="addItem" class="form-valide" action="./addItem.do"
-								method="post">
+							<form id="addItem" class="form-valide">
+								<input type="hidden" id="itemColor" name="itemColor" /> <input
+									type="hidden" id="itemSize" name="itemSize" />
 								<div class="form-group row">
 									<label class="col-lg-4 col-form-label" for="val-username">상품
 										명 <span class="text-danger">*</span>
@@ -113,6 +145,47 @@
 									<div class="col-lg-6">
 										<input type="text" class="form-control" id="i_price"
 											name="i_price">
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-lg-4 col-form-label" for="val-suggestions">사이즈
+										<span class="text-danger">*</span>
+									</label>
+									<div class="col-lg-6">
+										<div class="form-check">
+											<label class="form-check-label"> <input
+												type="checkbox" class="form-check-input" name="size"
+												value="S" id="addSize">S
+											</label>
+										</div>
+										<div class="form-check">
+											<label class="form-check-label"> <input
+												type="checkbox" class="form-check-input" name="size"
+												value="M">M
+											</label>
+										</div>
+										<div class="form-check">
+											<label class="form-check-label"> <input
+												type="checkbox" class="form-check-input" name="size"
+												value="L">L
+											</label>
+										</div>
+										<div class="form-check">
+											<label class="form-check-label"> <input
+												type="checkbox" class="form-check-input" name="size"
+												value="XL">XL
+											</label>
+										</div>
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-lg-4 col-form-label" for="val-suggestions">색상
+										<span class="text-danger">*</span>
+									</label>
+									<div class="col-lg-6">
+										<button type="button" class="btn btn-primary"
+											onclick="addColors();" id="addColorBtn">색상 추가</button>
+										<div class="col-sm-6" id="colorArea"></div>
 									</div>
 								</div>
 								<div class="form-group row">
