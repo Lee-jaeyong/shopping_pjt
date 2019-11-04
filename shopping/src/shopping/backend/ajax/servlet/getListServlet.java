@@ -45,7 +45,6 @@ public class getListServlet extends HttpServlet {
 		int endBlock = startBlock + showType;
 		if (endBlock >= totalBlock)
 			endBlock = totalBlock;
-
 		StringBuilder result = new StringBuilder();
 		result.append("{\"result\":[");
 		for (int i = 0; i < list.size(); i++) {
@@ -65,7 +64,7 @@ public class getListServlet extends HttpServlet {
 		result.append("],");
 		result.append("\"startBlock\":\"" + startBlock + "\",\"endBlock\":\"" + endBlock + "\",\"totalBlock\":\""
 				+ totalBlock + "\"}");
-		response.getWriter().write(result.toString());
+		response.getWriter().write(result.toString().replace("\\","\\\\"));
 	}
 
 }

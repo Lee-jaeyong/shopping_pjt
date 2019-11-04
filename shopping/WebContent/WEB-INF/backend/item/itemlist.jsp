@@ -31,14 +31,24 @@
 		pageMove(0);
 	}
 
+	function showStock(i_idx){
+		$.ajax({
+			url : "./getItemStockServlet",
+			data : {"data" : i_idx},
+			dataType : "json",
+			success : function(data){
+				alert(data);
+			}
+		});
+	}
+	
 	function pageMove(pageNum) {
 		$("#pageNum").val(pageNum);
 		var page = pageNum;
 		var search = $("#search").val();
 		var sortType = $("#sortType").val();
 		var showType = $("#showType").val();
-		$
-				.ajax({
+		$.ajax({
 					url : "./getListServlet",
 					type : "POST",
 					dataType : "json",
@@ -80,15 +90,14 @@
 								listArea += "<td>￦"
 										+ numberWithCommas(obj.result[i].price)
 										+ "</td>";
-								listArea += "<td>" + obj.result[i].img_path
-										+ "</td>";
 								listArea += "<td>" + obj.result[i].hit
 										+ "</td>";
 								listArea += "<td>" + obj.result[i].date
 										+ "</td>";
+								listArea += "<td><button type='button' data-toggle='modal' data-target='#myModal' class='btn btn-outline-dark'>재고 수정</td>";
 								listArea += "<td><button type='button' class='btn btn-outline-dark' onclick='modifyItem("
 										+ obj.result[i].idx + ")'>수정</td>";
-								listArea += "<td><button type='button' data-toggle='modal' data-target='.bd-example-modal-sm' class='btn btn-outline-danger' onclick='deleteItem("
+								listArea += "<td><button type='button' class='btn btn-outline-danger' onclick='deleteItem("
 										+ obj.result[i].idx + ")'>삭제</td>";
 								listArea += "</tr>";
 							}
@@ -123,22 +132,26 @@
 						}
 						$("#listArea").html(listArea);
 						$("#blockArea").html(btnArea);
+					},
+					error : function(data,a,b){
+						alert(a);
 					}
 				});
 	}
 	function deleteItem(i_idx) {
-		$.ajax({
-			url : "./ItemDeleteServlet",
-			data : {
-				"item_idx" : i_idx,
-			},
-			success : function(data) {
-				if (data == 'true') {
-					pageMove(0);
-				} else
-					alert("삭제 도중 문제가 발생했습니다.");
-			}
-		});
+		if (confirm("정말 삭제하시겠습니까?"))
+			$.ajax({
+				url : "./ItemDeleteServlet",
+				data : {
+					"item_idx" : i_idx,
+				},
+				success : function(data) {
+					if (data == 'true') {
+						pageMove(0);
+					} else
+						alert("삭제 도중 문제가 발생했습니다.");
+				}
+			});
 	}
 
 	function modifyItem(i_idx) {
@@ -220,11 +233,11 @@
 											<th>대분류</th>
 											<th>소분류</th>
 											<th>가격</th>
-											<th>대표이미지</th>
 											<th>조회수</th>
 											<th>상품 등록일</th>
-											<th>삭제</th>
-											<th>수정</th>
+											<th></th>
+											<th></th>
+											<th></th>
 										</tr>
 									</thead>
 									<tbody id="listArea">
@@ -235,28 +248,41 @@
 										<div id="blockArea" class="btn-group mr-2 mb-2"></div>
 									</div>
 								</div>
-								<div class="modal fade bd-example-modal-sm" tabindex="-1"
-									role="dialog" aria-hidden="true">
-									<div class="modal-dialog modal-sm">
-										<div class="modal-content">
-											<div class="modal-header">
-												<h5 class="modal-title">상품 삭제</h5>
-												<button type="button" class="close" data-dismiss="modal">
-													<span>&times;</span>
-												</button>
-											</div>
-											<div class="modal-body">상품이 제거되었습니다.</div>
-											<div class="modal-footer">
-												<button type="button" class="btn btn-secondary"
-													data-dismiss="modal">Close</button>
-											</div>
-										</div>
-									</div>
-								</div>
 							</div>
 						</div>
 					</div>
 				</div>
+			</div>
+		</div>
+	</div>
+	<!-- The Modal -->
+	<div class="modal fade" id="myModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+
+				<!-- Modal Header -->
+				<div class="modal-header">
+					<h4 class="modal-title">Modal Heading</h4>
+					<button type="button" class="close" data-dismiss="modal">×</button>
+				</div>
+
+				<!-- Modal body -->
+				<div class="modal-body">
+					<div class="input-group mb-3">
+						<div class="input-group-prepend">
+							<span class="input-group-text">Default</span>
+						</div>
+						<input type="text" class="form-control" value="">
+					</div>
+				</div>
+
+				<!-- Modal footer -->
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" data-dismiss="modal">재고
+						수정</button>
+					<button type="button" class="btn btn-danger" data-dismiss="modal">확인</button>
+				</div>
+
 			</div>
 		</div>
 	</div>

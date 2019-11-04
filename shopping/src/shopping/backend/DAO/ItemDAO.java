@@ -166,7 +166,7 @@ public class ItemDAO {
 			conn.rollback();
 		}
 	}
-	
+
 	public ItemDTO selectItem(int i_idx) {
 		try {
 			String sql = "SELECT i_name, s_category.c_idx, c_categoryName, cs_idx, cs_categoryName, i_price, img_path, i_detailimg, i_info\r\n"
@@ -228,6 +228,17 @@ public class ItemDAO {
 				list.add(new ItemDTO(i_idx, i_name, c_categoryName, cs_categoryName, i_price, img_path, i_hit, i_date));
 			}
 			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	public ArrayList<ItemDTO> getStockList(int i_idx) {
+		ArrayList<ItemDTO> list = new ArrayList<ItemDTO>();
+		String sql = "select ";
+		try {
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

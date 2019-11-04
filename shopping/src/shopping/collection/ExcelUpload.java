@@ -52,9 +52,8 @@ public class ExcelUpload {
 			json.append("]}");
 			return json.toString();
 		} catch (Exception e) {
-			e.printStackTrace();
+			return "{\"result\":\"false\"}";
 		}
-		return "";
 	}
 
 	public static ArrayList<ItemDTO> excelUpload(String path) throws IOException {
